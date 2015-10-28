@@ -1,8 +1,8 @@
-function Piece(Owner, type)
+function Piece(Owner, type, color)
 {
-    this.owner = Owner;
+    this.owner = Owner(color);
     this.type = type;
-    this.position =
+    this.position = Board.tiles[0];
 }
 
 function Board()
@@ -23,12 +23,12 @@ function Board()
     pieces.push("tophat");
 }
 
-function Owner()
+function Owner(color)
 {
-    this.Proerties
+    this.Proerties = new Array(); //empty to start, no owned properties by default
     this.money = 1500;
-    this.Assets
-    this.Color
+    this.Assets = new Array(); //empty to start, obviously
+    this.Color = color;
 }
 
 function Tile(title, value, rents, mortgage, colorGroup)

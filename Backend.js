@@ -9,10 +9,10 @@ function Board()
 {
     this.tiles = new Array();
     var spaces = ["Go", "Meditteranean Avenue", ""] //add all tiles
-    var values = [0, 60, 0, 60] //all values correspond with title index
+    var values = [0, 60, 0, 60, 0, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 0, 400] //all values correspond with title index
     var mortgages = [] //mortgage values here
     //matrix of rents
-    //colorgroups (null if not property)
+    var colorgroups = [null, "brown",null, "brown", null, "RR", "powder", null, "powder", "powder", null, "pink", "UTIL", "pink", "pink", "RR", "orange", null,"orange", "orange", null, "red", null, "red", "red", "RR", "yellow", "yellow", "UTIL", "yellow", null, "green", "green", null, "green", "RR", null, "blue", null, "blue"] //(null if not property)
     for(var i = 0; i < 40; i++)
     {
         var newTile = Tile(spaces[i], values[i]); //more interitance

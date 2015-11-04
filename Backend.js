@@ -31,6 +31,7 @@ class Board()
 
 class Owner
 {
+<<<<<<< Updated upstream
     constructor(color)
     {
         this.Proerties = new Array(); //empty to start, no owned properties by default
@@ -38,6 +39,13 @@ class Owner
         this.Assets = new Array(); //empty to start, obviously
         this.Color = color;
     }
+=======
+    this.Proerties = new Array(); //empty to start, no owned properties by default
+    this.money = 1500;
+    this.Assets = new Array(); //empty to start, obviously
+    this.Color = color;
+    this.doubcount = 0;
+>>>>>>> Stashed changes
 }
 
 class Tile
@@ -96,4 +104,26 @@ class Action
     this.m = m;
     this.value = value;
     }
+}
+
+function Dice(doubcount)
+{
+    var die1 = document.getElementById("die1");
+    var die2 = document.getElementById("die2");
+    var d1 = Math.floor(Math.random() * 6) + 1;
+    var d2 = Math.floor(Math.random() * 6) + 1;
+    
+    var diceTotal = d1 + d2;
+    if(d1 == d2)
+    {
+        doubcount = doubcount + 1;
+        if(doubcount == 3)
+        {
+            //go to jail
+        }
+        status.innerHTML += " DOUBLES! You get a free turn!!";
+    }
+    
+    return diceTotal;
+    
 }

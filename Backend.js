@@ -13,7 +13,9 @@ function beginGameplay(GameBoard)
         var currPlayer = GameBoard.pieces[turncounter]; //of type piece
         currPlayer.owner.Dice();
         if()//unowned...
-        //increment turn counter if not flagged
+        {
+            //increment turn counter if not flagged
+        }
         //game end condition
     }
 }
@@ -27,6 +29,7 @@ class Piece
         this.position = Board.tiles[0]; //can we even do this??
         this.doubcount = 0;
         this.isJailed = false;
+        this.location = 0;
     }
     function Dice()
     {
@@ -37,29 +40,30 @@ class Piece
         var diceTotal = d1 + d2;
         if(d1 == d2)
         {
-           doubcount = doubcount + 1;
-           if(doubcount == 3)
-           {
+            doubcount = doubcount + 1;
+            if(doubcount == 3)
+            {
                 console.log("Three sets of doubles, go to jail");
                 location = 10;
                 isJailed = true;
-           }
-           //status.innerHTML += " DOUBLES! You get a free turn!!";
-           else
-           {
+            }
+            //status.innerHTML += " DOUBLES! You get a free turn!!";
+            else
+            {
                 location = (location + diceTotal) % 40;
-               //edit position somehow
+                //edit position somehow
                 console.log("Move forward " + diceTotal);
                 console.log("Doubles, go again!");
                 //adjust turn counter (use a flag?)
-           }
+            }
         }
         else
         {
-           location = (location + diceTotal) % 40;
+            location = (location + diceTotal) % 40;
             //edit position somehow
-           console.log("Move forward " + diceTotal);
-           doubcount = 0;
+            console.log("Move forward " + diceTotal);
+            console.log("You are on " + Board.spaces[location] + " pay $" + Board.rent[location]);  //add houses rates
+            doubcount = 0;
         }
         //return diceTotal;
     }
@@ -74,6 +78,7 @@ class Board()
         var spaces = ["Go", "Mediterranean Avenue", "Community Chest", "Baltic Avenue", "Income Tax", "Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B&O Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"]
         var mortgages = [0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200]
         //matrix of rents
+        var rent = []
         var colorgroups = [null, "brown", null, "brown", null, "RR", "powder", null, "powder", "powder", null, "pink", "UTIL", "pink", "pink", "RR", "orange", null,"orange", "orange", null, "red", null, "red", "red", "RR", "yellow", "yellow", "UTIL", "yellow", null, "green", "green", null, "green", "RR", null, "blue", null, "blue"] //null if not property
         for(var i = 0; i < 40; i++)
         {
@@ -150,7 +155,7 @@ class Action
 {
     constructor(m, value)
     {
-    this.m = m;
-    this.value = value;
+        this.m = m;
+        this.value = value;
     }
 }

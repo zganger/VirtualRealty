@@ -47,7 +47,6 @@ class Piece
                 location = 10;
                 isJailed = true;
             }
-            //status.innerHTML += " DOUBLES! You get a free turn!!";
             else
             {
                 location = (location + diceTotal) % 40;
@@ -63,20 +62,26 @@ class Piece
             //edit position somehow
             console.log("Move forward " + diceTotal);
             console.log("You are on " + Board.spaces[location] + " pay $" + Board.rent[location]);  //add houses rates
+            //check if property is owned
+            if(Properties.cplayer == Properties.player)         //if space is owned by other player
+            {                                                   //take money from current player
+                Owner.money = Owner.money - rent[(location*6)]; //account for houses later
+                //add money to other player...??
+            }
             doubcount = 0;
         }
         //return diceTotal;
     }
 }
 
-class Board()
+class Board
 {
     constructor()
     {
         this.tiles = new Array();
-        var values = [0, 60, 0, 60, 0, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 0, 400] //all values correspond with title index
-        var spaces = ["Go", "Mediterranean Avenue", "Community Chest", "Baltic Avenue", "Income Tax", "Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B&O Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"]
-        var mortgages = [0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200]
+        var values = [0, 60, 0, 60, 0, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 0, 400]; //all values correspond with title index
+        var spaces = ["Go", "Mediterranean Avenue", "Community Chest", "Baltic Avenue", "Income Tax", "Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B&O Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"];
+        var mortgages = [0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200];
         //matrix of rents
         var rent = [];
         for(var props=0; props<40; props++)
@@ -350,6 +355,7 @@ class Owner
         this.money = 1500;
         this.Assets = new Array(); //empty to start, obviously
         this.Color = color;
+        this.cplayer; // current player
     }
 }
 
@@ -388,7 +394,11 @@ class Property
         this.buildings = 0;
         this.rents = rents;
         this.colorGroup = colorGroup;
-        this.player = null;
+        this.player = null; //person that owns the property
+    }
+    function setOwn(Owner cplayer)
+    {
+        this.player = cplayer;
     }
 }
 

@@ -58,7 +58,7 @@ namespace Backend
 				else
 				{
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
-					Console.WriteLine("Move forward " + diceTotal);
+					Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
 					Console.WriteLine("Doubles, go again!");
 					currPlayer.doubcount++;
 				}
@@ -111,7 +111,9 @@ namespace Backend
 				{
 					if(((Tile)this.tiles[currPlayer.location]).property.player != null) //owned
 					{
-						payRent(currPlayer.player, ((Tile)this.tiles[currPlayer.location]).property);
+						if(((Tile)this.tiles[currPlayer.location]).property.player.ID != currPlayer.player.ID) {
+							payRent(currPlayer.player, ((Tile)this.tiles[currPlayer.location]).property);
+						}
 					}
 					else //unowned
 					{

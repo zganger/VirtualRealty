@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Backend
 {
@@ -104,6 +105,7 @@ namespace Backend
 			{
 				int playerID = (turncounter % 2);
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
+				Thread.Sleep(200);	//delay before next dice rolling
 				Dice(currPlayer); //roll and move to new location
 				if(((Tile)this.tiles[currPlayer.location]).property != null) //is property
 				{

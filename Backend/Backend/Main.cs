@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Backend
 {
@@ -7,14 +9,76 @@ namespace Backend
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine ("I'm an idiot");
+			Console.WriteLine ("Game Start");
 			Board GameBoard = new Board ();
+		}
+		public void beginGameplay(Board GameBoard)
+		{
+			//start the game
+			int turncounter = 0;
+			bool gameOver = false;
+			while(!gameOver)
+			{
+				Piece currPlayer = ((Piece)GameBoard.pieces[(turncounter%2)]);
+				Dice(currPlayer);
+				if(((Tile)GameBoard.tiles[currPlayer.location]).property != null) //is property
+				{
+					if(((Tile)GameBoard.tiles[currPlayer.location]).property.player != null) //owned
+					{
+						payRent(currPlayer.player, ((Tile)GameBoard.tiles[currPlayer.location]).property);
+						//check if property is owned
+					}
+					else //unowned
+					{
+						purchase(currPlayer.player, ((Tile)GameBoard.tiles[currPlayer.location]).property);
+					}
+				}
+				else //not a property, action tile
+				{
+					
+				}
+				//game end condition
+
+			}
+		}
+		public void Dice(Piece currPlayer)	//probably an int later when taking care of front end
+		{
+			Random rnd = new Random ();
+			int d1 = rnd.Next (1, 7);
+			int d2 = rnd.Next (1, 7);
+			int diceTotal = d1 + d2;
+			if(d1 == d2)
+			{
+				currPlayer.doubcount = currPlayer.doubcount + 1;
+				if(currPlayer.doubcount == 3)
+				{
+					Console.WriteLine("Three sets of doubles, go to jail");
+					currPlayer.location = 10;
+					currPlayer.isJailed = true;
+				}
+				else
+				{
+					currPlayer.location = (currPlayer.location + diceTotal) % 40;
+					//edit position somehow
+					Console.WriteLine("Move forward " + diceTotal);
+					Console.WriteLine("Doubles, go again!");
+					//adjust turn counter (use a flag?)
+				}
+			}
+			else
+			{
+				currPlayer.location = (currPlayer.location + diceTotal) % 40;
+				//edit position somehow
+				Console.WriteLine("Move forward " + diceTotal);
+				//console.log("You are on " + board.spaces[currPlayer.location] + ". Pay $" + board.rent[currPlayer.location][board.tiles[currPlayer.location].);  //add houses rates
+				currPlayer.doubcount = 0;
+			}
 		}
 	}
 	class Board
 	{
-		ArrayList tiles = new ArrayList();
-		ArrayList pieces = new ArrayList();
+		public ArrayList tiles = new ArrayList();
+		public ArrayList pieces = new ArrayList();
 
 		public Board()
 		{
@@ -39,11 +103,11 @@ namespace Backend
 
 	class Piece
 	{
-		Owner player;
-		string type;
-		int doubcount;
-		bool isJailed;
-		int location;
+		public Owner player;
+		public string type;
+		public int doubcount;
+		public bool isJailed;
+		public int location;
 		public Piece(string in_type, string color, int id)
 		{
 			player = new Owner (color, id);
@@ -57,9 +121,9 @@ namespace Backend
 
 	class Tile
 	{
-		string title;
-		Property property;
-		bool isProperty;
+		public string title;
+		public Property property;
+		public bool isProperty;
 		public Tile(string in_title, int value, int[] rents, int mortgage, string colorGroup)
 		{
 			title = in_title;
@@ -75,11 +139,11 @@ namespace Backend
 
 	class Owner
 	{
-		int ID;
-		ArrayList properties = new ArrayList();
-		int money;
-		bool hasFreeEscape;
-		string color;
+		public int ID;
+		public ArrayList properties = new ArrayList();
+		public int money;
+		public bool hasFreeEscape;
+		public string color;
 
 		public Owner(string in_color, int in_id)
 		{
@@ -93,13 +157,13 @@ namespace Backend
 
 	class Property
 	{
-		int mortgage;
-		bool isMortgaged;
-		int value;
-		int buildings;
-		int[] rents = new int[6];
-		string colorGroup;
-		Owner player;
+		public int mortgage;
+		public bool isMortgaged;
+		public int value;
+		public int buildings;
+		public int[] rents = new int[6];
+		public string colorGroup;
+		public Owner player;
 
 		public Property(string in_title, int in_value, int[] in_rents, int in_mortgage, string in_colorGroup)
 		{
@@ -126,9 +190,9 @@ namespace Backend
 
 	class Card
 	{
-		bool type; //comm chest or chance
-		string text;
-		Action command;
+		public bool type; //comm chest or chance
+		public string text;
+		public Action command;
 
 		public Card(bool in_type, string in_text, bool m, int value)
 		{
@@ -140,8 +204,8 @@ namespace Backend
 
 	class Action
 	{
-		bool m; //money or motion
-		int value;
+		public bool m; //money or motion
+		public int value;
 
 		public Action(bool in_m, int in_value)
 		{

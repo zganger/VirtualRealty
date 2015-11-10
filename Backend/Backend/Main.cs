@@ -29,11 +29,12 @@ namespace Backend
 			int[] mortgages = new int[40] {0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200};
 			string[] colorGroups = new string[40]{null, "brown", null, "brown", null, "RR", "powder", null, "powder", "powder", null, "pink", "UTIL", "pink", "pink", "RR", "orange", null,"orange", "orange", null, "red", null, "red", "red", "RR", "yellow", "yellow", "UTIL", "yellow", null, "green", "green", null, "green", "RR", null, "blue", null, "blue"};
 			int[,] rents = new int[40, 6] { {-200, -200, -200, -200, -200, -200}, {2, 10, 30, 90, 160, 250}, {0, 0, 0, 0, 0, 0}, {4, 20, 60, 180, 320, 450}, {200, 200, 200, 200, 200, 200}, {25, 50, 100, 200, 200, 200}, {6, 30, 90, 270, 400, 550}, {0, 0, 0, 0, 0, 0}, {6, 30, 90, 270, 400, 550}, {8, 40, 100, 300, 450, 600}, {0, 0, 0, 0, 0, 0}, {10, 50, 150, 450, 625, 750}, {0, 0, 0, 0, 0, 0}, {10, 50, 150, 450, 625, 750}, {12, 60, 180, 500, 700, 900}, {25, 50, 100, 200, 200, 200}, {14, 70, 200, 550, 750, 950}, {0, 0, 0, 0, 0, 0}, {14, 70, 200, 550, 750, 950}, {16, 80, 220, 600, 800, 1000}, {0, 0, 0, 0, 0, 0}, {18, 90, 250, 700, 875, 1050}, {0, 0, 0, 0, 0, 0}, {18, 90, 250, 700, 875, 1050}, {20, 100, 300, 750, 925, 1100}, {25, 50, 100, 200, 200, 200}, {22, 110, 330, 800, 975, 1150}, {22, 110, 330, 800, 975, 1150}, {0, 0, 0, 0, 0, 0}, {24, 120, 360, 850, 1025, 1200}, {0, 0, 0, 0, 0, 0}, {26, 130, 390, 900, 1100, 1275}, {26, 130, 390, 900, 1100, 1275}, {0, 0, 0, 0, 0, 0}, {28, 150, 450, 1000, 1200, 1400}, {25, 50, 100, 200, 200, 200}, {0, 0, 0, 0, 0, 0}, {35, 175, 500, 1100, 1300, 1500}, {100, 100, 100, 100, 100, 100}, {50, 200, 600, 1400, 1700, 2000} };
-			int[] passRents = new int[6];
 			for (int i = 0; i < 40; i++) {
+				int[] passRents = new int[6];
 				for(int jj = 0; jj < 6; jj++)
 				{
 					passRents[jj] = rents[i,jj];
+					Console.WriteLine ("PassRents[" + jj + "] for " + spaces[i] + " is " + passRents[jj]);
 				}
 				tiles.Add(new Tile(spaces[i], values[i], passRents, mortgages[i], colorGroups[i]));
 			}
@@ -50,13 +51,18 @@ namespace Backend
 				currPlayer.doubcount = currPlayer.doubcount + 1;
 				if(currPlayer.doubcount == 3)
 				{
-					Console.WriteLine("Three sets of doubles, go to jail");
+					Console.WriteLine("Player " + currPlayer.player.ID + " has three sets of doubles and goes to jail");
 					currPlayer.location = 10;
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;
 				}
 				else
 				{
+					if(currPlayer.location + diceTotal > 39)
+					{
+						currPlayer.player.money = currPlayer.player.money + 200;
+						Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have " + currPlayer.player.money);
+					}
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
 					Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
 					Console.WriteLine("Doubles, go again!");
@@ -65,8 +71,13 @@ namespace Backend
 			}
 			else
 			{
+				if(currPlayer.location + diceTotal > 39)
+				{
+					currPlayer.player.money = currPlayer.player.money + 200;
+					Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have " + currPlayer.player.money);
+				}
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
-				Console.WriteLine("Move forward " + diceTotal);
+				Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
 				//console.log("You are on " + board.spaces[currPlayer.location] + ". Pay $" + board.rent[currPlayer.location][board.tiles[currPlayer.location].);  //add houses rates
 				currPlayer.doubcount = 0;
 			}
@@ -77,8 +88,8 @@ namespace Backend
 			if (landed.money >= unownedSpace.value) {
 				landed.money = landed.money - unownedSpace.value;
 				unownedSpace.setOwned (landed);
-				Console.WriteLine ("Player " + landed.ID + " pays " + unownedSpace.value + " from " + origMoney + " to purchase " + unownedSpace.title);
-				Console.WriteLine ("They now have " + landed.money);
+				Console.WriteLine ("Player " + landed.ID + " pays $" + unownedSpace.value + " from $" + origMoney + " to purchase " + unownedSpace.title);
+				Console.WriteLine ("They now have $" + landed.money);
 			} else {
 				Console.WriteLine ("Not enough money!");
 			}
@@ -88,11 +99,10 @@ namespace Backend
 			int rentOwed = ownedSpace.rents[ownedSpace.buildings];
 			landed.money = landed.money - rentOwed;
 			ownedSpace.player.money = ownedSpace.player.money + rentOwed;
-			Console.WriteLine("payer has $" + landed.money);
-			Console.WriteLine("receiver has $" + ownedSpace.player.money);
+			Console.WriteLine("Player " + landed.ID + " pays Player " + ownedSpace.player.ID + " $" + rentOwed + " and now has $" + landed.money + ". Player " + ownedSpace.player.ID + " now has $" + ownedSpace.player.money);
 			if(landed.money < 0)
 			{
-				Console.WriteLine("Player " + landed.ID + " loses");
+				Console.WriteLine("Player " + landed.ID + " loses the game");
 				gameOver = true;
 
 			}
@@ -123,10 +133,10 @@ namespace Backend
 				else //not a property, action tile
 				{
 					//how to action?
-					if(((Tile)this.tiles[currPlayer.location]).rents[0] != 0) //assuming action tile, only true if go or tax
+					if(((Tile)this.tiles[currPlayer.location]).rents[0] != 0 && currPlayer.location != 0) //assuming action tile, only true if go or tax
 					{
 						currPlayer.player.money = currPlayer.player.money - ((Tile)this.tiles[currPlayer.location]).rents[0];
-						Console.WriteLine(currPlayer.player.ID + " loses " + ((Tile)this.tiles[currPlayer.location]).rents[0]);
+						Console.WriteLine("Player " + currPlayer.player.ID + " loses $" + ((Tile)this.tiles[currPlayer.location]).rents[0] + " on " + ((Tile)this.tiles[currPlayer.location]).title);
 					}
 				}
 				if(currPlayer.doubcount == 0) //end of turn, not in jail

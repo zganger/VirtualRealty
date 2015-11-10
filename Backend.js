@@ -1,3 +1,5 @@
+main();
+
 function main()
 {
     var GameBoard = new Board();
@@ -10,11 +12,29 @@ function beginGameplay(GameBoard)
     var gameOver = false;
     while(!gameOver)
     {
-        var currPlayer = GameBoard.pieces[turncounter]; //of type piece
+        var currPlayer = GameBoard.pieces[(turncounter%2)]; //of type piece
         currPlayer.owner.Dice();
-        if()//unowned...
+        if(Gameboard.tiles[currPlayer.location].colorGroup != null) //is property
         {
-            //increment turn counter if not flagged
+           if(GameBoard.tiles[currPlayer.location].property.player != null) //owned
+           {
+               payment();
+               //check if property is owned
+               
+               if(Properties.cplayer == Properties.player)         //if space is owned by other player
+               {                                                   //take money from current player
+                   Owner.money = Owner.money - rent[(location*6)]; //account for houses later
+                   //add money to other player...??
+               }
+           }
+           else //unowned
+           {
+               purchase();
+           }
+        }
+        else //not a property, action tile
+        {
+            
         }
         //game end condition
     }
@@ -22,14 +42,13 @@ function beginGameplay(GameBoard)
 
 class Piece
 {
-    constructor(Owner, type, color)
+    function Piece(Owner, type, color, ID)
     {
-        this.owner = Owner(color);
+        this.owner = Owner(color, ID);
         this.type = type;
-        this.position = Board.tiles[0]; //can we even do this??
         this.doubcount = 0;
         this.isJailed = false;
-        this.location = 0;
+        this.location = 0; //reference using Board.tiles[location]
     }
     function Dice()
     {
@@ -62,12 +81,6 @@ class Piece
             //edit position somehow
             console.log("Move forward " + diceTotal);
             console.log("You are on " + Board.spaces[location] + " pay $" + Board.rent[location]);  //add houses rates
-            //check if property is owned
-            if(Properties.cplayer == Properties.player)         //if space is owned by other player
-            {                                                   //take money from current player
-                Owner.money = Owner.money - rent[(location*6)]; //account for houses later
-                //add money to other player...??
-            }
             doubcount = 0;
         }
         //return diceTotal;
@@ -76,21 +89,17 @@ class Piece
 
 class Board
 {
-    constructor()
+    function Board()
     {
         this.tiles = new Array();
         var values = [0, 60, 0, 60, 0, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 0, 400]; //all values correspond with title index
         var spaces = ["Go", "Mediterranean Avenue", "Community Chest", "Baltic Avenue", "Income Tax", "Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B&O Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"];
         var mortgages = [0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200];
         //matrix of rents
-        var rent = [];
-        for(var props=0; props<40; props++)
+        var rent = new Array(40);
+        for(var ii = 0; ii < 40; ii++) //properties
         {
-            rent[i] = [];
-            for(var homes=0; homes<6; homes++)
-            {
-                rent[props][homes] = undefined;
-            }
+            rent[ii] = new Array(6); //buildings
         }
         rent[0][0] = -200;      //Go
         rent[0][1] = -200;      //does negative rent make sense if you always pick up???
@@ -342,15 +351,16 @@ class Board
             tiles.push(newTile);
         }
         this.pieces = new Array();
-        pieces.push("racecar");
-        pieces.push("tophat");
+        pieces.push("racecar", 0);
+        pieces.push("tophat", 1);
     }
 }
 
 class Owner
 {
-    constructor(color)
+    function Owner(color, ID)
     {
+        this.id = ID;
         this.Properties = new Array(); //empty to start, no owned properties by default
         this.money = 1500;
         this.Assets = new Array(); //empty to start, obviously
@@ -361,7 +371,7 @@ class Owner
 
 class Tile
 {
-    constructor(title, value, rents, mortgage, colorGroup)
+    function Tile(title, value, rents, mortgage, colorGroup)
     {
         this.title = title;
         if(colorGroup != null)
@@ -386,7 +396,7 @@ class Tile
 
 class Property
 {
-    constructor(value, rents, mortgage, colorGroup)
+    function Property(value, rents, mortgage, colorGroup)
     {
         this.mortgage = mortgage;
         this.isMortgaged = false;
@@ -404,7 +414,7 @@ class Property
 
 class Card
 {
-    constructor(type, text, m, value)
+    function Card(type, text, m, value)
     {
         this.type = type;
         this.text = text;
@@ -414,7 +424,7 @@ class Card
 
 class Action
 {
-    constructor(m, value)
+    function Action(m, value)
     {
         this.m = m;
         this.value = value;

@@ -40,7 +40,7 @@ namespace Backend
 		}
 		public void Dice(Piece currPlayer)	//probably an int later when taking care of front end
 		{
-			Random rnd = new Random ();
+			Random rnd = new Random ((int)DateTime.Now.Ticks);
 			int d1 = rnd.Next (1, 7);
 			int d2 = rnd.Next (1, 7);
 			int diceTotal = d1 + d2;

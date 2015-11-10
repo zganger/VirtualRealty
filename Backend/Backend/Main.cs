@@ -11,8 +11,9 @@ namespace Backend
 		{
 			Console.WriteLine ("Game Start");
 			Board GameBoard = new Board ();
+			MainClass.beginGameplay (GameBoard);
 		}
-		public void beginGameplay(Board GameBoard)
+		public static void beginGameplay(Board GameBoard)
 		{
 			//start the game
 			int turncounter = 0;
@@ -20,13 +21,12 @@ namespace Backend
 			while(!gameOver)
 			{
 				Piece currPlayer = ((Piece)GameBoard.pieces[(turncounter%2)]);
-				Dice(currPlayer);
+				Dice(currPlayer); //roll and move to new location
 				if(((Tile)GameBoard.tiles[currPlayer.location]).property != null) //is property
 				{
 					if(((Tile)GameBoard.tiles[currPlayer.location]).property.player != null) //owned
 					{
 						payRent(currPlayer.player, ((Tile)GameBoard.tiles[currPlayer.location]).property);
-						//check if property is owned
 					}
 					else //unowned
 					{
@@ -35,15 +35,21 @@ namespace Backend
 				}
 				else //not a property, action tile
 				{
-					
+					//how to action?
 				}
-				//game end condition
-
+				if(currPlayer.doubcount == 0) //end of turn, not in jail
+				{
+					//something for buildings and trades here
+					turncounter++;
+				}
+				if(currPlayer.player.money <= 0)//game end condition
+				{
+					gameOver = true;
+				}
 			}
-
 		}
 
-		public void payRent(Owner landed, Property ownedSpace) //pay rent from piece to space owner
+		public static void payRent(Owner landed, Property ownedSpace) //pay rent from piece to space owner
 		{
 			int rentOwed = ownedSpace.rents[ownedSpace.buildings];
 			landed.money = landed.money - rentOwed;
@@ -56,7 +62,7 @@ namespace Backend
 			}
 		}
 		
-		public void purchase(Owner landed, Property unownedSpace)
+		public static void purchase(Owner landed, Property unownedSpace)
 		{
 			if (landed.money >= unownedSpace.value) {
 				landed.money = landed.money - unownedSpace.value;
@@ -66,7 +72,7 @@ namespace Backend
 				Console.WriteLine ("Not enough money!");
 			}
 		}
-		public void Dice(Piece currPlayer)	//probably an int later when taking care of front end
+		public static void Dice(Piece currPlayer)	//probably an int later when taking care of front end
 		{
 			Random rnd = new Random ();
 			int d1 = rnd.Next (1, 7);
@@ -80,20 +86,19 @@ namespace Backend
 					Console.WriteLine("Three sets of doubles, go to jail");
 					currPlayer.location = 10;
 					currPlayer.isJailed = true;
+					currPlayer.doubcount = 0;
 				}
 				else
 				{
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
-					//edit position somehow
 					Console.WriteLine("Move forward " + diceTotal);
 					Console.WriteLine("Doubles, go again!");
-					//adjust turn counter (use a flag?)
+					currPlayer.doubcount++;
 				}
 			}
 			else
 			{
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
-				//edit position somehow
 				Console.WriteLine("Move forward " + diceTotal);
 				//console.log("You are on " + board.spaces[currPlayer.location] + ". Pay $" + board.rent[currPlayer.location][board.tiles[currPlayer.location].);  //add houses rates
 				currPlayer.doubcount = 0;

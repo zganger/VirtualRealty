@@ -8,28 +8,23 @@ function main()
 
 function beginGameplay(GameBoard)
 {
+    var self = this;
     var turncounter = 0;
     var gameOver = false;
     while(!gameOver)
     {
         var currPlayer = GameBoard.pieces[(turncounter%2)]; //of type piece
-        currPlayer.owner.Dice();
-        if(Gameboard.tiles[currPlayer.location].colorGroup != null) //is property
+        Dice(currPlayer, self);
+        if(GameBoard.tiles[currPlayer.location].property != null) //is property
         {
            if(GameBoard.tiles[currPlayer.location].property.player != null) //owned
            {
-               payment();
+               payRent(currPlayer.owner, GameBoard.tiles[currPlayer.location].property);
                //check if property is owned
-               
-               if(Properties.cplayer == Properties.player)         //if space is owned by other player
-               {                                                   //take money from current player
-                   Owner.money = Owner.money - rent[(location*6)]; //account for houses later
-                   //add money to other player...??
-               }
            }
            else //unowned
            {
-               purchase();
+               purchase(currPlayer.owner, GameBoard.tiles[currPlayer.location].property);
            }
         }
         else //not a property, action tile
@@ -40,54 +35,78 @@ function beginGameplay(GameBoard)
     }
 }
 
-class Piece
+function payRent(landed, ownedSpace) //pay rent from piece to space owner
 {
-    function Piece(Owner, type, color, ID)
+    var rentOwed = ownedSpace.rents(ownedSpace.buildings);
+    landed.money = landed.money - rentOwed;
+    ownedSpace.player.money = ownedSpace.player.money + rentOwed;
+    console.log("payer has $" + landed.money);
+    console.log("receiver has $" + ownedSpace.player.money);
+    if(landed.money <= 0)
+    {
+        console.log("Rent payer loses");
+    }
+}
+
+function purchase(landed, unownedSpace)
+{
+    if(landed.money >= ownedSpace.value)
+    {
+        landed.money = landed.money - unownedSpace.value;
+        unownedSpace.setOwn(landed);
+        console.log(landed.title + " now owns " + unownedSpace.title);
+    }
+}
+
+function Dice(currPlayer, board)
+{
+    //var die1 = document.getElementById("die1");
+    //var die2 = document.getElementById("die2");
+    var d1 = Math.floor(Math.random() * 6) + 1;
+    var d2 = Math.floor(Math.random() * 6) + 1;
+    var diceTotal = d1 + d2;
+    if(d1 == d2)
+    {
+        currPlayer.doubcount = currPlayer.doubcount + 1;
+        if(currPlayer.doubcount == 3)
+        {
+            console.log("Three sets of doubles, go to jail");
+            currPlayer.location = 10;
+            currPlayer.isJailed = true;
+        }
+        else
+        {
+            currPlayer.location = (currPlayer.location + diceTotal) % 40;
+            //edit position somehow
+            console.log("Move forward " + diceTotal);
+            console.log("Doubles, go again!");
+            //adjust turn counter (use a flag?)
+        }
+    }
+    else
+    {
+        currPlayer.location = (currPlayer.location + diceTotal) % 40;
+        //edit position somehow
+        console.log("Move forward " + diceTotal);
+        //console.log("You are on " + board.spaces[currPlayer.location] + ". Pay $" + board.rent[currPlayer.location][board.tiles[currPlayer.location].);  //add houses rates
+        currPlayer.doubcount = 0;
+    }
+    //return diceTotal;
+}
+
+var Piece
+{
+    function Piece(player, in_type, color, ID)
     {
         this.owner = Owner(color, ID);
-        this.type = type;
+        this.type = in_type;
         this.doubcount = 0;
         this.isJailed = false;
         this.location = 0; //reference using Board.tiles[location]
     }
-    function Dice()
-    {
-        //var die1 = document.getElementById("die1");
-        //var die2 = document.getElementById("die2");
-        var d1 = Math.floor(Math.random() * 6) + 1;
-        var d2 = Math.floor(Math.random() * 6) + 1;
-        var diceTotal = d1 + d2;
-        if(d1 == d2)
-        {
-            doubcount = doubcount + 1;
-            if(doubcount == 3)
-            {
-                console.log("Three sets of doubles, go to jail");
-                location = 10;
-                isJailed = true;
-            }
-            else
-            {
-                location = (location + diceTotal) % 40;
-                //edit position somehow
-                console.log("Move forward " + diceTotal);
-                console.log("Doubles, go again!");
-                //adjust turn counter (use a flag?)
-            }
-        }
-        else
-        {
-            location = (location + diceTotal) % 40;
-            //edit position somehow
-            console.log("Move forward " + diceTotal);
-            console.log("You are on " + Board.spaces[location] + " pay $" + Board.rent[location]);  //add houses rates
-            doubcount = 0;
-        }
-        //return diceTotal;
-    }
 }
 
-class Board
+var Board
 {
     function Board()
     {
@@ -347,16 +366,18 @@ class Board
         var colorgroups = [null, "brown", null, "brown", null, "RR", "powder", null, "powder", "powder", null, "pink", "UTIL", "pink", "pink", "RR", "orange", null,"orange", "orange", null, "red", null, "red", "red", "RR", "yellow", "yellow", "UTIL", "yellow", null, "green", "green", null, "green", "RR", null, "blue", null, "blue"] //null if not property
         for(var i = 0; i < 40; i++)
         {
-            var newTile = Tile(spaces[i], values[i]); //more interitance
-            tiles.push(newTile);
+            var newTile = Tile(spaces[i], values[i], rent[i]); //more interitance
+            this.tiles.push(newTile);
         }
         this.pieces = new Array();
-        pieces.push("racecar", 0);
-        pieces.push("tophat", 1);
+        var Racecar = new Piece("racecar", 0);
+        var Tophat = new Piece("tophat", 1);
+        this.pieces.push(Racecar);
+        this.pieces.push(Tophat);
     }
 }
 
-class Owner
+var Owner
 {
     function Owner(color, ID)
     {
@@ -365,11 +386,10 @@ class Owner
         this.money = 1500;
         this.Assets = new Array(); //empty to start, obviously
         this.Color = color;
-        this.cplayer; // current player
     }
 }
 
-class Tile
+var Tile
 {
     function Tile(title, value, rents, mortgage, colorGroup)
     {
@@ -380,21 +400,22 @@ class Tile
         }
         else
         {
+            this.property = null;
             if(title == "Go")
             {
-                this.action=
+                //this.action=
             }
             else if(title == "Chance")
             {
                 //random number
-                this.action = Chance[rand]; //not in constructor
+                //this.action = Chance[rand]; //not in constructor
             }
             //for all possible action tiles
         }
     }
 }
 
-class Property
+var Property
 {
     function Property(value, rents, mortgage, colorGroup)
     {
@@ -406,13 +427,17 @@ class Property
         this.colorGroup = colorGroup;
         this.player = null; //person that owns the property
     }
-    function setOwn(Owner cplayer)
+    function setOwn(cplayer)
     {
         this.player = cplayer;
     }
+    function addBuilding()
+    {
+        this.buildings++;
+    }
 }
 
-class Card
+var Card
 {
     function Card(type, text, m, value)
     {
@@ -422,7 +447,7 @@ class Card
     }
 }
 
-class Action
+var Action
 {
     function Action(m, value)
     {

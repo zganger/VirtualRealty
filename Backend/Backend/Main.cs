@@ -18,7 +18,7 @@ namespace Backend
 	{
 		public ArrayList tiles = new ArrayList();
 		public ArrayList pieces = new ArrayList();
-
+		public bool gameOver = false;
 		public Board()
 		{
 			pieces.Add (new Piece ("Racecar", "Red", 0));
@@ -72,10 +72,12 @@ namespace Backend
 		}
 		public void purchase(Owner landed, Property unownedSpace)
 		{
+			int origMoney = landed.money;
 			if (landed.money >= unownedSpace.value) {
 				landed.money = landed.money - unownedSpace.value;
 				unownedSpace.setOwned (landed);
-				Console.WriteLine ("Player " + landed.ID + " now owns " + unownedSpace.title);
+				Console.WriteLine ("Player " + landed.ID + " pays " + unownedSpace.value + " from " + origMoney + " to purchase " + unownedSpace.title);
+				Console.WriteLine ("They now have " + landed.money);
 			} else {
 				Console.WriteLine ("Not enough money!");
 			}
@@ -87,16 +89,17 @@ namespace Backend
 			ownedSpace.player.money = ownedSpace.player.money + rentOwed;
 			Console.WriteLine("payer has $" + landed.money);
 			Console.WriteLine("receiver has $" + ownedSpace.player.money);
-			if(landed.money <= 0)
+			if(landed.money < 0)
 			{
-				Console.WriteLine("Rent payer loses");
+				Console.WriteLine("Player " + landed.ID + " loses");
+				gameOver = true;
+
 			}
 		}
 		public void beginGameplay()
 		{
 			//start the game
 			int turncounter = 0;
-			bool gameOver = false;
 			while(!gameOver)
 			{
 				int playerID = (turncounter % 2);
@@ -116,11 +119,7 @@ namespace Backend
 				else //not a property, action tile
 				{
 					//how to action?
-					//if((((Tile)GameBoard.tiles[currPlayer.location]).title == "Go") || (((Tile)GameBoard.tiles[currPlayer.location]).title == "Luxury Tax") )
-					//{
-					//currPlayer.player.money = currPlayer.player.money - ((Tile)GameBoard.tiles[currPlayer.location]).property.rents[0];
-					//}
-					if(((Tile)this.tiles[currPlayer.location]).rents[0] != 0)
+					if(((Tile)this.tiles[currPlayer.location]).rents[0] != 0) //assuming action tile, only true if go or tax
 					{
 						currPlayer.player.money = currPlayer.player.money - ((Tile)this.tiles[currPlayer.location]).rents[0];
 						Console.WriteLine(currPlayer.player.ID + " loses " + ((Tile)this.tiles[currPlayer.location]).rents[0]);
@@ -131,10 +130,10 @@ namespace Backend
 					//something for buildings and trades here
 					turncounter++;
 				}
-				if(currPlayer.player.money <= 0)//game end condition
+				if(currPlayer.player.money < 0)//game end condition
 				{
 					gameOver = true;
-					Console.WriteLine("Game over");
+					Console.WriteLine("Game over; Player " + currPlayer.player.ID + " has " + currPlayer.player.money);
 				}
 			}
 		}

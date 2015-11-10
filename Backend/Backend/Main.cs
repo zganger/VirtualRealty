@@ -36,6 +36,10 @@ namespace Backend
 				else //not a property, action tile
 				{
 					//how to action?
+					//if((((Tile)GameBoard.tiles[currPlayer.location]).title == "Go") || (((Tile)GameBoard.tiles[currPlayer.location]).title == "Luxury Tax") )
+					//{
+						//currPlayer.player.money = currPlayer.player.money - ((Tile)GameBoard.tiles[currPlayer.location]).property.rents[0];
+					//}
 				}
 				if(currPlayer.doubcount == 0) //end of turn, not in jail
 				{

@@ -40,6 +40,31 @@ namespace Backend
 				//game end condition
 
 			}
+
+		}
+
+		public void payRent(Owner landed, Property ownedSpace) //pay rent from piece to space owner
+		{
+			int rentOwed = ownedSpace.rents[ownedSpace.buildings];
+			landed.money = landed.money - rentOwed;
+			ownedSpace.player.money = ownedSpace.player.money + rentOwed;
+			Console.WriteLine("payer has $" + landed.money);
+			Console.WriteLine("receiver has $" + ownedSpace.player.money);
+			if(landed.money <= 0)
+			{
+				Console.WriteLine("Rent payer loses");
+			}
+		}
+		
+		public void purchase(Owner landed, Property unownedSpace)
+		{
+			if (landed.money >= unownedSpace.value) {
+				landed.money = landed.money - unownedSpace.value;
+				unownedSpace.setOwned (landed);
+				Console.WriteLine ("Player " + landed.ID + " now owns " + unownedSpace.title);
+			} else {
+				Console.WriteLine ("Not enough money!");
+			}
 		}
 		public void Dice(Piece currPlayer)	//probably an int later when taking care of front end
 		{
@@ -164,6 +189,7 @@ namespace Backend
 		public int[] rents = new int[6];
 		public string colorGroup;
 		public Owner player;
+		public string title;
 
 		public Property(string in_title, int in_value, int[] in_rents, int in_mortgage, string in_colorGroup)
 		{
@@ -175,6 +201,7 @@ namespace Backend
 			colorGroup = in_colorGroup;
 			player = null; //not yet owned
 			Console.WriteLine ("property created");
+			title = in_title;
 		}
 
 		public void setOwned(Owner cplayer)

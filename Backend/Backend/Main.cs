@@ -75,7 +75,7 @@ namespace Backend
 				if(currPlayer.location + diceTotal > 39)
 				{
 					currPlayer.player.money = currPlayer.player.money + 200;
-					Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have " + currPlayer.player.money);
+					Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 				}
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
 				Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
@@ -89,10 +89,11 @@ namespace Backend
 			if (landed.money >= unownedSpace.value) {
 				landed.money = landed.money - unownedSpace.value;
 				unownedSpace.setOwned (landed);
+				landed.properties.Add (unownedSpace);
 				Console.WriteLine ("Player " + landed.ID + " pays $" + unownedSpace.value + " from $" + origMoney + " to purchase " + unownedSpace.title);
 				Console.WriteLine ("They now have $" + landed.money);
 			} else {
-				Console.WriteLine ("Not enough money!");
+				Console.WriteLine ("Not enough money to buy " + unownedSpace.title + "!");
 			}
 		}
 		public void payRent(Owner landed, Property ownedSpace) //pay rent from piece to space owner
@@ -153,7 +154,7 @@ namespace Backend
 				if(currPlayer.player.money < 0)//game end condition
 				{
 					gameOver = true;
-					Console.WriteLine("Game over; Player " + currPlayer.player.ID + " has " + currPlayer.player.money);
+					Console.WriteLine("Game over; Player " + currPlayer.player.ID + " has $" + currPlayer.player.money);
 				}
 			}
 		}

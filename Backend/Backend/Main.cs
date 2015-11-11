@@ -20,6 +20,7 @@ namespace Backend
 		public ArrayList tiles = new ArrayList();
 		public ArrayList pieces = new ArrayList();
 		public bool gameOver = false;
+		public int diceTotal;
 		public Board()
 		{
 			pieces.Add (new Piece ("Racecar", "Red", 0));
@@ -45,7 +46,7 @@ namespace Backend
 			Random rnd = new Random ((int)DateTime.Now.Ticks);
 			int d1 = rnd.Next (1, 7);
 			int d2 = rnd.Next (1, 7);
-			int diceTotal = d1 + d2;
+			this.diceTotal = d1 + d2;
 			if(d1 == d2)
 			{
 				currPlayer.doubcount = currPlayer.doubcount + 1;
@@ -63,7 +64,7 @@ namespace Backend
 					if(currPlayer.location + diceTotal > 39)
 					{
 						currPlayer.player.money = currPlayer.player.money + 200;
-						Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have " + currPlayer.player.money);
+						Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 					}
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
 					Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
@@ -98,7 +99,36 @@ namespace Backend
 		}
 		public void payRent(Owner landed, Property ownedSpace) //pay rent from piece to space owner
 		{
-			int rentOwed = ownedSpace.rents[ownedSpace.buildings];
+			int rentOwed = 0;
+			if (ownedSpace.title == "Electric Company") {
+				bool ownsWW = false;
+				foreach(Property p in ownedSpace.player.properties)
+				{
+					if(p.title == "Water Works")
+					{
+						ownsWW = true;
+					}
+				}
+				if(ownsWW)
+				{
+					rentOwed = (10 * this.diceTotal);
+				}
+			} else if (ownedSpace.title == "Water Works") {
+				bool ownsEC = false;
+				foreach(Property p in ownedSpace.player.properties)
+				{
+					if(p.title == "Electric Company")
+					{
+						ownsEC = true;
+					}
+				}
+				if(ownsEC)
+				{
+					rentOwed = (10 * this.diceTotal);
+				}
+			} else {
+				rentOwed = ownedSpace.rents [ownedSpace.buildings];
+			}
 			landed.money = landed.money - rentOwed;
 			ownedSpace.player.money = ownedSpace.player.money + rentOwed;
 			Console.WriteLine("Player " + landed.ID + " pays Player " + ownedSpace.player.ID + " $" + rentOwed + " and now has $" + landed.money + ". Player " + ownedSpace.player.ID + " now has $" + ownedSpace.player.money);
@@ -106,7 +136,6 @@ namespace Backend
 			{
 				Console.WriteLine("Player " + landed.ID + " loses the game");
 				gameOver = true;
-
 			}
 		}
 		public void beginGameplay()
@@ -119,7 +148,7 @@ namespace Backend
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
 				Thread.Sleep(200);	//delay before next dice rolling
 				Dice(currPlayer); //roll and move to new location
-				if(((Tile)this.tiles[currPlayer.location]).property != null) //is property
+				if(((Tile)this.tiles[currPlayer.location]).isProperty) //is property
 				{
 					if(((Tile)this.tiles[currPlayer.location]).property.player != null) //owned
 					{
@@ -140,7 +169,7 @@ namespace Backend
 						currPlayer.player.money = currPlayer.player.money - ((Tile)this.tiles[currPlayer.location]).rents[0];
 						Console.WriteLine("Player " + currPlayer.player.ID + " loses $" + ((Tile)this.tiles[currPlayer.location]).rents[0] + " on " + ((Tile)this.tiles[currPlayer.location]).title);
 					}
-					else if(currPlayer.location == 30)
+					else if(currPlayer.location == 30) //go to jail
 					{
 						currPlayer.location = 10;
 						currPlayer.isJailed = true;

@@ -55,6 +55,8 @@ namespace Backend
 					currPlayer.location = 10;
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;
+					currPlayer.player.money = currPlayer.player.money - 50;
+					Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //these two lines will be handled in jailedDice function when dooubles implemented
 				}
 				else
 				{
@@ -66,7 +68,6 @@ namespace Backend
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
 					Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
 					Console.WriteLine("Doubles, go again!");
-					currPlayer.doubcount++;
 				}
 			}
 			else
@@ -137,6 +138,11 @@ namespace Backend
 					{
 						currPlayer.player.money = currPlayer.player.money - ((Tile)this.tiles[currPlayer.location]).rents[0];
 						Console.WriteLine("Player " + currPlayer.player.ID + " loses $" + ((Tile)this.tiles[currPlayer.location]).rents[0] + " on " + ((Tile)this.tiles[currPlayer.location]).title);
+					}
+					else if(currPlayer.location == 30)
+					{
+						currPlayer.location = 10;
+						currPlayer.isJailed = true;
 					}
 				}
 				if(currPlayer.doubcount == 0) //end of turn, not in jail

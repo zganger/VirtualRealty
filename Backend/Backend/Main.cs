@@ -17,6 +17,8 @@ namespace Backend
 	{
 		public ArrayList tiles = new ArrayList();
 		public ArrayList pieces = new ArrayList();
+		public ArrayList chanceCards = new ArrayList();
+		public ArrayList commChests = new ArrayList();
 		public bool gameOver = false;
 		public int diceTotal;
 		public Board()
@@ -54,7 +56,7 @@ namespace Backend
 					currPlayer.location = 10;
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;
-					currPlayer.player.money = currPlayer.player.money - 50;
+					currPlayer.player.money = currPlayer.player.money - 50; //bail immediate for the time being
 					Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //these two lines will be handled in jailedDice function when dooubles implemented
 				}
 				else
@@ -78,7 +80,6 @@ namespace Backend
 				}
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
 				Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
-				//console.log("You are on " + board.spaces[currPlayer.location] + ". Pay $" + board.rent[currPlayer.location][board.tiles[currPlayer.location].);  //add houses rates
 				currPlayer.doubcount = 0;
 			}
 		}
@@ -144,14 +145,17 @@ namespace Backend
 			{
 				int playerID = (turncounter % 2);
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
-				Thread.Sleep(200);	//delay before next dice rolling
+				Thread.Sleep(1000);	//delay before next dice rolling
 				Dice(currPlayer); //roll and move to new location
 				if(((Tile)this.tiles[currPlayer.location]).isProperty) //is property
 				{
 					if(((Tile)this.tiles[currPlayer.location]).property.player != null) //owned
 					{
-						if(((Tile)this.tiles[currPlayer.location]).property.player.ID != currPlayer.player.ID) {
-							payRent(currPlayer.player, ((Tile)this.tiles[currPlayer.location]).property);
+						if (((Tile)this.tiles [currPlayer.location]).property.player.ID != currPlayer.player.ID) {
+							payRent (currPlayer.player, ((Tile)this.tiles [currPlayer.location]).property);
+						} else if (((Tile)this.tiles [currPlayer.location]).property.buildings > 0){ //if has color set
+							((Tile)this.tiles [currPlayer.location]).property.addBuilding (); //purchase a building, make conditional later
+							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50) //cost to purchase a building
 						}
 					}
 					else //unowned
@@ -171,6 +175,7 @@ namespace Backend
 					{
 						currPlayer.location = 10;
 						currPlayer.isJailed = true;
+						Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
 					}
 				}
 				if(currPlayer.doubcount == 0) //end of turn, not in jail

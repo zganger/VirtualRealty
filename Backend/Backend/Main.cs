@@ -155,7 +155,12 @@ namespace Backend
 							payRent (currPlayer.player, ((Tile)this.tiles [currPlayer.location]).property);
 						} else if (((Tile)this.tiles [currPlayer.location]).property.buildings > 0){ //if has color set
 							((Tile)this.tiles [currPlayer.location]).property.addBuilding (); //purchase a building, make conditional later
-							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50) //cost to purchase a building
+							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50); //cost to purchase a building
+							if (((Tile)this.tiles [currPlayer.location]).property.buildings < 6) {
+								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a house on " + ((Tile)this.tiles [currPlayer.location]).title + ". There are now " + (((Tile)this.tiles [currPlayer.location]).property.buildings - 1) + " houses on this property.");
+							} else {
+								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a house on " + ((Tile)this.tiles [currPlayer.location]).title + ".");
+							}
 						}
 					}
 					else //unowned

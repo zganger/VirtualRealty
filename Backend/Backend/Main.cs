@@ -57,7 +57,7 @@ namespace Backend
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;
 					currPlayer.player.money = currPlayer.player.money - 50; //bail immediate for the time being
-					Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //these two lines will be handled in jailedDice function when dooubles implemented
+					Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //these two lines will be handled in jailedDice function when doubles implemented
 				}
 				else
 				{
@@ -147,34 +147,35 @@ namespace Backend
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
 				Thread.Sleep(1000);	//delay before next dice rolling
 				Dice(currPlayer); //roll and move to new location
-				if(((Tile)this.tiles[currPlayer.location]).isProperty) //is property
+				Tile thisTile = (Tile)this.tiles[currPlayer.location];
+				if(thisTile.isProperty) //is property
 				{
-					if(((Tile)this.tiles[currPlayer.location]).property.player != null) //owned
+					if(thisTile.property.player != null) //owned
 					{
-						if (((Tile)this.tiles [currPlayer.location]).property.player.ID != currPlayer.player.ID) {
-							payRent (currPlayer.player, ((Tile)this.tiles [currPlayer.location]).property);
-						} else if (((Tile)this.tiles [currPlayer.location]).property.buildings > 0){ //if has color set
-							((Tile)this.tiles [currPlayer.location]).property.addBuilding (); //purchase a building, make conditional later
+						if (thisTile.property.player.ID != currPlayer.player.ID) {
+							payRent (currPlayer.player, thisTile.property);
+						} else if (thisTile.property.buildings > 0){ //if has color set, color set is buildings = 1
+							thisTile.property.addBuilding (); //purchase a building, make conditional later
 							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50); //cost to purchase a building
-							if (((Tile)this.tiles [currPlayer.location]).property.buildings < 6) {
-								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a house on " + ((Tile)this.tiles [currPlayer.location]).title + ". There are now " + (((Tile)this.tiles [currPlayer.location]).property.buildings - 1) + " houses on this property.");
+							if (thisTile.property.buildings < 6) {
+								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.");
 							} else {
-								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a house on " + ((Tile)this.tiles [currPlayer.location]).title + ".");
+								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a hotel on " + thisTile.title + ".");
 							}
 						}
 					}
 					else //unowned
 					{
-						purchase(currPlayer.player, ((Tile)this.tiles[currPlayer.location]).property);
+						purchase(currPlayer.player, thisTile.property);
 					}
 				}
 				else //not a property, action tile
 				{
 					//how to action?
-					if(((Tile)this.tiles[currPlayer.location]).rents[0] != 0 && currPlayer.location != 0) //assuming action tile, only true if go or tax
+					if(thisTile.rents[0] != 0 && currPlayer.location != 0) //assuming action tile, only true if go or tax
 					{
-						currPlayer.player.money = currPlayer.player.money - ((Tile)this.tiles[currPlayer.location]).rents[0];
-						Console.WriteLine("Player " + currPlayer.player.ID + " loses $" + ((Tile)this.tiles[currPlayer.location]).rents[0] + " on " + ((Tile)this.tiles[currPlayer.location]).title);
+						currPlayer.player.money = currPlayer.player.money - thisTile.rents[0];
+						Console.WriteLine("Player " + currPlayer.player.ID + " loses $" + thisTile.rents[0] + " on " + thisTile.title);
 					}
 					else if(currPlayer.location == 30) //go to jail
 					{

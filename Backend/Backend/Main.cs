@@ -154,7 +154,7 @@ namespace Backend
 					{
 						if (thisTile.property.player.ID != currPlayer.player.ID) {
 							payRent (currPlayer.player, thisTile.property);
-						} else if (thisTile.property.buildings > 0){ //if has color set, color set is buildings = 1
+						} else if (thisTile.property.buildings > 0) { //if has color set, color set is buildings = 1
 							thisTile.property.addBuilding (); //purchase a building, make conditional later
 							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50); //cost to purchase a building
 							if (thisTile.property.buildings < 6) {
@@ -166,7 +166,22 @@ namespace Backend
 					}
 					else //unowned
 					{
-						purchase(currPlayer.player, thisTile.property);
+						purchase(currPlayer.player, thisTile.property);//buy tile
+						//now check for color set
+						bool colorset = true;
+						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+						for (int ii = 0; ii < 40; ii++) {
+							if (((Tile)this.tiles [ii]).property.player.ID != thisTile.property.player.ID && ((Tile)this.tiles [ii]).property.colorGroup == thisTile.property.colorGroup) {
+								colorset = false;
+							}
+						}
+						if (colorset) {
+							for (int ii = 0; ii < 40; ii++) {
+								if (((Tile)this.tiles [ii]).property.colorGroup == thisTile.property.colorGroup) {
+									((Tile)this.tiles [ii]).property.addBuilding ();
+								}
+							}
+						}
 					}
 				}
 				else //not a property, action tile

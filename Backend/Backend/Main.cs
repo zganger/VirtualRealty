@@ -166,24 +166,31 @@ namespace Backend
 					}
 					else //unowned
 					{
-						thisTile = (Tile)this.tiles[currPlayer.location];
 						purchase(currPlayer.player, thisTile.property);//buy tile
 						//now check for color set
 						bool colorset = true;
 						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
 						foreach(Tile T in tiles) {
-							if (T.property.player.ID != T.property.player.ID) {
-								if (String.Compare (T.property.colorGroup, T.property.colorGroup, false) == 1) {
+							if (T.isProperty) {
+								if (T.property.player == null ){
 									colorset = false;
+								}
+								else if(T.property.player.ID != currPlayer.player.ID) {
+									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
+										colorset = false;
+									}
 								}
 							}
 						}
 						if (colorset) {
-									foreach(Tile V in tiles) {
-								if (V.property.colorGroup == V.property.colorGroup) {
-									V.property.addBuilding ();
+							foreach(Tile V in tiles) {
+								if (V.isProperty) {
+									if (V.property.colorGroup == thisTile.property.colorGroup) {
+										V.property.addBuilding ();
+									}
 								}
 							}
+							Console.WriteLine ("Player " + currPlayer.player.ID + " now has a monopoly on " + thisTile.property.colorGroup + " properties!");
 						}
 					}
 				}

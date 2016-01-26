@@ -29,10 +29,10 @@ namespace Backend
 			string[] spaces = new string[40]{"Go", "Mediterranean Avenue", "Community Chest", "Baltic Avenue", "Income Tax", "Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B&O Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"};
 			int[] mortgages = new int[40] {0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200};
 			string[] colorGroups = new string[40]{null, "brown", null, "brown", null, "RR", "powder", null, "powder", "powder", null, "pink", "UTIL", "pink", "pink", "RR", "orange", null,"orange", "orange", null, "red", null, "red", "red", "RR", "yellow", "yellow", "UTIL", "yellow", null, "green", "green", null, "green", "RR", null, "blue", null, "blue"};
-			int[,] rents = new int[40, 6] { {-200, -200, -200, -200, -200, -200}, {2, 10, 30, 90, 160, 250}, {0, 0, 0, 0, 0, 0}, {4, 20, 60, 180, 320, 450}, {200, 200, 200, 200, 200, 200}, {25, 50, 100, 200, 200, 200}, {6, 30, 90, 270, 400, 550}, {0, 0, 0, 0, 0, 0}, {6, 30, 90, 270, 400, 550}, {8, 40, 100, 300, 450, 600}, {0, 0, 0, 0, 0, 0}, {10, 50, 150, 450, 625, 750}, {0, 0, 0, 0, 0, 0}, {10, 50, 150, 450, 625, 750}, {12, 60, 180, 500, 700, 900}, {25, 50, 100, 200, 200, 200}, {14, 70, 200, 550, 750, 950}, {0, 0, 0, 0, 0, 0}, {14, 70, 200, 550, 750, 950}, {16, 80, 220, 600, 800, 1000}, {0, 0, 0, 0, 0, 0}, {18, 90, 250, 700, 875, 1050}, {0, 0, 0, 0, 0, 0}, {18, 90, 250, 700, 875, 1050}, {20, 100, 300, 750, 925, 1100}, {25, 50, 100, 200, 200, 200}, {22, 110, 330, 800, 975, 1150}, {22, 110, 330, 800, 975, 1150}, {0, 0, 0, 0, 0, 0}, {24, 120, 360, 850, 1025, 1200}, {0, 0, 0, 0, 0, 0}, {26, 130, 390, 900, 1100, 1275}, {26, 130, 390, 900, 1100, 1275}, {0, 0, 0, 0, 0, 0}, {28, 150, 450, 1000, 1200, 1400}, {25, 50, 100, 200, 200, 200}, {0, 0, 0, 0, 0, 0}, {35, 175, 500, 1100, 1300, 1500}, {100, 100, 100, 100, 100, 100}, {50, 200, 600, 1400, 1700, 2000} };
+			int[,] rents = new int[40, 7] { {-200, -200, -200, -200, -200, -200, -200}, {2, 4, 10, 30, 90, 160, 250}, {0, 0, 0, 0, 0, 0, 0}, {4, 8, 20, 60, 180, 320, 450}, {200, 200, 200, 200, 200, 200, 200}, {25, 50, 100, 200, 200, 200, 200}, {6, 12, 30, 90, 270, 400, 550}, {0, 0, 0, 0, 0, 0, 0}, {6, 12, 30, 90, 270, 400, 550}, {8, 16, 40, 100, 300, 450, 600}, {0, 0, 0, 0, 0, 0, 0}, {10, 20, 50, 150, 450, 625, 750}, {0, 0, 0, 0, 0, 0, 0}, {10, 20, 50, 150, 450, 625, 750}, {12, 24, 60, 180, 500, 700, 900}, {25, 50, 100, 200, 200, 200, 200}, {14, 28, 70, 200, 550, 750, 950}, {0, 0, 0, 0, 0, 0, 0}, {14, 28, 70, 200, 550, 750, 950}, {16, 32, 80, 220, 600, 800, 1000}, {0, 0, 0, 0, 0, 0, 0}, {18, 36, 90, 250, 700, 875, 1050}, {0, 0, 0, 0, 0, 0, 0}, {18, 36, 90, 250, 700, 875, 1050}, {20, 40, 100, 300, 750, 925, 1100}, {25, 50, 100, 200, 200, 200, 200}, {22, 44, 110, 330, 800, 975, 1150}, {22, 44, 110, 330, 800, 975, 1150}, {0, 0, 0, 0, 0, 0, 0}, {24, 48, 120, 360, 850, 1025, 1200}, {0, 0, 0, 0, 0, 0, 0}, {26, 52, 130, 390, 900, 1100, 1275}, {26, 52, 130, 390, 900, 1100, 1275}, {0, 0, 0, 0, 0, 0, 0}, {28, 52, 150, 450, 1000, 1200, 1400}, {25, 50, 100, 200, 200, 200, 200}, {0, 0, 0, 0, 0, 0, 0}, {35, 70, 175, 500, 1100, 1300, 1500}, {100, 100, 100, 100, 100, 100, 100}, {50, 100, 200, 600, 1400, 1700, 2000} };
 			for (int i = 0; i < 40; i++) {
-				int[] passRents = new int[6];
-				for(int jj = 0; jj < 6; jj++)
+				int[] passRents = new int[7];
+				for(int jj = 0; jj < 7; jj++)
 				{
 					passRents[jj] = rents[i,jj];
 					Console.WriteLine ("PassRents[" + jj + "] for " + spaces[i] + " is " + passRents[jj]);
@@ -166,19 +166,22 @@ namespace Backend
 					}
 					else //unowned
 					{
+						thisTile = (Tile)this.tiles[currPlayer.location];
 						purchase(currPlayer.player, thisTile.property);//buy tile
 						//now check for color set
 						bool colorset = true;
 						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
-						for (int ii = 0; ii < 40; ii++) {
-							if (((Tile)this.tiles [ii]).property.player.ID != thisTile.property.player.ID && ((Tile)this.tiles [ii]).property.colorGroup == thisTile.property.colorGroup) {
-								colorset = false;
+						foreach(Tile T in tiles) {
+							if (T.property.player.ID != T.property.player.ID) {
+								if (String.Compare (T.property.colorGroup, T.property.colorGroup, false) == 1) {
+									colorset = false;
+								}
 							}
 						}
 						if (colorset) {
-							for (int ii = 0; ii < 40; ii++) {
-								if (((Tile)this.tiles [ii]).property.colorGroup == thisTile.property.colorGroup) {
-									((Tile)this.tiles [ii]).property.addBuilding ();
+									foreach(Tile V in tiles) {
+								if (V.property.colorGroup == V.property.colorGroup) {
+									V.property.addBuilding ();
 								}
 							}
 						}

@@ -172,11 +172,8 @@ namespace Backend
 						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
 						foreach(Tile T in tiles) {
 							if (T.isProperty) {
-								if (T.property.player == null ){
-									colorset = false;
-								}
-								else if(T.property.player.ID != currPlayer.player.ID) {
-									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
+								if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
+									if (T.property.player == null || T.property.player.ID != currPlayer.player.ID){
 										colorset = false;
 									}
 								}

@@ -1,17 +1,20 @@
 
-void initSensors();
-void initBluetooth();
-void initVariables();
+bool init();
+bool initSensors();
+bool initBluetooth();
+bool initVariables();
 
 string getBluetooth();
 string decodeBluetooth(string);
 
-void startMotors(int);
+void startMotors(char,int);
 bool checkDestination();
-int pollLineFollowing();
+char pollLineFollowing();
 bool LineDetected();
-
 bool objectDetected();
+
+bool checkCorner();
+void turnCorner();
 
 void stopMotors();
 

@@ -1,21 +1,22 @@
+#include "Stepper.h"
 
-bool init();
-bool initSensors();
-bool initBluetooth();
-bool initVariables();
+int init();
+int initSensors();
+int initBluetooth();
+int initVariables();
 
 string getBluetooth();
 string decodeBluetooth(string);
 
-void startMotors(char,int);
-bool checkDestination();
+void startMotors(struct Stepper);
+int checkDestination();
 char pollLineFollowing();
-bool LineDetected();
-bool objectDetected();
+int LineDetected();
+int objectDetected();
 
-bool checkCorner();
+int checkCorner();
 void turnCorner();
 
-void stopMotors();
+void stopMotors(struct Stepper);
 
 void sendBluetooth(string);

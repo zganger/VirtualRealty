@@ -1,11 +1,16 @@
+#include "Stepper.h"
+#include <stdlib.h>
 struct Stepper;
 
-void stepperInit(struct Stepper s1, int num_steps int P1, int P2, int P3,int P4)
+void stepperInit(struct Stepper s1, int num_steps, int P1, int P2, int P3,int P4)
 {
 	s1.IN1=P1;
 	s1.IN2=P2;
 	s1.IN3=P3;
 	s1.IN4=P4;
+	s1.direction=0;
+	s1.step_number=0;
+	s1.last_step_time=0;
 	/*** TO DO
 	set pin as output
 	***/
@@ -33,6 +38,7 @@ void step(struct Stepper s1, int steps_to_move)
 	while(steps_left > 0)
 	{
 		//unsigned long now = micros() //**** get micros with kinetis *****
+		unsigned long now;
 		if(now - s1.last_step_time >= s1.step_delay)
 		{
 			s1.last_step_time = now;
@@ -53,7 +59,7 @@ void step(struct Stepper s1, int steps_to_move)
 				s1.step_number--;
 			}
 			steps_left--;
-			stepMotor(s1.stepMotor%4);
+			stepMotor(s1,s1.step_number%4);
 		}
 	}
 }

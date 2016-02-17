@@ -5,9 +5,9 @@ struct Stepper
 	int IN3;
 	int IN4;
 	int speed;
-	int direction=0;
-	int step_number=0;
-	int last_step_time=0;
+	int direction;
+	int step_number;
+	int last_step_time;
 	int number_of_steps;
 	unsigned long step_delay;
 };
@@ -18,4 +18,4 @@ void stepSpeed(struct Stepper, long);
 
 void step(struct Stepper, int);
 
-void stepMotor(int);
+void stepMotor(struct Stepper, int);

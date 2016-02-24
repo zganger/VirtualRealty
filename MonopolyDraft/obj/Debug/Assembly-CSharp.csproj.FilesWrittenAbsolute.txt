@@ -1,0 +1,17 @@
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/zachsarkis/MonopolyDraft/obj/Debug/Assembly-CSharp.dll
+/Users/zachsarkis/MonopolyDraft/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/UnityEngine.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/UnityEditor.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Mono.Cecil.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Unity.DataContract.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/zachsarkis/MonopolyDraft/Temp/bin/Debug/Mono.Cecil.Mdb.dll

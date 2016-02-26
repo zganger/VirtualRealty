@@ -7,6 +7,17 @@ namespace Backend
 {
 	class MainClass : MonoBehaviour
 	{
+
+		void Start ()
+		{
+			Main();
+		}
+
+		void Update ()
+		{
+			Console.WriteLine ("Please");
+		}
+
 		public static void Main()
 		{
 			Console.WriteLine ("Game Start");
@@ -67,7 +78,11 @@ namespace Backend
 						currPlayer.player.money = currPlayer.player.money + 200;
 						Console.WriteLine ("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 					}
-					currPlayerUnity.MoveTo(currPlayer.location, (currPlayer.location + diceTotal) % 40, diceTotal);	//add to P1 as well and in new version
+					if ((currPlayer.location == null)||(this.diceTotal == null)) {
+						currPlayer.location = 0;
+						diceTotal = 3;
+					}
+					currPlayerUnity.MoveTo(currPlayer.location, (currPlayer.location + this.diceTotal) % 40, this.diceTotal);	//add to P1 as well and in new version
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
 					Console.WriteLine ("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles [currPlayer.location]).title);
 					Console.WriteLine ("Doubles, go again!");

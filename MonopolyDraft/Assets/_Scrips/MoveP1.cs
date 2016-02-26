@@ -11,6 +11,10 @@ namespace ourUnityThings
 		{
 //			MoveTo(Origin, Dest, diceTotal);
 		}
+		void Update ()
+		{
+//			MoveTo(Origin, Dest, diceTotal);
+		}
 	
 		// Update is called once per frame
 		void motionP1 () 	//motionP1

@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace Backend
 {
+	
+
 	class MainClass : MonoBehaviour
 	{
 
@@ -15,11 +17,12 @@ namespace Backend
 
 		void Update ()
 		{
-			Console.WriteLine ("Please");
+			//Console.WriteLine ("Please");
 		}
 
 		public static void Main()
 		{
+			
 			Console.WriteLine ("Game Start");
 			Board GameBoard = new Board ();
 			GameBoard.beginGameplay ();
@@ -27,6 +30,9 @@ namespace Backend
 	}
 	class Board
 	{
+		public MoveP2 ourFirstPiece;				//declare a thing exists
+		public MoveP2 ourSecondPiece;				//declare another thing exists
+
 		public ArrayList tiles = new ArrayList();
 		public ArrayList pieces = new ArrayList();
 		public ArrayList chanceCards = new ArrayList();
@@ -36,10 +42,13 @@ namespace Backend
 		public int diceTotal;
 		public Board()
 		{
-			ourUnityThings.MoveP1 UnityPiece1 = new ourUnityThings.MoveP1();
-			ourUnityThings.MoveP1 UnityPiece2 = new ourUnityThings.MoveP1();
-			unityPieces.Add (UnityPiece1);
-			unityPieces.Add (UnityPiece2);
+//			GameObject g = new GameObject("g");
+//			MoveP2 UnityPiece1;// = new ourUnityThings.MoveP1();
+//			MoveP2 UnityPiece2;// = new ourUnityThings.MoveP1();
+
+
+			unityPieces.Add (ourFirstPiece);
+			unityPieces.Add (ourSecondPiece);
 			pieces.Add (new Piece ("Racecar", "Red", 0));
 			pieces.Add (new Piece ("Tophat", "Black", 1));
 			int[] values = new int[40] {0, 60, 0, 60, 0, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 0, 400};
@@ -58,7 +67,7 @@ namespace Backend
 			}
 			Console.WriteLine("BOARD COMPLETE");
 		}
-		public void Dice (Piece currPlayer, ourUnityThings.MoveP1 currPlayerUnity)	//probably an int later when taking care of front end
+		public void Dice (Piece currPlayer, MoveP2 currPlayerUnity)	//probably an int later when taking care of front end
 		{
 			System.Random rnd = new System.Random ((int)DateTime.Now.Ticks);
 			int d1 = rnd.Next (1, 7);
@@ -78,11 +87,11 @@ namespace Backend
 						currPlayer.player.money = currPlayer.player.money + 200;
 						Console.WriteLine ("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 					}
-					if ((currPlayer.location == null)||(this.diceTotal == null)) {
-						currPlayer.location = 0;
-						diceTotal = 3;
-					}
-					currPlayerUnity.MoveTo(currPlayer.location, (currPlayer.location + this.diceTotal) % 40, this.diceTotal);	//add to P1 as well and in new version
+					Debug.Log("here2");
+
+					currPlayerUnity.MoveTo(currPlayer.location, ((currPlayer.location + diceTotal) % 40), diceTotal);	//add to P1 as well and in new version
+
+					Debug.Log("here3");
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
 					Console.WriteLine ("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles [currPlayer.location]).title);
 					Console.WriteLine ("Doubles, go again!");
@@ -159,13 +168,16 @@ namespace Backend
 		{
 			//start the game
 			int turncounter = 0;
+			GameObject g = new GameObject("g");
 			while(!gameOver)
 			{
 				int playerID = (turncounter % 2);
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
 				//???
-				ourUnityThings.MoveP1 currPlayerUnity = ((ourUnityThings.MoveP1)this.unityPieces[playerID]); //again, more like .MoveP not .MoveP1
-				Thread.Sleep(1000);	//delay before next dice rolling
+				MoveP2 currPlayerUnity = g.AddComponent<MoveP2>(); //((MoveP2)this.unityPieces[playerID]); //again, more like .MoveP not .MoveP1
+				//Thread.Sleep(1000);	//delay before next dice rolling
+
+				Debug.Log("working1?");
 				Dice(currPlayer, currPlayerUnity); //roll and move to new location
 				Tile thisTile = (Tile)this.tiles[currPlayer.location];
 				if(thisTile.isProperty) //is property

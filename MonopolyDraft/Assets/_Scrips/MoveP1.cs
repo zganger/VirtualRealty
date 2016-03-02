@@ -42,15 +42,15 @@ namespace ourUnityThings
 			if (transform.position.x > 240 && transform.position.y < 42) //will skip the tiniest bit
 			{
 				transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, 40, 0);
-			} 
+			}
 			else if (transform.position.x <= 240 && transform.position.y <= 350) 
 			{
 				transform.position = new Vector3 (240, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
-			} 
+			}
 			else if (transform.position.x <= 550 && transform.position.y >= 350) 
 			{
 				transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, 350, 0);	//this is top
-			} 
+			}
 			else 
 			{
 				transform.position = new Vector3 (550, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
@@ -59,10 +59,10 @@ namespace ourUnityThings
 
 		public void MoveTo (int inOrigin, int inDest, int inDice)
 		{
-			while (transform.position.x != inDest) {
+			while (transform.position.x != inDest)
+			{
 				transform.position = new Vector3(transform.position.x - 60 * Time.deltaTime, 40, 0);
 			}
-
 		}
 	}
 }

@@ -9,34 +9,39 @@ public class MoveP2 : MonoBehaviour {
 
 	}
 
-//	int Dest, Origin, diceTotal;
+	public int Dest, Origin, diceTotal;
 
 	// Update is called once per frame
 	void Update ()
 	{
-//		if (transform.position.x > 240 && transform.position.y < 42) //will skip the tiniest bit
-//		{
-//			transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, 40, 0);
-//		} 
-//		else if (transform.position.x <= 240 && transform.position.y <= 350) 
-//		{
-//			transform.position = new Vector3 (240, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
-//		} 
-//		else if (transform.position.x <= 550 && transform.position.y >= 350) 
-//		{
-//			transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, 350, 0);	//this is top
-//		} 
-//		else 
-//		{
-//			transform.position = new Vector3 (550, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
-//		}
+		
 	}
 
-//	void MoveTo (int inOrigin, int inDest, int inDice)
-//	{
+	public void MoveTo (int inOrigin, int inDest, int inDice)
+	{
 //		Dest = inDest;
 //		Origin = inOrigin;
 //		diceTotal = inDice;
-//		Update();
-//	}
+		Debug.Log("Made it!");
+		if (transform.position.x > 240 && transform.position.y < 42) //will skip the tiniest bit
+		{
+			transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, 40, 0);
+		} 
+		else if (transform.position.x <= 240 && transform.position.y <= 350) 
+		{
+			transform.position = new Vector3 (240, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
+		} 
+		else if (transform.position.x <= 550 && transform.position.y >= 350) 
+		{
+			transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, 350, 0);	//this is top
+		} 
+		else 
+		{
+			transform.position = new Vector3 (550, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
+		}
+//		while (transform.position.x != inDest)
+//			{
+//				transform.position = new Vector3(transform.position.x - 60 * Time.deltaTime, 40, 0);
+//			}
+	}
 }

@@ -11,6 +11,7 @@ public class GamePlay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Debug.Log("here");
 		Backend.MainClass.Main();
 	}
 	

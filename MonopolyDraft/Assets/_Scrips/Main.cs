@@ -190,9 +190,9 @@ namespace Backend
 							thisTile.property.addBuilding (); //purchase a building, make conditional later
 							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50); //cost to purchase a building
 							if (thisTile.property.buildings < 6) {
-								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.");
+								Console.WriteLine ("Player " + currPlayer.player.ID + " has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.");
 							} else {
-								Console.WriteLine ("Player " + currPlayer.player.ID + "has purchased a hotel on " + thisTile.title + ".");
+								Console.WriteLine ("Player " + currPlayer.player.ID + " has purchased a hotel on " + thisTile.title + ".");
 							}
 						}
 					}

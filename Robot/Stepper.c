@@ -11,9 +11,14 @@ void stepperInit(struct Stepper s1, int num_steps, int P1, int P2, int P3,int P4
 	s1.direction=0;
 	s1.step_number=0;
 	s1.last_step_time=0;
+<<<<<<< HEAD
 	/*** TO DO
 	set pin as output
 	***/
+=======
+
+
+>>>>>>> refs/remotes/origin/master
 }
 
 
@@ -69,36 +74,34 @@ void stepMotor(struct Stepper s1, int thisStep)
 	switch(thisStep)
 	{
 		case 0: //1010
-		/*
-		s1.IN1=HIGH;
-		s1.IN2=LOW;
-		s1.IN3=HIGH;
-		s1.IN4=LOW;		
-		*/
+		IN1_SetVal();
+		IN2_ClrVal();
+		IN3_SetVal();
+		IN4_ClrVal();
+
 		break;
 		case 1: //0110
-		/*
-		s1.IN1=LOW;
-		s1.IN2=HIGH;
-		s1.IN3=HIGH;
-		s1.IN4=LOW;		
-		*/
+		IN1_ClrVal();
+		IN2_SetVal();
+		IN3_SetVal();
+		IN4_ClrVal();
+
 		break;
 		case 2: //0101
-		/*
-		s1.IN1=LOW;
-		s1.IN2=HIGH;
-		s1.IN3=LOW;
-		s1.IN4=HIGH;		
-		*/
+
+		IN1_ClrVal();
+		IN2_SetVal();
+		IN3_ClrVal();
+		IN4_SetVal();
+
 		break;
 		case 3: //1001
-		/*
-		s1.IN1=HIGH;
-		s1.IN2=LOW;
-		s1.IN3=LOW;
-		s1.IN4=HIGH;		
-		*/
+
+		IN1_SetVal();
+		IN2_ClrVal();
+		IN3_ClrVal();
+		IN4_SetVal();
+
 		break;
 	}
 }

@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
+<<<<<<< HEAD
       <UniqueIdentifier>{d61f2667-dc88-46fb-8345-1e881ff7843b}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
@@ -11,6 +12,17 @@
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{50f88689-55d8-4457-839c-5ea2577a4b20}</UniqueIdentifier>
+=======
+      <UniqueIdentifier>{0f218b9a-fcda-40ef-b425-2858479fd2ce}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{80c8cb7a-ddac-46a1-ae7f-c7fa8f936b61}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{cd3af570-1e46-4ce1-8882-3d28c225d104}</UniqueIdentifier>
+>>>>>>> refs/remotes/origin/master
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
   </ItemGroup>
@@ -21,6 +33,12 @@
     <ClCompile Include="ftpopp_tst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="gatt_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> refs/remotes/origin/master
     <ClCompile Include="hfp_tst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,9 +48,21 @@
     <ClCompile Include="loc_dev_tst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="pan_tst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="map_tst.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pan_tst.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pbap_tst.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> refs/remotes/origin/master
     <ClCompile Include="profiles_tst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,6 +81,7 @@
     <ClCompile Include="spp_tst.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="profiles_tst.h">
@@ -59,5 +90,33 @@
     <ClInclude Include="sdk_tst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+    <ClCompile Include="vcard_parser\vcc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vcard_parser\vobject.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="map_tst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="profiles_tst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk_gatt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk_tst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vcard_parser\vcc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vcard_parser\vobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> refs/remotes/origin/master
   </ItemGroup>
 </Project>

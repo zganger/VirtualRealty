@@ -139,8 +139,13 @@ void TestPANFunc(void)
 	Btsdk_PAN_RegIndCbk4ThirdParty(Btsdk_PAN_Event_CbkFunc);
 	while (ch != 'r')
 	{	
+<<<<<<< HEAD
 		scanf(" %c", &ch);	
 		getchar();
+=======
+		AppWaitForInput(&ch, 1);
+
+>>>>>>> refs/remotes/origin/master
 		if (ch == '\n')
 		{
 			printf(">>");

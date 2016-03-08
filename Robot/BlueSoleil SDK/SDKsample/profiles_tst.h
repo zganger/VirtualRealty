@@ -41,9 +41,15 @@ void TestA2DPShowMenu(void);
 /* AVRCP relative functions */
 void Test_AVRCP_RegIndCbk(Btsdk_AVRCP_Event_Ind_Func * pfunc);
 void Test_AVRCP_RegPassThrCmdCbk(Btsdk_AVRCP_PassThr_Cmd_Func *pfunc);
+<<<<<<< HEAD
 void TestAVRCPShowMenu(void);
 void TestAVRCPFunc(void);
 
+=======
+void TestAVRCPShowMenu(BTUINT16 svc_class);
+void TestAVRCPCTFunc(BTUINT8 choiceID);
+void TestAVRCPTGFunc(BTUINT8 choiceID);
+>>>>>>> refs/remotes/origin/master
 /* PAN relative functions */
 void TestPANShowMenu(void);
 void TestPANFunc(void);
@@ -62,4 +68,25 @@ void TestSPPFunc(void);
 
 /*HID relative functions*/
 void TestHidFunc(void);
+<<<<<<< HEAD
+=======
+
+/*PBAP function*/
+void TestPBAPFunc(void);
+
+/*MAP function*/
+void TestMAPFunc(void);
+
+/*Local SPP Service function*/
+void TestLocalSPPServiceFunc();
+
+/* GATT Function test*/
+void TestGATT();
+
+/* AVRCP Function test*/
+void TestAVRCPFunc();
+
+/*GATT Server*/
+void TestGATTServerFunc();
+>>>>>>> refs/remotes/origin/master
 #endif

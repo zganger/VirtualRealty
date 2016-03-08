@@ -191,7 +191,233 @@ void Test_HfpAgCallbackFunc(BTCONNHDL hdl, BTUINT16 event, BTUINT8 *param, BTUIN
 		break;
 	}
 }
+<<<<<<< HEAD
 
+=======
+void HFGetCmdStr(BTUINT16 cmd_idx, BTUINT8 *cmd_str)
+{
+	switch (cmd_idx)
+	{
+	case BTSDK_HFP_CMD_BRSF:
+		strcpy(cmd_str, "AT+BRSF=<val>");
+		break;
+	case BTSDK_HFP_CMD_CIND_T:
+		strcpy(cmd_str, "AT+CIND=?");
+		break;
+	case BTSDK_HFP_CMD_CIND_R:
+		strcpy(cmd_str, "AT+CIND?");
+		break;
+	case BTSDK_HFP_CMD_CMER:
+		strcpy(cmd_str, "AT+CMER=3,0,0,1");
+		break;
+	case BTSDK_HFP_CMD_CHLD_T:
+		strcpy(cmd_str, "AT+CHLD=?");
+		break;
+	case BTSDK_HFP_CMD_COPS_SET_FORMAT:
+		strcpy(cmd_str, "AT+COPS=3,0");
+		break;
+	case BTSDK_HFP_CMD_CCWA_ACTIVATE:
+		strcpy(cmd_str, "AT+CCWA=1");
+		break;
+	case BTSDK_HFP_CMD_CMEE:
+		strcpy(cmd_str, "AT+CMEE=1");
+		break;
+	case BTSDK_HFP_CMD_CLIP:
+		strcpy(cmd_str, "AT+CLIP=<n>");
+		break;
+	case BTSDK_HFP_CMD_BVRA_ENABLE:
+		strcpy(cmd_str, "AT+BVRA=1");
+		break;
+	case BTSDK_HFP_CMD_BVRA_DISABLE:
+		strcpy(cmd_str, "AT+BVRA=0");
+		break;
+	case BTSDK_HFP_CMD_VTS:
+		strcpy(cmd_str, "AT+VTS=<n>");
+		break;
+	case BTSDK_HFP_CMD_VGS:
+		strcpy(cmd_str, "AT+VGS=<n>");
+		break;
+	case BTSDK_HFP_CMD_VGM:
+		strcpy(cmd_str, "AT+VGM=<n>");
+		break;
+	case BTSDK_HFP_CMD_NREC:
+		strcpy(cmd_str, "AT+NREC=<n>");
+		break;
+	case BTSDK_HFP_CMD_CHLD_0:
+		strcpy(cmd_str, "AT+CHLD=0");
+		break;
+	case BTSDK_HFP_CMD_CHLD_1:
+		strcpy(cmd_str, "AT+CHLD=1[<idx>]");
+		break;
+	case BTSDK_HFP_CMD_CHLD_2:
+		strcpy(cmd_str, "AT+CHLD=2[<idx>]");
+		break;
+	case BTSDK_HFP_CMD_CHLD_3:
+		strcpy(cmd_str, "AT+CHLD=3");
+		break;
+	case BTSDK_HFP_CMD_CHLD_4:
+		strcpy(cmd_str, "AT+CHLD=4");
+		break;
+	case BTSDK_HFP_CMD_CANCELCALL:
+		strcpy(cmd_str, "AT+CHUP");
+		break;
+	case BTSDK_HFP_CMD_ANSWERCALL:
+		strcpy(cmd_str, "ATA");
+		break;
+	case BTSDK_HFP_CMD_DIAL:
+		strcpy(cmd_str, "ATD<n>");
+		break;
+	case BTSDK_HFP_CMD_MEMDIAL:
+		strcpy(cmd_str, "ATD><n>");
+		break;
+	case BTSDK_HFP_CMD_BLDN:
+		strcpy(cmd_str, "AT+BLDN");
+		break;
+	case BTSDK_HFP_CMD_CKPD:
+		strcpy(cmd_str, "AT+CKPD=200");
+		break;
+	case BTSDK_HFP_CMD_CKPD_REJ_CALL:
+		strcpy(cmd_str, "AT+CKPD=\"e\"");
+		break;
+	case BTSDK_HFP_CMD_BIA:
+		strcpy(cmd_str, "AT+BIA=x,x,x,x,x");
+		break;
+	case BTSDK_HFP_CMD_COPS_READ:
+		strcpy(cmd_str, "AT+COPS?");
+		break;
+	case BTSDK_HFP_CMD_BINP:
+		strcpy(cmd_str, "AT+BINP=1");
+		break;
+	case BTSDK_HFP_CMD_BTRH_QUERY:
+		strcpy(cmd_str, "AT+BTRH?");
+		break;
+	case BTSDK_HFP_CMD_BTRH:
+		strcpy(cmd_str, "AT+BTRH=0");
+		break;
+	case BTSDK_HFP_CMD_CNUM:
+		strcpy(cmd_str, "AT+CNUM");
+		break;
+	case BTSDK_HFP_CMD_CLCC:
+		strcpy(cmd_str, "AT+CLCC");
+		break;
+	case BTSDK_HFP_CMD_CGMI:
+		strcpy(cmd_str, "AT+CGMI");
+		break;
+	case BTSDK_HFP_CMD_CGMM:
+		strcpy(cmd_str, "AT+CGMM");
+		break;
+	default:
+		strcpy(cmd_str, "Extended Command");
+		break;
+	}
+}
+
+/*******************************************************************
+*	                             				         			*
+********************************************************************/
+void HFGetErrStr(BTUINT8 err_code, BTUINT8 *err_str)
+{
+	switch (err_code)
+	{
+	case BTSDK_HFP_CMEERR_AGFAILURE:
+		strcpy(err_str, "+CME ERROR:0 - AG failure");
+		break;
+	case BTSDK_HFP_CMEERR_NOCONN2PHONE:
+		strcpy(err_str, "+CME ERROR:1 - no connection to phone");
+		break;
+	case BTSDK_HFP_CMEERR_OPERATION_NOTALLOWED:
+		strcpy(err_str, "+CME ERROR:3 - operation not allowed");
+		break;
+	case BTSDK_HFP_CMEERR_OPERATION_NOTSUPPORTED:
+		strcpy(err_str, "+CME ERROR:4 - operation not supported");
+		break;
+	case BTSDK_HFP_CMEERR_PHSIMPIN_REQUIRED:
+		strcpy(err_str, "+CME ERROR:5 - PH-SIM PIN required");
+		break;
+	case BTSDK_HFP_CMEERR_SIMNOT_INSERTED:
+		strcpy(err_str, "+CME ERROR:10 - SIM not inserted");
+		break;
+	case BTSDK_HFP_CMEERR_SIMPIN_REQUIRED:
+		strcpy(err_str, "+CME ERROR:11 - SIM PIN required");
+		break;
+	case BTSDK_HFP_CMEERR_SIMPUK_REQUIRED:
+		strcpy(err_str, "+CME ERROR:12 - SIM PUK required");
+		break;
+	case BTSDK_HFP_CMEERR_SIM_FAILURE:
+		strcpy(err_str, "+CME ERROR:13 - SIM failure");
+		break;
+	case BTSDK_HFP_CMEERR_SIM_BUSY:
+		strcpy(err_str, "+CME ERROR:14 - SIM busy");
+		break;
+	case BTSDK_HFP_CMEERR_INCORRECT_PASSWORD:
+		strcpy(err_str, "+CME ERROR:16 - incorrect password");
+		break;
+	case BTSDK_HFP_CMEERR_SIMPIN2_REQUIRED:
+		strcpy(err_str, "+CME ERROR:17 - SIM PIN2 required");
+		break;
+	case BTSDK_HFP_CMEERR_SIMPUK2_REQUIRED:
+		strcpy(err_str, "+CME ERROR:18 - SIM PUK2 required");
+		break;
+	case BTSDK_HFP_CMEERR_MEMORY_FULL:
+		strcpy(err_str, "+CME ERROR:20 - memory full");
+		break;
+	case BTSDK_HFP_CMEERR_INVALID_INDEX:
+		strcpy(err_str, "+CME ERROR:21 - invalid index");
+		break;
+	case BTSDK_HFP_CMEERR_MEMORY_FAILURE:
+		strcpy(err_str, "+CME ERROR:23 - memory failure");
+		break;
+	case BTSDK_HFP_CMEERR_TEXTSTRING_TOOLONG:
+		strcpy(err_str, "+CME ERROR:24 - text string too long");
+		break;
+	case BTSDK_HFP_CMEERR_INVALID_CHAR_INTEXTSTRING:
+		strcpy(err_str, "+CME ERROR:25 - invalid characters in text string");
+		break;
+	case BTSDK_HFP_CMEERR_DIAL_STRING_TOOLONG:
+		strcpy(err_str, "+CME ERROR:26 - dial string too long");
+		break;
+	case BTSDK_HFP_CMEERR_INVALID_CHAR_INDIALSTRING:
+		strcpy(err_str, "+CME ERROR:27 - invalid characters in dial string");
+		break;
+	case BTSDK_HFP_CMEERR_NETWORK_NOSERVICE:
+		strcpy(err_str, "+CME ERROR:30 - no network service");
+		break;
+	case BTSDK_HFP_CMEERR_NETWORK_TIMEOUT:
+		strcpy(err_str, "+CME ERROR:31 - network timeout");
+		break;
+	case BTSDK_HFP_CMEERR_EMERGENCYCALL_ONLY:
+		strcpy(err_str, "+CME ERROR:32 - Network not allowed, emergency calls only");
+		break;
+	case BTSDK_HFP_APPERR_TIMEOUT:
+		strcpy(err_str, "Wait for AG response timeout");
+		break;
+	case BTSDK_HFP_STDERR_ERROR:
+		strcpy(err_str, "ERROR");
+		break;
+	case BTSDK_HFP_STDRR_NOCARRIER:
+		strcpy(err_str, "NO CARRIER");
+		break;
+	case BTSDK_HFP_STDERR_BUSY:
+		strcpy(err_str, "BUSY");
+		break;
+	case BTSDK_HFP_STDERR_NOANSWER:
+		strcpy(err_str, "NO ANSWER");
+		break;
+	case BTSDK_HFP_STDERR_DELAYED:
+		strcpy(err_str, "DELAYED");
+		break;
+	case BTSDK_HFP_STDERR_BLACKLISTED:
+		strcpy(err_str, "BLACKLISTED");
+		break;
+	case BTSDK_HFP_OK:
+		strcpy(err_str, "OK");
+		break;
+	default:
+		strcpy(err_str, "Unknown error result code");
+		break;
+	}
+}
+>>>>>>> refs/remotes/origin/master
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Description:
 	This function is the event processing callback function of the application.
@@ -206,8 +432,15 @@ void Test_HfpAPCallbackFunc(BTCONNHDL hdl, BTUINT16 event, BTUINT8 *param, BTUIN
 {
 	PBtsdk_HFP_ATCmdResultStru res = (PBtsdk_HFP_ATCmdResultStru)param;
 
+<<<<<<< HEAD
 	BTUINT8 *buf = NULL;
 	buf = malloc(33);
+=======
+	BTUINT8 *extend_recode = NULL;
+	BTUINT8 *buf = NULL;
+	extend_recode = malloc(MAX_PATH);
+	buf = malloc(MAX_PATH);
+>>>>>>> refs/remotes/origin/master
 
 	switch (event)
 	{
@@ -315,7 +548,20 @@ void Test_HfpAPCallbackFunc(BTCONNHDL hdl, BTUINT16 event, BTUINT8 *param, BTUIN
 		}
 	case BTSDK_HFP_EV_ATCMD_RESULT:
 		{
+<<<<<<< HEAD
 			printf("Receiving  AT command: 0x%04x, 0x%04x\n>", res->cmd_code, res->result_code);
+=======
+			HFGetCmdStr(res->cmd_code, buf);
+			HFGetErrStr(res->result_code, extend_recode);
+			if (res->result_code == BTSDK_HFP_OK)
+			{
+				printf("HF-->Possitive confirmation to the command: %s\n>", buf);
+			}
+			else
+			{
+				printf("HF-->Negative confirmation to the command: %s, response is: %s\n>", buf, extend_recode);
+			}
+>>>>>>> refs/remotes/origin/master
 			break;
 		}
 	case BTSDK_HFP_EV_CLIP_IND:
@@ -370,6 +616,10 @@ void Test_HfpAPCallbackFunc(BTCONNHDL hdl, BTUINT16 event, BTUINT8 *param, BTUIN
 		break;
 	}
 	free(buf);
+<<<<<<< HEAD
+=======
+	free(extend_recode);
+>>>>>>> refs/remotes/origin/master
 }
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -602,7 +852,11 @@ void HfpAPExecCmd(BTUINT8 choice)
 		break;
 	case '3': // Please dial with a phone number
 		printf("Input the phone number: ");
+<<<<<<< HEAD
 		scanf("%s", buf);
+=======
+		AppWaitForInput(buf, 32);
+>>>>>>> refs/remotes/origin/master
 		if (strlen(buf) != 0)
 		{
 			Btsdk_HFAP_Dial(s_currHFConnHdl, buf, (BTUINT16)strlen(buf));
@@ -613,14 +867,23 @@ void HfpAPExecCmd(BTUINT8 choice)
 		break;
 	case '5': // Memory dialing
 		printf("Input the memory location: ");
+<<<<<<< HEAD
 		scanf("%s", buf);
+=======
+		AppWaitForInput(buf, 32);
+
+>>>>>>> refs/remotes/origin/master
 		if (strlen(buf) != 0)
 			Btsdk_HFAP_MemNumDial(s_currHFConnHdl, buf, (BTUINT16)strlen(buf));
 		break;
 	case '6': // Transmit DTMF
 		printf("Input the DTMF digit: ");
 		do {
+<<<<<<< HEAD
 			scanf("%c", buf);
+=======
+			AppWaitForInput(buf, 1);
+>>>>>>> refs/remotes/origin/master
 		} while (buf[0] == '\n');
 		if ((buf[0] >= '0' && buf[0] <= '9') || buf[0] == '*' || buf[0] == '#')
 			Btsdk_HFAP_TxDTMF(s_currHFConnHdl, buf[0]);
@@ -680,7 +943,11 @@ void HfpAPExecCmd(BTUINT8 choice)
 		{
 			BTUINT8 *ext_cmd = (BTUINT8*)malloc(256);
 			printf("Input the AT command: ");
+<<<<<<< HEAD
 			scanf("%s", ext_cmd);
+=======
+			AppWaitForInput(ext_cmd, 256);
+>>>>>>> refs/remotes/origin/master
 			if (strlen(ext_cmd) != 0)
 			{
 				strcat(ext_cmd, "\r");
@@ -737,8 +1004,13 @@ void HfpExecCmd(BTUINT8 choice)
 		HfpAGShowMenu();
 		while (ch != 'r')
 		{
+<<<<<<< HEAD
 			scanf(" %c", &ch);
 			getchar();		
+=======
+			AppWaitForInput(&ch, 1);
+		
+>>>>>>> refs/remotes/origin/master
 			if (ch == '\n')
 			{
 				printf(">>");
@@ -764,8 +1036,13 @@ void HfpExecCmd(BTUINT8 choice)
 		HfpAPShowMenu();
 		while (ch != 'r')
 		{
+<<<<<<< HEAD
 			scanf(" %c", &ch);
 			getchar();		
+=======
+			AppWaitForInput(&ch, 1);
+		
+>>>>>>> refs/remotes/origin/master
 			if (ch == '\n')
 			{
 				printf(">>");
@@ -840,8 +1117,13 @@ void TestHfpFunc(void)
 	HfpShowMenu();	
 	while (ch != 'r')
 	{
+<<<<<<< HEAD
 		scanf(" %c", &ch);
 		getchar();		
+=======
+		AppWaitForInput(&ch, 1);
+		
+>>>>>>> refs/remotes/origin/master
 		if (ch == '\n')
 		{
 			printf(">>");

@@ -72,4 +72,12 @@ BTSVCHDL SelectLocService(void);
 void OppServerReceiveFileInd(BTUINT8 *pFilePathName);
 
 void PrintErrorMessage(BTUINT32 err_code, BTUINT8 is_ptr);
+<<<<<<< HEAD
+=======
+int AppWaitForInput(char *out_str, int str_size);
+BTUINT32 AppWaitForInputInt(BTUINT32 *outp);
+BTUINT16 AppWaitForInputSFloat(BTUINT16 *outp);
+BTUCHAR *SFloatToString(BTUINT16 data,BTUCHAR *out_str);
+
+>>>>>>> refs/remotes/origin/master
 #endif

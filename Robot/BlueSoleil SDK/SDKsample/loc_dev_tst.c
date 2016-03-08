@@ -34,7 +34,12 @@ void Test_Btsdk_SetLocalName(void)
     
 	printf("Please input a string of which length is smaller than BTSDK_DEVNAME_LEN as the local device's name.\n");
 	printf("Local Name = ");
+<<<<<<< HEAD
 	scanf(" %s", szLocalDevName);
+=======
+	AppWaitForInput(szLocalDevName, BTSDK_DEVNAME_LEN);
+
+>>>>>>> refs/remotes/origin/master
 	usLen  = strlen(szLocalDevName) +1; 
 	ulRet = Btsdk_SetLocalName(szLocalDevName, usLen);
 	if (BTSDK_OK == ulRet)
@@ -69,7 +74,12 @@ void Test_Btsdk_SetDiscoveryMode(void)
 	printf("For example, Inputting 9 indicates 'GENERAL_DISCOVERABLE|PAIRABLE'.\n");
 	printf("             Inputting 5 indicates 'GENERAL_DISCOVERABLE|CONNECTABLE', and so on.\n");
 	printf("Your choice is: "); 
+<<<<<<< HEAD
 	scanf("%d", &usMode);
+=======
+	usMode = AppWaitForInputInt(NULL);
+
+>>>>>>> refs/remotes/origin/master
 	ulReturn = Btsdk_SetDiscoveryMode(usMode);
 	if (BTSDK_OK == ulReturn)
 	{
@@ -221,6 +231,33 @@ void Test_Print_Local_Info(void)
 	printf("\n");	
 }
 
+<<<<<<< HEAD
+=======
+typedef struct _GetLocalOOBDataOutStru
+{
+	BTUINT8 status;
+	BTUINT8 c_value[16];
+	BTUINT8 r_value[16];
+}GetLocalOOBDataOutStru, *PGetLocalOOBDataOutStru;
+
+void Test_Get_Local_OOB_Info()
+{
+	BTUINT32 event_len = sizeof(GetLocalOOBDataOutStru);
+	GetLocalOOBDataOutStru oob = {0};
+	Btsdk_ExecuteHCICommandEx(IDX_READ_LOCAL_OOBDATA_CMD, 0, NULL, event_len, &oob);
+	if (oob.status == 0)
+	{
+		//User please save the OOB data to some place. And transfer to the remote device with other
+		//media. During simple pair, if the remote device declare had got local device's OOB data, it should
+		//handle the BTSDK_REM_OOBDATA_REQ_IND event.
+		printf("+++++ Read Local OOB Data Command succeed.\n");
+	}
+	else
+	{
+		printf("+++++ Read Local OOB Data Command failure, error code: %d\n", oob.status);
+	}
+}
+>>>>>>> refs/remotes/origin/master
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Description:
@@ -238,6 +275,10 @@ void LocDevShowMenu()
 	printf("* <3> Set the local device's class      *\n");
 	printf("* <4> Get local LMP Info                *\n");
 	printf("* <5> Print the local device's Info     *\n");
+<<<<<<< HEAD
+=======
+	printf("* <6> Get local device OOB data info    *\n");
+>>>>>>> refs/remotes/origin/master
 	printf("* <r> Return to the upper menu          *\n");
 	printf("*****************************************\n");
 	printf(">");
@@ -271,6 +312,12 @@ void LocDevExecCmd(BTUINT8 choice)
 		case '5':
 			Test_Print_Local_Info();
 			break;
+<<<<<<< HEAD
+=======
+		case '6':
+			Test_Get_Local_OOB_Info();
+			break;
+>>>>>>> refs/remotes/origin/master
 		default:
 			printf("Invalid command.\n");
 			break;
@@ -292,8 +339,13 @@ void TestLocDevMgr(void)
 	LocDevShowMenu();
 	while (ucChoice != 'r')
 	{
+<<<<<<< HEAD
 		scanf(" %c", &ucChoice);
 		getchar();		
+=======
+		AppWaitForInput(&ucChoice, 1);
+
+>>>>>>> refs/remotes/origin/master
 		if (ucChoice == '\n')
 		{
 			printf(">>");

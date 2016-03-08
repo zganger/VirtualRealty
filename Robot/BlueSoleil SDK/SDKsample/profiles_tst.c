@@ -31,13 +31,26 @@ void ProfilesTestShowMenu(void)
 {
    	printf("*****************************************\n");
 	printf("*         Profile Testing Menu          *\n");
+<<<<<<< HEAD
 	printf("* <1> AVRCP & A2DP Profile              *\n");
+=======
+	printf("* <1> A2DP Profile                      *\n");
+>>>>>>> refs/remotes/origin/master
 	printf("* <2> FTP Profile                       *\n");
 	printf("* <3> OPP Profile                       *\n");
 	printf("* <4> PAN Profile                       *\n");
 	printf("* <5> HFP/HSP Profile                   *\n");
 	printf("* <6> SPP Profile                       *\n");
 	printf("* <7> HID Profile                       *\n");
+<<<<<<< HEAD
+=======
+	printf("* <8> Local SPP Service                 *\n");
+	printf("* <9> PBAP profile                      *\n");
+	printf("* <a> MAP profile                       *\n");
+	printf("* <b> GATT profile                      *\n");
+	printf("* <c> AVRCP profile                     *\n");
+	printf("* <d> GATT Server                       *\n");
+>>>>>>> refs/remotes/origin/master
 	printf("* <r> Return to the upper menu          *\n");
 	printf("*****************************************\n");
 	printf(">");
@@ -105,6 +118,27 @@ void ProfilesMgrExc(BTUINT8 chChoice)
 		case '7':
 			TestHidFunc();
 			break;
+<<<<<<< HEAD
+=======
+		case '8':
+			TestLocalSPPServiceFunc();
+			break;
+		case '9':
+			TestPBAPFunc();
+			break;	
+		case 'a':
+			TestMAPFunc();
+			break;
+		case 'b':
+			TestGATT();
+			break;
+		case 'c':
+			TestAVRCPFunc();
+			break;
+		case 'd':
+			TestGATTServerFunc();
+			break;
+>>>>>>> refs/remotes/origin/master
 		default:
 			printf("Invalid command.\n");
 			break;
@@ -124,8 +158,13 @@ void TestProfiles(void)
 	ProfilesTestShowMenu();
 	while (ucChoice != 'r')
 	{
+<<<<<<< HEAD
 		scanf(" %c", &ucChoice);
 		getchar();
+=======
+		AppWaitForInput(&ucChoice, 1);
+
+>>>>>>> refs/remotes/origin/master
 		if ('\n' == ucChoice)
 		{
 			printf(">>");

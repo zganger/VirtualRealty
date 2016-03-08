@@ -218,8 +218,12 @@ BTINT32 SelectFileNumFromList(BTCONNHDL hConnHdl)
 	do
 	{
 		printf("Target number = ");
+<<<<<<< HEAD
 		scanf(" %s", szChoice);
 		getchar();
+=======
+		AppWaitForInput(szChoice, 8);
+>>>>>>> refs/remotes/origin/master
 
 		if (('q' == szChoice[0]) || ('Q' == szChoice[0]))
 		{
@@ -332,11 +336,20 @@ void FTPExecCmd(BTUINT8 chChoice)
 		printf("Do you want to create another working directory? \n");
 		printf("Enter 'y' for yes, while others for no.\n");
 		printf("Your choice is:");
+<<<<<<< HEAD
 		scanf(" %s",szChoice);
 		if (('y' == szChoice[0]) || ('Y' == szChoice[0]))
 		{
 			printf("Create directory in remote device:");
 			scanf("%s",szNewFolder);
+=======
+		AppWaitForInput(szChoice, 8);
+
+		if (('y' == szChoice[0]) || ('Y' == szChoice[0]))
+		{
+			printf("Create directory in remote device:");
+			AppWaitForInput(szNewFolder, 256);
+>>>>>>> refs/remotes/origin/master
 			strcat(s_szRemoteCurrentDir, szNewFolder);
 			iErrorCode = Btsdk_FTPCreateDir(s_currFTPConnHdl, s_szRemoteCurrentDir);	
 			Btsdk_FTPSetRmtDir(s_currFTPConnHdl, s_szRemoteCurrentDir);
@@ -407,7 +420,11 @@ void FTPExecCmd(BTUINT8 chChoice)
 		/* register the status callback function */
 		ZeroMemory(ucCurrentLocalPath, strlen(ucCurrentLocalPath));
 		printf("Please input the path < e.g. c:\\ > where you want to save:");
+<<<<<<< HEAD
 		scanf("%s",szSavePath);
+=======
+		AppWaitForInput(szSavePath, 256);
+>>>>>>> refs/remotes/origin/master
 		strcpy(ucCurrentLocalPath, szSavePath);
 		strcat(ucCurrentLocalPath, rmtFileInfoStru[s_CurrentSelectNum].ucFileName);
 		strcpy(ucCurrentRemoteFolder, rmtFileInfoStru[s_CurrentSelectNum].ucFileName);
@@ -434,7 +451,12 @@ void FTPExecCmd(BTUINT8 chChoice)
 	case '5':  /*put one file or folder to the remote server */
 		ZeroMemory(ucCurrentLocalPath, strlen(ucCurrentLocalPath));
 		printf("please input the path of file/folder which you want to put:");
+<<<<<<< HEAD
 		scanf("%s",ucCurrentLocalPath);
+=======
+		AppWaitForInput(ucCurrentLocalPath, 256);
+
+>>>>>>> refs/remotes/origin/master
  		hFile = FindFirstFile(ucCurrentLocalPath,&pFindData);
 		/* register the status callback function */
 		Btsdk_FTPRegisterStatusCallback4ThirdParty(s_currFTPConnHdl, FTPStatusCallback);
@@ -492,7 +514,12 @@ void FTPExecCmd(BTUINT8 chChoice)
 		printf("The current folder you are browsing is %s\n", s_szRemoteCurrentDir);
 		printf("Return to upper directory enter 'u',others return to root directory.\n");
 		printf("Your choice is:");
+<<<<<<< HEAD
 		scanf("%s",szChoice);
+=======
+		AppWaitForInput(szChoice, 10);
+
+>>>>>>> refs/remotes/origin/master
 		if (('U' == szChoice[0]) || ('u' == szChoice[0]))
 		{
 			Btsdk_FTPBackDir(s_currFTPConnHdl);
@@ -540,8 +567,13 @@ void TestFTPFunc(void)
 	FTPTestShowMenu();
 	while (ch != 'r')
 	{
+<<<<<<< HEAD
 		scanf(" %c", &ch);
 		getchar();		
+=======
+		AppWaitForInput(&ch, 1);
+		
+>>>>>>> refs/remotes/origin/master
 		if (ch == '\n')
 		{
 			printf(">>");
@@ -677,8 +709,13 @@ void TestOPPFunc(void)
 	OPPTestShowMenu();	
 	while (ch != 'r')
 	{
+<<<<<<< HEAD
 		scanf(" %c", &ch);
 		getchar();		
+=======
+		AppWaitForInput(&ch, 1);
+		
+>>>>>>> refs/remotes/origin/master
 		if (ch == '\n')
 		{
 			printf(">>");

@@ -136,8 +136,13 @@ BTSVCHDL SelectRemoteService(BTDEVHDL hDevHdl)
 	do
 	{
 		printf("Target service number = ");
+<<<<<<< HEAD
 		scanf(" %s", szChoice);
 		getchar();
+=======
+		AppWaitForInput(szChoice, 4);
+
+>>>>>>> refs/remotes/origin/master
 		if ('a' == szChoice[0])
 		{
 			BrowseAndDisplayRemoteSvc(hDevHdl);		

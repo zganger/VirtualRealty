@@ -29,6 +29,10 @@
 
 typedef char BTINT8;
 typedef unsigned char BTUINT8;
+<<<<<<< HEAD
+=======
+typedef unsigned char BTUCHAR; /* extended ASII character, 0 - 255 */
+>>>>>>> refs/remotes/origin/master
 typedef unsigned char BTBOOL;
 typedef short BTINT16;
 typedef unsigned short BTUINT16;
@@ -191,6 +195,45 @@ typedef BTUINT32 BTSDKHANDLE;
 #define BTSDK_ER_DATABASE_FULL									(BTSDK_ER_OBEX_INDEX + 0x00E0)
 #define BTSDK_ER_DATABASE_LOCK									(BTSDK_ER_OBEX_INDEX + 0x00E1)
 
+<<<<<<< HEAD
+=======
+/* Serial wrap error*/ 
+#define BTSDK_ER_SWRAPINDX										0X0700
+#define BTSDK_ER_COM_INUSED										(BTSDK_ER_SWRAPINDX + 0x0001)
+#define BTSDK_ER_COM_OPENNOTCOMPLETED							(BTSDK_ER_SWRAPINDX + 0x0002)
+
+/* ATT & BLE Profiles error */ 
+/* ATT Common Errors */
+#define BTSDK_ER_BLE_INDEX										0X0800
+#define BTSDK_ER_ATT_INVALID_HANDLE								(BTSDK_ER_BLE_INDEX + 0x0001)
+#define BTSDK_ER_ATT_READ_NOT_PERMITTED							(BTSDK_ER_BLE_INDEX + 0x0002)
+#define BTSDK_ER_ATT_WRITE_NOT_PERMITTED						(BTSDK_ER_BLE_INDEX + 0x0003)
+#define BTSDK_ER_ATT_INVALID_PDU        						(BTSDK_ER_BLE_INDEX + 0x0004)
+#define BTSDK_ER_ATT_INSUFFICIENT_AUTHENTICATION        		(BTSDK_ER_BLE_INDEX + 0x0005)
+#define BTSDK_ER_ATT_REQUEST_NOT_SUPPORTED              		(BTSDK_ER_BLE_INDEX + 0x0006)
+#define BTSDK_ER_ATT_INVALID_OFFSET                       		(BTSDK_ER_BLE_INDEX + 0x0007)
+#define BTSDK_ER_ATT_INSUFFICIENT_AUTHORIZATION                 (BTSDK_ER_BLE_INDEX + 0x0008)
+#define BTSDK_ER_ATT_PREPARE_QUEUE_FULL                         (BTSDK_ER_BLE_INDEX + 0x0009)
+#define BTSDK_ER_ATT_ATTRIBUTE_NOT_FOUND                        (BTSDK_ER_BLE_INDEX + 0x000A)
+#define BTSDK_ER_ATT_ATTRIBUTE_NOT_LONG                         (BTSDK_ER_BLE_INDEX + 0x000B)
+#define BTSDK_ER_ATT_INSUFFICIENT_ENCRYPTION_KEYSIZE            (BTSDK_ER_BLE_INDEX + 0x000C)
+#define BTSDK_ER_ATT_INVALID_ATTRIBUTE_VALUE_LENGTH             (BTSDK_ER_BLE_INDEX + 0x000D)
+#define BTSDK_ER_ATT_UNLIKELY_ERROR                             (BTSDK_ER_BLE_INDEX + 0x000E)
+#define BTSDK_ER_ATT_INSUFFICIENT_ENCRYPTION                    (BTSDK_ER_BLE_INDEX + 0x000F)
+#define BTSDK_ER_ATT_UNSUPPORTED_GROUPTYPE                      (BTSDK_ER_BLE_INDEX + 0x0010)
+#define BTSDK_ER_ATT_INSUFFICIENT_RESOURCES                     (BTSDK_ER_BLE_INDEX + 0x0011)
+/* CSS V2 */
+#define BTSDK_ER_ATT_CCC_IMPROPERLY_CONFIGURED                  (BTSDK_ER_BLE_INDEX + 0x00FD)
+#define BTSDK_ER_ATT_PROCEDURE_ALREADY_IN_PROGRESS              (BTSDK_ER_BLE_INDEX + 0x00FE)
+#define BTSDK_ER_ATT_OUT_OF_RANGE                               (BTSDK_ER_BLE_INDEX + 0x00FF)
+/* Private Errors - For reference only. The actual meaning may be changed by different server implementations */
+#define BTSDK_ER_ATT_SMP_FAILED                                 (BTSDK_ER_BLE_INDEX + 0x00E9)
+#define BTSDK_ER_ATT_TASK_CANCEL                                (BTSDK_ER_BLE_INDEX + 0x00EB)
+#define BTSDK_ER_ATT_BTSTACK_RELEASED                           (BTSDK_ER_BLE_INDEX + 0x00EC)
+#define BTSDK_ER_ATT_TL_CONNECT_FAILED                          (BTSDK_ER_BLE_INDEX + 0x00ED)
+#define BTSDK_ER_ATT_RESPONSE_TIMEOUT                           (BTSDK_ER_BLE_INDEX + 0x00EE)
+
+>>>>>>> refs/remotes/origin/master
 /* Class of Device */
 /*major service classes*/
 #define BTSDK_SRVCLS_LDM						0x002000     /* Limited Discoverable Mode */
@@ -378,9 +421,94 @@ typedef BTUINT32 BTSDKHANDLE;
 /* AVRCP TG specific event. */
 #define BTSDK_APP_EV_AVTG_BASE							BTSDK_APP_EV_AVRCP_BASE
 #define BTSDK_APP_EV_AVTG_ATTACHPLAYER_IND				(BTSDK_APP_EV_AVTG_BASE + 0x01)
+<<<<<<< HEAD
 #define BTSDK_APP_EV_AVRCP_DETACHPLAYER_IND 			(BTSDK_APP_EV_AVTG_BASE + 0x03)
 #define BTSDK_APP_EV_AVRCP_IND_CONN 					BTSDK_APP_EV_AVTG_ATTACHPLAYER_IND
 #define BTSDK_APP_EV_AVRCP_IND_DISCONN 					BTSDK_APP_EV_AVRCP_DETACHPLAYER_IND
+=======
+#define BTSDK_APP_EV_AVRCP_IND_CONN_CFM					(BTSDK_APP_EV_AVTG_BASE + 0x02)
+#define BTSDK_APP_EV_AVRCP_DETACHPLAYER_IND 			(BTSDK_APP_EV_AVTG_BASE + 0x03)
+#define BTSDK_APP_EV_AVRCP_PASSTHROUGH_IND 				(BTSDK_APP_EV_AVTG_BASE + 0x06)
+#define BTSDK_APP_EV_AVRCP_VENDORDEP_IND 				(BTSDK_APP_EV_AVTG_BASE + 0x07)
+#define BTSDK_APP_EV_AVRCP_IND_CONN 					BTSDK_APP_EV_AVTG_ATTACHPLAYER_IND
+#define BTSDK_APP_EV_AVRCP_IND_DISCONN 					BTSDK_APP_EV_AVRCP_DETACHPLAYER_IND
+#define BTSDK_APP_EV_AVRCP_METADATA_IND                 (BTSDK_APP_EV_AVTG_BASE + 0x0d)
+#define BTSDK_APP_EV_AVRCP_GROUPNAV_IND                 (BTSDK_APP_EV_AVTG_BASE + 0x0f)
+
+/*AVRCP CT specific event. */
+#define BTSDK_APP_EV_AVCT_BASE							BTSDK_APP_EV_AVRCP_BASE
+#define BTSDK_APP_EV_AVRCP_UNITINFO_RSP					(BTSDK_APP_EV_AVCT_BASE + 0x08)
+#define BTSDK_APP_EV_AVRCP_SUBUNITINFO_RSP				(BTSDK_APP_EV_AVCT_BASE + 0x09)
+#define BTSDK_APP_EV_AVRCP_PASSTHROUGH_RSP				(BTSDK_APP_EV_AVCT_BASE + 0x0a)
+#define BTSDK_APP_EV_AVRCP_VENDORDEP_RSP				(BTSDK_APP_EV_AVCT_BASE + 0x0b)
+#define BTSDK_APP_EV_AVRCP_METADATA_RSP				    (BTSDK_APP_EV_AVCT_BASE + 0x0c)
+#define BTSDK_APP_EV_AVRCP_GROUPNAV_RSP				    (BTSDK_APP_EV_AVCT_BASE + 0x0e)
+
+/* AVRCP CT change notification events */
+#define BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE						    (BTSDK_APP_EV_AVRCP_BASE + 0x80)
+#define BTSDK_APP_EV_AVRCP_PLAYBACK_STATUS_CHANGED_NOTIF			(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x01)
+#define BTSDK_APP_EV_AVRCP_TRACK_CHANGED_NOTIF						(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x02)
+#define BTSDK_APP_EV_AVRCP_TRACK_REACHED_END_NOTIF					(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x03)
+#define BTSDK_APP_EV_AVRCP_TRACK_REACHED_START_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x04)
+#define BTSDK_APP_EV_AVRCP_PLAYBACK_POS_CHANGED_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x05)
+#define BTSDK_APP_EV_AVRCP_BATT_STATUS_CHANGED_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x06)
+#define BTSDK_APP_EV_AVRCP_SYSTEM_STATUS_CHANGED_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x07)
+#define BTSDK_APP_EV_AVRCP_PLAYER_APPLICATION_SETTING_CHANGED_NOTIF	(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x08)
+#define BTSDK_APP_EV_AVRCP_NOW_PLAYING_CONTENT_CHANGED_NOTIF		(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x09)
+#define BTSDK_APP_EV_AVRCP_AVAILABLE_PLAYERS_CHANGED_NOTIF			(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0A)
+#define BTSDK_APP_EV_AVRCP_ADDRESSED_PLAYER_CHANGED_NOTIF			(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0B)
+#define BTSDK_APP_EV_AVRCP_UIDS_CHANGED_NOTIF						(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0C)
+#define BTSDK_APP_EV_AVRCP_VOLUME_CHANGED_NOTIF						(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0D)
+
+/* AVRCP TG AV/C & Browsing specific event */
+#define BTSDK_APP_EV_AVRCP_TG_METAIND_BASE							0xC00
+#define BTSDK_APP_EV_AVRCP_GET_CAPABILITIES_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x10)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_ATTR_IND 			(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x11)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_VALUES_IND			(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x12)
+#define BTSDK_APP_EV_AVRCP_GET_CURRENTPLAYER_SETTING_VALUE_IND		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x13)
+#define BTSDK_APP_EV_AVRCP_SET_CURRENTPLAYER_SETTING_VALUE_IND		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x14)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_ATTR_TEXT_IND 		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x15)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_VALUE_TEXT_IND		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x16)
+#define BTSDK_APP_EV_AVRCP_INFORM_CHARACTERSET_IND	 				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x17)
+#define BTSDK_APP_EV_AVRCP_INFORM_BATTERYSTATUS_OF_CT_IND			(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x18)
+#define BTSDK_APP_EV_AVRCP_GET_ELEMENT_ATTR_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x20)
+#define BTSDK_APP_EV_AVRCP_GET_PLAY_STATUS_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x30)
+#define BTSDK_APP_EV_AVRCP_REGISTER_NOTIFICATION_IND				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x31)
+#define BTSDK_APP_EV_AVRCP_SET_ABSOLUTE_VOLUME_IND	 				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x50)
+#define BTSDK_APP_EV_AVRCP_SET_ADDRESSED_PLAYER_IND	 				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x60)
+#define BTSDK_APP_EV_AVRCP_SET_BROWSED_PLAYER_IND					(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x70)
+#define BTSDK_APP_EV_AVRCP_GET_FOLDER_ITEMS_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x71)
+#define BTSDK_APP_EV_AVRCP_CHANGE_PATH_IND							(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x72)
+#define BTSDK_APP_EV_AVRCP_GET_ITEM_ATTRIBUTES_IND					(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x73)
+#define BTSDK_APP_EV_AVRCP_PLAY_ITEM_IND							(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x74)
+#define BTSDK_APP_EV_AVRCP_SEARCH_IND								(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x80)
+#define BTSDK_APP_EV_AVRCP_ADDTO_NOWPLAYING_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x90)
+#define BTSDK_APP_EV_AVRCP_GENERAL_REJECT_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0xA0)
+
+/* AVRCP CT AV/C & Browsing specific event */
+#define BTSDK_APP_EV_AVRCP_CT_METARSP_BASE							0xD00
+#define BTSDK_APP_EV_AVRCP_GET_CAPABILITIES_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x10)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_ATTR_RSP 			(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x11)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_VALUES_RSP			(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x12)
+#define BTSDK_APP_EV_AVRCP_GET_CURRENTPLAYER_SETTING_VALUE_RSP		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x13)
+#define BTSDK_APP_EV_AVRCP_SET_CURRENTPLAYER_SETTING_VALUE_RSP		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x14)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_ATTR_TEXT_RSP 		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x15)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_VALUE_TEXT_RSP		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x16)
+#define BTSDK_APP_EV_AVRCP_INFORM_CHARACTERSET_RSP	 				(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x17)
+#define BTSDK_APP_EV_AVRCP_INFORM_BATTERYSTATUS_OF_CT_RSP			(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x18)
+#define BTSDK_APP_EV_AVRCP_GET_ELEMENT_ATTR_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x20)
+#define BTSDK_APP_EV_AVRCP_GET_PLAY_STATUS_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x30)
+#define BTSDK_APP_EV_AVRCP_SET_ABSOLUTE_VOLUME_RSP	 				(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x50)
+#define BTSDK_APP_EV_AVRCP_SET_ADDRESSED_PLAYER_RSP	 				(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x60)
+#define BTSDK_APP_EV_AVRCP_SET_BROWSED_PLAYER_RSP					(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x70)
+#define BTSDK_APP_EV_AVRCP_GET_FOLDER_ITEMS_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x71)
+#define BTSDK_APP_EV_AVRCP_CHANGE_PATH_RSP							(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x72)
+#define BTSDK_APP_EV_AVRCP_GET_ITEM_ATTRIBUTES_RSP					(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x73)
+#define BTSDK_APP_EV_AVRCP_PLAY_ITEM_RSP							(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x74)
+#define BTSDK_APP_EV_AVRCP_SEARCH_RSP								(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x80)
+#define BTSDK_APP_EV_AVRCP_ADDTO_NOWPLAYING_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x90)
+#define BTSDK_APP_EV_AVRCP_GENERAL_REJECT_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0xA0)
+>>>>>>> refs/remotes/origin/master
 
 /* BRSF feature mask ID for AG*/
 #define BTSDK_AG_BRSF_3WAYCALL         			0x00000001 /* Three-way calling */
@@ -483,6 +611,15 @@ enum BTSDK_HFP_APP_EventCodeEnum {
 	BTSDK_HFP_EV_SPP_ESTABLISHED_IND,				/* SPP connection created. Parameter: Btsdk_HFP_ConnInfoStru. added 2008-7-3 */
 	BTSDK_HFP_EV_HF_MANUFACTURERID_IND,				/* ManufacturerID indication. Parameter: BTUINT8* - Manufacturer ID of the AG device, a null-terminated ASCII string. */
 	BTSDK_HFP_EV_HF_MODELID_IND,						/* ModelID indication.  Parameter: BTUINT8* - Model ID of the AG device, a null-terminated ASCII string. */
+<<<<<<< HEAD
+=======
+
+	BTSDK_HFP_EV_HF_RECV_RING_IND,				    /* +RING received, play ring tone if possible, otherwise ignored. Parameter: BTUINT8 - 1 if AG supports in-band ring tone; 0 otherwise. */
+	BTSDK_HFP_EV_HF_RECV_CIEV_CALL_IND, 		    /* +CIEV (call, callsetup, or callheld indicator) received. Parameter: BTUINT8* - indicator value(call - 10 + (0, 1); callsetup - 20 + (0, 1, 2, 3); callheld - 30 + (0, 1, 2)). */
+	BTSDK_HFP_EV_BTRH_QUERY_REQ = BTSDK_APP_EV_AGAP_BASE + 67	/* AT+BTRH? received, HF query the status of the "Response and Hold" state of the AG.
+																Parameter: BTUINT8* to return the current state: 0 - No incoming call on hold; 1 - The incoming call is on hold;
+																Other values to respond later with Btsdk_AGAP_SetCurIndicatorVal */
+>>>>>>> refs/remotes/origin/master
 };
 
 /* AG Action Reason */
@@ -555,6 +692,12 @@ enum BTSDK_HFP_APP_EventCodeEnum {
 /* Possible roles for member 'role' in _BtSdkConnectionPropertyStru */
 #define BTSDK_CONNROLE_INITIATOR				0x2
 #define BTSDK_CONNROLE_ACCEPTOR					0x1
+<<<<<<< HEAD
+=======
+/* Definitions for Compatibility */
+#define BTSDK_CONNROLE_CLIENT					0x2
+#define BTSDK_CONNROLE_SERVER					0x1
+>>>>>>> refs/remotes/origin/master
 
 /* Possible op_type member of Btsdk_FTPBrowseFolder */
 #define FTP_OP_REFRESH	0
@@ -567,8 +710,43 @@ enum BTSDK_HFP_APP_EventCodeEnum {
 #define BTSDK_CONNECTION_EVENT_IND  	0x09
 #define BTSDK_PIN_CODE_IND              0x00
 #define BTSDK_AUTHORIZATION_IND         0x06  
+<<<<<<< HEAD
 #define BTSDK_LINK_KEY_NOTIF_IND		0x02
 #define BTSDK_AUTHENTICATION_FAIL_IND  	0x03
+=======
+#define BTSDK_LINK_KEY_REQ_IND			0x01
+#define BTSDK_LINK_KEY_NOTIF_IND		0x02
+#define BTSDK_AUTHENTICATION_FAIL_IND  	0x03
+/*BT2.1 Supported indication*/
+#define BTSDK_IOCAP_REQ_IND				0x0C
+#define BTSDK_USR_CFM_REQ_IND           0x0D
+#define BTSDK_PASSKEY_REQ_IND           0x0E
+#define BTSDK_REM_OOBDATA_REQ_IND       0x0F
+#define BTSDK_PASSKEY_NOTIF_IND         0x10
+#define BTSDK_SIMPLE_PAIR_COMPLETE_IND  0x11
+#define BTSDK_OBEX_AUTHEN_REQ_IND       0x12	
+
+#define BTSDK_VENDOR_EVENT_IND			0x0B
+#define BTSDK_CONNECTION_COMPLETE_IND	0x08
+#define BTSDK_DISCONNECTION_COMPLETE_IND 0x17
+#define BTSDK_DEVICE_FOUND_IND			0x19
+
+/* if: BT2.1 Supported */
+/* Possible IO capabilities */
+#define BTSDK_IOCAP_DISPLAY_ONLY    0x00
+#define BTSDK_IOCAP_DISPLAY_YESNO   0x01
+#define BTSDK_IOCAP_KB_ONLY         0x02
+#define BTSDK_IOCAP_NOIO            0x03
+
+/* Possible Authentication Requirements */
+#define BTSDK_NO_MITM_PROTECTION    0x00
+#define BTSDK_WITH_MITM_PROTECTION  0x01
+
+#define IDX_READ_LOCAL_OOBDATA_CMD		132
+/* endif: BT2.1 Supported */
+
+
+>>>>>>> refs/remotes/origin/master
 
 /* Discovery Mode for Btsdk_SetDiscoveryMode() and Btsdk_GetDiscoveryMode() */
 #define BTSDK_GENERAL_DISCOVERABLE				0x01
@@ -712,6 +890,59 @@ enum BTSDK_HFP_APP_EventCodeEnum {
 #define BTSDK_HFP_TYPE_OUTGOING_CALL				0x04 /* (Release) the outgoing call */
 #define BTSDK_HFP_TYPE_ONGOING_CALL					0x05 /* (Release) the ongoing call */
 
+<<<<<<< HEAD
+=======
+/* HF Send AT Commands to AG, AG Receive Commands, Command Code Group Mask */
+#define BTSDK_HFP_CMD_GROUP1           0x8000 		/* AT Command will response directly by OK */
+#define BTSDK_HFP_CMD_GROUP2           0x4000 		/* AT Command will response result 1st, then OK */
+#define BTSDK_HFP_CMD_PARAM            0x1000 		/* AT Command param exist or not bit-mask */
+#define BTSDK_HFP_CMD_GROUPMASK        (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_GROUP2)
+/* HF AT Commands Group for SLC Establish Procedure */
+#define BTSDK_HFP_CMD_BRSF             (BTSDK_HFP_CMD_GROUP2 | BTSDK_HFP_CMD_PARAM | 0x10)	/* AT+BRSF=<value> */
+#define BTSDK_HFP_CMD_CIND_T  	       (BTSDK_HFP_CMD_GROUP2 | 0x11)	   					/* AT+CIND=? */
+#define BTSDK_HFP_CMD_CIND_R  	       (BTSDK_HFP_CMD_GROUP2 | 0x12)	   					/* AT+CIND? */
+#define BTSDK_HFP_CMD_CMER             (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x20)	/* AT+CMER=3,0,0,1 */
+#define BTSDK_HFP_CMD_CHLD_T           (BTSDK_HFP_CMD_GROUP2 | 0x13)						/* AT+CHLD=? */
+/* HF AT Commands Group1 */
+#define BTSDK_HFP_CMD_COPS_SET_FORMAT  (BTSDK_HFP_CMD_GROUP1 | 0x01)     					/* AT+COPS=3,0 Set name format to long alphanumeric */
+#define BTSDK_HFP_CMD_CCWA_ACTIVATE    (BTSDK_HFP_CMD_GROUP1 | 0x02)     					/* AT+CCWA=1 Call waiting notification Activation */
+#define BTSDK_HFP_CMD_CMEE  		   (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x03)  /* AT+CMEE= Enable the use of result code +CME ERROR: <err> */
+#define BTSDK_HFP_CMD_CLIP             (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x04) 	/* AT+CLIP= Calling Line Identification Presentation */
+#define BTSDK_HFP_CMD_BVRA_ENABLE      (BTSDK_HFP_CMD_GROUP1 | 0x05)     					/* AT+BVRA=1 Voice Recognition Activation */
+#define BTSDK_HFP_CMD_BVRA_DISABLE     (BTSDK_HFP_CMD_GROUP1 | 0x06)     					/* AT+BVRA=0 Voice Recognition Deactivation */
+#define BTSDK_HFP_CMD_VTS              (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x07)	/* AT+VTS= DTMF code */
+#define BTSDK_HFP_CMD_VGS              (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x08)  /* AT+VGS= Set speaker volume */
+#define BTSDK_HFP_CMD_VGM 	           (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x09)  /* AT+VGM= Set microphone volume */
+#define BTSDK_HFP_CMD_NREC             (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x0a)  /* AT+NREC= Noise Reduction & Echo Canceling */
+#define BTSDK_HFP_CMD_CHLD_0  	       (BTSDK_HFP_CMD_GROUP1 | 0x0b)						/* AT+CHLD=0 Held Call Release */
+#define BTSDK_HFP_CMD_CHLD_1 		   (BTSDK_HFP_CMD_GROUP1 | 0x0c)						/* AT+CHLD=1 Release Specified Active Call */
+#define BTSDK_HFP_CMD_CHLD_2 		   (BTSDK_HFP_CMD_GROUP1 | 0x0d)						/* AT+CHLD=2 Call Held or Active/Held Position Swap */
+#define BTSDK_HFP_CMD_CHLD_3 		   (BTSDK_HFP_CMD_GROUP1 | 0x0e)						/* AT+CHLD=3 Adds a held call to the conversation */
+#define BTSDK_HFP_CMD_CHLD_4 		   (BTSDK_HFP_CMD_GROUP1 | 0x0f)						/* AT+CHLD=4 Connects the two calls and disconnects the subscriber from both calls */
+#define BTSDK_HFP_CMD_CANCELCALL       (BTSDK_HFP_CMD_GROUP1 | 0x10)     					/* AT+CHUP Reject the Incoming Call or Terminate the Outgoing Call or Release the Ongoing Call */
+#define BTSDK_HFP_CMD_ANSWERCALL       (BTSDK_HFP_CMD_GROUP1 | 0x11)     					/* ATA, Answer the Incoming Call */
+#define BTSDK_HFP_CMD_DIAL             (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x12)  /* ATD, Dial the specific phone number */
+#define BTSDK_HFP_CMD_MEMDIAL          (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x13)  /* ATD>, Dial the phone number indexed by the specific memory location */
+#define BTSDK_HFP_CMD_BLDN             (BTSDK_HFP_CMD_GROUP1 | 0x14)     					/* AT+BLDN, Redial the Last Dialed Phone Number */
+#define BTSDK_HFP_CMD_CKPD             (BTSDK_HFP_CMD_GROUP1 | 0x15)						/* AT+CKPD=200, It is used for Headset  */
+#define BTSDK_HFP_CMD_CKPD_REJ_CALL    (BTSDK_HFP_CMD_GROUP1 | 0x16)  					    /* AT+CKPD="e", It is used for Headset, used for reject call, it is not defined by HSP */
+#define BTSDK_HFP_CMD_BIA         	   (BTSDK_HFP_CMD_GROUP1 | 0x17) 						/* AT+BIA=x,x,x,x,x Indicators Activation and Deactivation */
+#define BTSDK_HFP_CMD_BCC         	   (BTSDK_HFP_CMD_GROUP1 | 0x21) 						/* AT+BCC, Bluetooth Codec Connection */
+#define BTSDK_HFP_CMD_BCS         	   (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x22)  /* AT+BCS=, Bluetooth Codec Selection */
+#define BTSDK_HFP_CMD_BAC         	   (BTSDK_HFP_CMD_GROUP1 | BTSDK_HFP_CMD_PARAM | 0x23)  /* AT+BAC=, Bluetooth Available Codecs */
+/* HF AT Commands Group2 */
+#define BTSDK_HFP_CMD_COPS_READ  	   (BTSDK_HFP_CMD_GROUP2 | 0x01)     					/* AT+COPS? Find the currently selected operator */
+#define BTSDK_HFP_CMD_BINP             (BTSDK_HFP_CMD_GROUP2 | 0x02)     					/* AT+BINP=1 Bluetooth Input (attach a phone number to a voice tag) */
+#define BTSDK_HFP_CMD_BTRH_QUERY	   (BTSDK_HFP_CMD_GROUP2 | 0x03)     					/* AT+BTRH? Query the status of the Rsponse and Hold state of the AG. */
+#define BTSDK_HFP_CMD_BTRH    		   (BTSDK_HFP_CMD_GROUP2 | BTSDK_HFP_CMD_PARAM | 0x04) 	/* AT+BTRH=0 Put the incoming call on Hold. 1 Accept, 2 Reject */
+#define BTSDK_HFP_CMD_CNUM			   (BTSDK_HFP_CMD_GROUP2 | 0x07)     					/* AT+CNUM query the AG subscriber number information. */
+#define BTSDK_HFP_CMD_CLCC			   (BTSDK_HFP_CMD_GROUP2 | 0x08)     					/* AT+CLCC query the list of current calls in AG. */
+#define BTSDK_HFP_CMD_CGMI       	   (BTSDK_HFP_CMD_GROUP2 | 0x09)        				/* AT+CGMI Get the AG Manufacturer ID */
+#define BTSDK_HFP_CMD_CGMM             (BTSDK_HFP_CMD_GROUP2 | 0x0a)    					/* AT+CGMM Get the AG Model ID */
+
+#define BTSDK_HFP_EXTEND_CMD           0x88    /* Extended at-command, Both AG / HF use this */
+
+>>>>>>> refs/remotes/origin/master
 
 /*-----------------------------------------------------------------------------
 /* 					 CME Error Code and Standard Error Code for APP			 */
@@ -756,4 +987,545 @@ enum BTSDK_HFP_APP_EventCodeEnum {
 /*A2DP*/
 #define BTSDK_A2DP_AUDIOCARD_NAME_LEN      				0x80
 
+<<<<<<< HEAD
+=======
+/*Phone Book Access Profile*/
+#define BTSDK_PBAP_MAX_DELIMITER        0x02
+
+/* Possible values for member 'order' in _BtSdkPBAPParamStru */
+#define BTSDK_PBAP_ORDER_INDEXED		0x00
+#define BTSDK_PBAP_ORDER_NAME		    0x01
+#define BTSDK_PBAP_ORDER_PHONETIC	    0x02
+
+/* Possible flags for member 'mask' in _BtSdkPBAPParamStru */
+#define BTSDK_PBAP_PM_ORDER				0x0001
+#define BTSDK_PBAP_PM_SCHVALUE			0x0002
+#define BTSDK_PBAP_PM_SCHATTR			0x0004
+#define BTSDK_PBAP_PM_MAXCOUNT			0x0008
+#define BTSDK_PBAP_PM_LISTOFFSET		0x0010
+#define BTSDK_PBAP_PM_FILTER			0x0020
+#define BTSDK_PBAP_PM_FORMAT			0x0040
+#define BTSDK_PBAP_PM_PBSIZE			0x0080
+#define BTSDK_PBAP_PM_MISSEDCALLS		0x0100
+
+/* Possible values for member 'format' in _BtSdkPBAPParamStru */
+#define BTSDK_PBAP_FMT_VCARD21			0x00
+#define BTSDK_PBAP_FMT_VCARD30			0x01
+
+#define BTSDK_PBAP_REPO_LOCAL			0x01
+#define BTSDK_PBAP_REPO_SIM				0x02
+
+/* Filter bit mask supported by PBAP1.0. Possible values for parameter
+'flag' of Btsdk_PBAPFilterComposer. */
+#define BTSDK_PBAP_FILTER_VERSION				0x00
+#define BTSDK_PBAP_FILTER_FN					0x01
+#define BTSDK_PBAP_FILTER_N					    0x02
+#define BTSDK_PBAP_FILTER_PHOTO				    0x03
+#define BTSDK_PBAP_FILTER_BDAY					0x04
+#define BTSDK_PBAP_FILTER_ADR					0x05
+#define BTSDK_PBAP_FILTER_LABEL				    0x06
+#define BTSDK_PBAP_FILTER_TEL					0x07
+#define BTSDK_PBAP_FILTER_EMAIL				    0x08
+#define BTSDK_PBAP_FILTER_MAILER				0x09
+#define BTSDK_PBAP_FILTER_TZ					0x0A
+#define BTSDK_PBAP_FILTER_GEO					0x0B
+#define BTSDK_PBAP_FILTER_TITLE				    0x0C
+#define BTSDK_PBAP_FILTER_ROLE					0x0D
+#define BTSDK_PBAP_FILTER_LOGO					0x0E
+#define BTSDK_PBAP_FILTER_AGENT				    0x0F
+#define BTSDK_PBAP_FILTER_ORG					0x10
+#define BTSDK_PBAP_FILTER_NOTE					0x11
+#define BTSDK_PBAP_FILTER_REV					0x12
+#define BTSDK_PBAP_FILTER_SOUND				    0x13
+#define BTSDK_PBAP_FILTER_URL					0x14
+#define BTSDK_PBAP_FILTER_UID					0x15
+#define BTSDK_PBAP_FILTER_KEY					0x16
+#define BTSDK_PBAP_FILTER_NICKNAME				0x17
+#define BTSDK_PBAP_FILTER_CATEGORIES			0x18
+#define BTSDK_PBAP_FILTER_PROID					0x19
+#define BTSDK_PBAP_FILTER_CLASS					0x1A
+#define BTSDK_PBAP_FILTER_SORT_STRING			0x1B
+#define BTSDK_PBAP_FILTER_X_IRMC_CALL_DATETIME	0x1C
+#define BTSDK_PBAP_FILTER_PROPRIETARY_FILTER	0x27
+#define BTSDK_PBAP_FILTER_INVALID				0xFF
+
+//Local secure level
+/* Security Level */
+#define BTSDK_SSL_NO_SECURITY					0x00
+#define BTSDK_SSL_AUTHENTICATION				0x01
+#define BTSDK_SSL_AUTHORIZATION					0x02
+#define BTSDK_SSL_ENCRYPTION					0x04
+#define BTSDK_SSL_AUTHENTICATION_MITM           0x09    /* Authentication against MITM */
+#define BTSDK_DEFAULT_SECURITY					(BTSDK_SSL_AUTHORIZATION | BTSDK_SSL_AUTHENTICATION | BTSDK_SSL_ENCRYPTION)
+
+/* Authorization Method */
+#define BTSDK_AUTHORIZATION_ACCEPT				0x01
+#define BTSDK_AUTHORIZATION_REJECT				0x02
+#define BTSDK_AUTHORIZATION_PROMPT				0x03
+
+/* Trust Level */
+#define BTSDK_TRUSTED 							0x01
+#define BTSDK_UNTRUSTED							0x00
+
+/* Server Status */
+#define BTSDK_SERVER_STARTED					0x01
+#define BTSDK_SERVER_STOPPED					0x02
+#define BTSDK_SERVER_CONNECTED					0x03
+
+/* Security Mode */
+#define BTSDK_SECURITY_LOW						0x01
+#define BTSDK_SECURITY_MEDIUM					0x02
+#define BTSDK_SECURITY_HIGH						0x03
+#define BTSDK_SECURITY_ENCRYPT_MODE1			0x04
+
+/* AVRCP TG AV/C & Browsing specific event */
+#define BTSDK_APP_EV_AVRCP_TG_METAIND_BASE							0xC00
+#define BTSDK_APP_EV_AVRCP_GET_CAPABILITIES_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x10)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_ATTR_IND 			(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x11)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_VALUES_IND			(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x12)
+#define BTSDK_APP_EV_AVRCP_GET_CURRENTPLAYER_SETTING_VALUE_IND		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x13)
+#define BTSDK_APP_EV_AVRCP_SET_CURRENTPLAYER_SETTING_VALUE_IND		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x14)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_ATTR_TEXT_IND 		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x15)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_VALUE_TEXT_IND		(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x16)
+#define BTSDK_APP_EV_AVRCP_INFORM_CHARACTERSET_IND	 				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x17)
+#define BTSDK_APP_EV_AVRCP_INFORM_BATTERYSTATUS_OF_CT_IND			(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x18)
+#define BTSDK_APP_EV_AVRCP_GET_ELEMENT_ATTR_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x20)
+#define BTSDK_APP_EV_AVRCP_GET_PLAY_STATUS_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x30)
+#define BTSDK_APP_EV_AVRCP_REGISTER_NOTIFICATION_IND				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x31)
+#define BTSDK_APP_EV_AVRCP_SET_ABSOLUTE_VOLUME_IND	 				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x50)
+#define BTSDK_APP_EV_AVRCP_SET_ADDRESSED_PLAYER_IND	 				(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x60)
+#define BTSDK_APP_EV_AVRCP_SET_BROWSED_PLAYER_IND					(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x70)
+#define BTSDK_APP_EV_AVRCP_GET_FOLDER_ITEMS_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x71)
+#define BTSDK_APP_EV_AVRCP_CHANGE_PATH_IND							(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x72)
+#define BTSDK_APP_EV_AVRCP_GET_ITEM_ATTRIBUTES_IND					(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x73)
+#define BTSDK_APP_EV_AVRCP_PLAY_ITEM_IND							(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x74)
+#define BTSDK_APP_EV_AVRCP_SEARCH_IND								(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x80)
+#define BTSDK_APP_EV_AVRCP_ADDTO_NOWPLAYING_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0x90)
+#define BTSDK_APP_EV_AVRCP_GENERAL_REJECT_IND						(BTSDK_APP_EV_AVRCP_TG_METAIND_BASE + 0xA0)
+
+/* System status for AVRCP_EVENT_SYSTEM_STATUS_CHANGED */
+#define BTSDK_AVRCP_SYSTEM_POWER_ON										0x00
+#define BTSDK_AVRCP_SYSTEM_POWER_OFF									0x01
+#define BTSDK_AVRCP_SYSTEM_UNPLUGGED									0x02
+
+/* Media Content Navigation */
+/* There are four scopes in which media content navigation may take place. 
+Scopes summarizes them and they are described in more detail in the following sections.
+*/
+#define BTSDK_AVRCP_SCOPE_MEDIAPLAYER_LIST								0x00/* Media Player Item, Contains all available media players */
+#define BTSDK_AVRCP_SCOPE_MEDIAPLAYER_VIRTUAL_FILESYSTEM				0x01/* Folder Item and Media Element Item, The virtual filesystem containing the media content of the browsed player */
+#define BTSDK_AVRCP_SCOPE_MEDIAPLAYER_SEARCH							0x02/* Media Element Item, The results of a search operation on the browsed player */
+#define BTSDK_AVRCP_SCOPE_MEDIAPLAYER_NOWPLAYING						0x03/* Media Element Item, The Now Playing list (or queue) of the addressed player */
+
+/* Item Type - 1 Octet */
+#define BTSDK_AVRCP_ITEMTYPE_MEDIAPLAYER_ITEM							0x01
+#define BTSDK_AVRCP_ITEMTYPE_FOLDER_ITEM								0x02
+#define BTSDK_AVRCP_ITEMTYPE_MEDIAELEMENT_ITEM							0x03
+
+/* List of Media Attributes. */
+#define BTSDK_AVRCP_MA_ILLEGAL											0x00/* should not be used */
+#define BTSDK_AVRCP_MA_TITLEOF_MEDIA									0x01/* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_NAMEOF_ARTIST									0x02/* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_NAMEOF_ALBUM										0x03/* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_NUMBEROF_MEDIA									0x04/* Numeric ASCII text with zero suppresses, ex. Track number of the CD */
+#define BTSDK_AVRCP_MA_TOTALNUMBEROF_MEDIA								0x05/* Numeric ASCII text with zero suppresses */
+#define BTSDK_AVRCP_MA_GENRE											0x06/* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_PLAYING_TIME										0x07/* Playing time in millisecond, 2min30sec->150000, 08-0xFFFFFFFF reserved for future use */
+
+/* Major Player Type - 1 Octet */
+#define BTSDK_AVRCP_MAJORPLAYERTYPE_AUDIO								0x01
+#define BTSDK_AVRCP_MAJORPLAYERTYPE_VIDEO								0x02
+#define BTSDK_AVRCP_MAJORPLAYERTYPE_BROADCASTING_AUDIO					0x04
+#define BTSDK_AVRCP_MAJORPLAYERTYPE_BROADCASTING_VIDEO					0x08
+
+/* Player Sub Type - 4 Octets */
+#define BTSDK_AVRCP_PLAYERSUBTYPE_NONE									0x00000000
+#define BTSDK_AVRCP_PLAYERSUBTYPE_AUDIOBOOK								0x00000001
+#define BTSDK_AVRCP_PLAYERSUBTYPE_PODCAST								0x00000002
+
+/* Feature Bit Mask - 16 Octets */
+#define BTSDK_AVRCP_FBM_OCTET_ALL										0xFF
+
+/* Octet 0 */
+#define BTSDK_AVRCP_FBM_SELECT											0x01
+#define BTSDK_AVRCP_FBM_UP												0x02
+#define BTSDK_AVRCP_FBM_DOWN											0x04
+#define BTSDK_AVRCP_FBM_LEFT											0x08
+#define BTSDK_AVRCP_FBM_RIGHT											0x10
+#define BTSDK_AVRCP_FBM_RIGHTUP											0x20
+#define BTSDK_AVRCP_FBM_RIGHTDOWN										0x40
+#define BTSDK_AVRCP_FBM_LEFTUP											0x80
+
+/* Octet 1 */
+#define BTSDK_AVRCP_FBM_LEFTDOWN										0x01
+#define BTSDK_AVRCP_FBM_ROOTMENU										0x02
+#define BTSDK_AVRCP_FBM_SETUPMENU										0x04
+#define BTSDK_AVRCP_FBM_CONTENTSMENU									0x08
+#define BTSDK_AVRCP_FBM_FAVORITEMENU									0x10
+#define BTSDK_AVRCP_FBM_EXIT											0x20
+#define BTSDK_AVRCP_FBM_0												0x40
+#define BTSDK_AVRCP_FBM_1												0x80
+
+/* Octet 2 */
+#define BTSDK_AVRCP_FBM_2												0x01
+#define BTSDK_AVRCP_FBM_3												0x02
+#define BTSDK_AVRCP_FBM_4												0x04
+#define BTSDK_AVRCP_FBM_5												0x08
+#define BTSDK_AVRCP_FBM_6												0x10
+#define BTSDK_AVRCP_FBM_7												0x20
+#define BTSDK_AVRCP_FBM_8												0x40
+#define BTSDK_AVRCP_FBM_9												0x80
+
+/* Octet 3 */
+#define BTSDK_AVRCP_FBM_DOT												0x01
+#define BTSDK_AVRCP_FBM_ENTER											0x02
+#define BTSDK_AVRCP_FBM_CLEAR											0x04
+#define BTSDK_AVRCP_FBM_CHANNELUP										0x08
+#define BTSDK_AVRCP_FBM_CHANNELDOWN										0x10
+#define BTSDK_AVRCP_FBM_PREVIOUSCHANNEL									0x20
+#define BTSDK_AVRCP_FBM_SOUNDSELECT										0x40
+#define BTSDK_AVRCP_FBM_INPUTSELECT										0x80
+
+/* Octet 4 */
+#define BTSDK_AVRCP_FBM_DISPLAY_INFORMATION								0x01
+#define BTSDK_AVRCP_FBM_HELP											0x02
+#define BTSDK_AVRCP_FBM_PAGEUP											0x04
+#define BTSDK_AVRCP_FBM_PAGEDOWN										0x08
+#define BTSDK_AVRCP_FBM_POWER											0x10
+#define BTSDK_AVRCP_FBM_VOLUMEUP										0x20
+#define BTSDK_AVRCP_FBM_VOLUMEDOWN										0x40
+#define BTSDK_AVRCP_FBM_MUTE											0x80
+
+/* Octet 5 */
+#define BTSDK_AVRCP_FBM_PLAY											0x01
+#define BTSDK_AVRCP_FBM_STOP											0x02
+#define BTSDK_AVRCP_FBM_PAUSE											0x04
+#define BTSDK_AVRCP_FBM_RECORD											0x08
+#define BTSDK_AVRCP_FBM_REWIND											0x10
+#define BTSDK_AVRCP_FBM_FASTFORWARD										0x20
+#define BTSDK_AVRCP_FBM_EJECT											0x40
+#define BTSDK_AVRCP_FBM_FORWARD											0x80
+
+/* Octet 6 */
+#define BTSDK_AVRCP_FBM_BACKWARD										0x01
+#define BTSDK_AVRCP_FBM_ANGLE											0x02
+#define BTSDK_AVRCP_FBM_SUBPICTURE										0x04
+#define BTSDK_AVRCP_FBM_F1												0x08
+#define BTSDK_AVRCP_FBM_F2												0x10
+#define BTSDK_AVRCP_FBM_F3												0x20
+#define BTSDK_AVRCP_FBM_F4												0x40
+#define BTSDK_AVRCP_FBM_F5												0x80
+
+/* Octet 7 */
+#define BTSDK_AVRCP_FBM_VENDOR_UNIQUE									0x01
+#define BTSDK_AVRCP_FBM_BASIC_GROUP_NAVIGATION							0x02
+#define BTSDK_AVRCP_FBM_ADVANCED_CONTROL_PLAYER							0x04
+#define BTSDK_AVRCP_FBM_BROWSING										0x08
+#define BTSDK_AVRCP_FBM_SEARCHING										0x10
+#define BTSDK_AVRCP_FBM_ADDTO_NOWPLAYING								0x20
+#define BTSDK_AVRCP_FBM_UIDS_UNIQUE_INPLAYERBROWSE_TREE					0x40
+#define BTSDK_AVRCP_FBM_ONLY_BROWSABLE_WHEN_ADDRESSED					0x80
+
+/* Octet 8 */
+#define BTSDK_AVRCP_FBM_ONLY_SEARCHABLE_WHEN_ADDRESSED					0x01
+#define BTSDK_AVRCP_FBM_NOWPLAYING										0x02
+#define BTSDK_AVRCP_FBM_UIDPERSISTENCY									0x04
+
+/* Folder Item*/
+/* Folder Type - 1 Octet */
+#define BTSDK_AVRCP_FOLDERTYPE_MIXED									0x00
+#define BTSDK_AVRCP_FOLDERTYPE_TITLES									0x01
+#define BTSDK_AVRCP_FOLDERTYPE_ALBUMS									0x02
+#define BTSDK_AVRCP_FOLDERTYPE_ARTISTS									0x03
+#define BTSDK_AVRCP_FOLDERTYPE_GENRES									0x04
+#define BTSDK_AVRCP_FOLDERTYPE_PLAYLISTS								0x05
+#define BTSDK_AVRCP_FOLDERTYPE_YEARS									0x06
+
+/* Is Playable - 1 Octet */
+#define BTSDK_AVRCP_ISPLAYABLE_CANNOT									0x00
+#define BTSDK_AVRCP_ISPLAYABLE_CAN										0x01
+
+/* Media Type - 1 Octet */
+#define BTSDK_AVRCP_MEDIATYPE_AUDIO										0x00
+#define BTSDK_AVRCP_MEDIATYPE_VIDEO										0x01
+
+/* Browsing Commands */
+#define BTSDK_AVRCP_DIRECTION_FOLDER_UP									0x00
+#define BTSDK_AVRCP_DIRECTION_FOLDER_DOWN								0x01
+
+/* Volume Handling */
+#define BTSDK_AVRCP_ABSOLUTE_VOLUME_MIN									0x00
+#define BTSDK_AVRCP_ABSOLUTE_VOLUME_MAX									0x7F
+
+/* Basic Group Navigation	*/
+#define BTSDK_AVRCP_BGN_NEXTGROUP										0x0000
+#define BTSDK_AVRCP_BGN_PREVIOUSGROUP									0x0001
+
+/* Notification */
+/* Current status of playing */
+#define BTSDK_AVRCP_PLAYSTATUS_STOPPED									0x00
+#define BTSDK_AVRCP_PLAYSTATUS_PLAYING									0x01
+#define BTSDK_AVRCP_PLAYSTATUS_PAUSED									0x02
+#define BTSDK_AVRCP_PLAYSTATUS_FWD_SEEK									0x03
+#define BTSDK_AVRCP_PLAYSTATUS_REV_SEEK									0x04/* 0x05-0xfe are reserved */
+#define BTSDK_AVRCP_PLAYSTATUS_ERROR									0xFF
+
+/* Battery Status, InformBatteryStatusOfCT command */
+#define BTSDK_AVRCP_BATTERYSTATUS_NORMAL								0x0
+#define BTSDK_AVRCP_BATTERYSTATUS_WARNING								0x1
+#define BTSDK_AVRCP_BATTERYSTATUS_CRITICAL								0x2
+#define BTSDK_AVRCP_BATTERYSTATUS_EXTERNAL								0x3
+#define BTSDK_AVRCP_BATTERYSTATUS_FULL_CHARGE							0x4
+
+/* Player application settings PDUs */
+/* List of defined Player Application Settings and Values. */
+#define BTSDK_AVRCP_PASA_ILLEGAL										0x00
+#define BTSDK_AVRCP_PASA_EQUALIZER_ONOFF_STATUS							0x01
+#define BTSDK_AVRCP_PASA_REPEAT_MODE_STATUS								0x02
+#define BTSDK_AVRCP_PASA_SHUFFLE_ONOFF_STATUS							0x03
+#define BTSDK_AVRCP_PASA_SCAN_ONOFF_STATUS								0x04
+
+/* 0x01 Equalizer ON/OFF status */
+#define BTSDK_AVRCP_EQUALIZER_OFF										0x01
+#define BTSDK_AVRCP_EQUALIZER_ON										0x02
+
+/* 0x02 Repeat Mode status */
+#define BTSDK_AVRCP_REPEAT_MODE_OFF										0x01
+#define BTSDK_AVRCP_REPEAT_MODE_SINGLE_TRACK_REPEAT						0x02
+#define BTSDK_AVRCP_REPEAT_MODE_ALL_TRACK_REPEAT						0x03
+#define BTSDK_AVRCP_REPEAT_MODE_GROUP_REPEAT							0x04
+
+/* 0x03 Shuffle ON/OFF status */
+#define BTSDK_AVRCP_SHUFFLE_OFF											0x01
+#define BTSDK_AVRCP_SHUFFLE_ALL_TRACKS_SHUFFLE							0x02
+#define BTSDK_AVRCP_SHUFFLE_GROUP_SHUFFLE								0x03
+
+/* 0x04 Scan ON/OFF status */
+#define BTSDK_AVRCP_SCAN_OFF											0x01
+#define BTSDK_AVRCP_SCAN_ALL_TRACKS_SCAN								0x02
+#define BTSDK_AVRCP_SCAN_GROUP_SCAN										0x03
+
+/* Capabilities ID */
+/* Used by Btsdk_AVRCP_GetCapabilities Command to specific capability reuqested */
+#define BTSDK_AVRCP_CAPABILITYID_COMPANY_ID								0x2
+#define BTSDK_AVRCP_CAPABILITYID_EVENTS_SUPPORTED						0x3
+
+
+/* Notification event IDs, possible values of BtSdkRegisterNotifiReqStru::event_id. */
+#define BTSDK_AVRCP_EVENT_PLAYBACK_STATUS_CHANGED						0x01
+#define BTSDK_AVRCP_EVENT_TRACK_CHANGED									0x02
+#define BTSDK_AVRCP_EVENT_TRACK_REACHED_END								0x03/* If any action (e.g. GetElementAttributes) is undertaken on the CT as reaction to the EVENT_TRACK_REACHED_END, the CT should register the EVENT_TRACK_REACHED_END again before initiating this action in order to get informed about intermediate changes regarding the track status. */
+#define BTSDK_AVRCP_EVENT_TRACK_REACHED_START							0x04/* If any action (e.g. GetElementAttributes) is undertaken on the CT as reaction to the EVENT_TRACK_REACHED_START, the CT should register the EVENT_TRACK_REACHED_START again before initiating this action in order to get informed about intermediate changes regarding the track status. */
+#define BTSDK_AVRCP_EVENT_PLAYBACK_POS_CHANGED							0x05
+#define BTSDK_AVRCP_EVENT_BATT_STATUS_CHANGED							0x06
+#define BTSDK_AVRCP_EVENT_SYSTEM_STATUS_CHANGED							0x07
+#define BTSDK_AVRCP_EVENT_PLAYER_APPLICATION_SETTING_CHANGED			0x08
+#define BTSDK_AVRCP_EVENT_NOW_PLAYING_CONTENT_CHANGED					0x09/* If the NowPlaying folder is browsed as reaction to the EVENT_NOW_PLAYING_CONTENT_CHANGED, the CT should register the EVENT_NOW_PLAYING_CONTENT_CHANGED again before browsing the NowPlaying folder in order to get informed about intermediate changes in that folder. */
+#define BTSDK_AVRCP_EVENT_AVAILABLE_PLAYERS_CHANGED						0x0A/* If the Media Player List is browsed as reaction to the EVENT_AVAILABLE_PLAYERS_CHANGED, the CT should register the EVENT_AVAILABLE_PLAYERS_CHANGED again before browsing the Media Player list in order to get informed about intermediate changes of the available players. */
+#define BTSDK_AVRCP_EVENT_ADDRESSED_PLAYER_CHANGED						0x0B
+#define BTSDK_AVRCP_EVENT_UIDS_CHANGED									0x0C/* If the Media Player Virtual Filesystem is browsed as reaction to the EVENT_UIDS_CHANGED, the CT should register the EVENT_UIDS_CHANGED again before browsing the Media Player Virtual Filesystem in order to get informed about intermediate changes within the fileystem. */
+#define BTSDK_AVRCP_EVENT_VOLUME_CHANGED								0x0D/* 0x0e-0xFF reserved for future use */
+
+
+/* 6.15 Error handling */
+/* List of Error Status Code */
+#define BTSDK_AVRCP_ERROR_INVALID_COMMAND								0x00/* All */
+#define BTSDK_AVRCP_ERROR_INVALID_PARAMETER								0x01/* All */
+#define BTSDK_AVRCP_ERROR_SPECIFIED_PARAMETER_NOTFOUND					0x02/* All */
+#define BTSDK_AVRCP_ERROR_INTERNAL_ERROR								0x03/* All */
+#define BTSDK_AVRCP_ERROR_SUCCESSFUL									0x04/* All except where the response CType is AV/C REJECTED */
+#define BTSDK_AVRCP_ERROR_UID_CHANGED									0x05/* All */
+#define BTSDK_AVRCP_ERROR_RESERVED										0x06/* All, ??? */
+#define BTSDK_AVRCP_ERROR_INVALID_DIRECTION								0x07/* The Direction parameter is invalid, Change Path */
+#define BTSDK_AVRCP_ERROR_NOTA_DIRECTORY								0x08/* The UID provided does not refer to a folder item, Change Path */
+#define BTSDK_AVRCP_ERROR_UID_DOESNOT_EXIST								0x09/* The UID provided does not refer to any currently valid item. Change Path, PlayItem, AddToNowPlaying, GetItemAttributes */
+#define BTSDK_AVRCP_ERROR_INVALID_SCOPE									0x0A/* The scope parameter is invalid. GetFolderItems, PlayItem, AddToNowPlayer, GetItemAttributes. */
+#define BTSDK_AVRCP_ERROR_RANGE_OUTOF_BOUNDS							0x0B/* The start of range provided is not valid, GetFolderItems */
+#define BTSDK_AVRCP_ERROR_UID_ISA_DIRECTORY								0x0C/* The UID provided refers to a directory, which cannot be handled by this media player, PlayItem, AddToNowPlaying */
+#define BTSDK_AVRCP_ERROR_MEDIA_INUSE									0x0D/* The media is not able to be used for this operation at this time, PlayItem, AddToNowPlaying */
+#define BTSDK_AVRCP_ERROR_NOWPLAYING_LISTFULL							0x0E/* No more items can be added to the Now Playing List, AddToNowPlaying */
+#define BTSDK_AVRCP_ERROR_SEARCH_NOTSUPPORTED							0x0F/* The Browsed Media Player does not support search, Search */
+#define BTSDK_AVRCP_ERROR_SEARCH_INPROGRESS								0x10/* A search operation is already in progress, Search */
+#define BTSDK_AVRCP_ERROR_INVALID_PLAYERID								0x11/* The specified Player Id does not refer to a valid player, SetAddressedPlayer, SetBrowsedPlayer */
+#define BTSDK_AVRCP_ERROR_PLAYER_NOT_BROWSABLE							0x12/* The Player Id supplied refers to a Media Player which does not support browsing. SetBrowsedPlayer */
+#define BTSDK_AVRCP_ERROR_PLAYER_NOT_ADDRESSED							0x13/* The Player Id supplied refers to a player which is not currently addressed, and the command is not able to be performed if the player is not set as addressed. Search, SetBrowsedPlayer */
+#define BTSDK_AVRCP_ERROR_NO_VALID_SEARCH_RESULTS						0x14/* The Search result list does not contain valid entries, e.g. after being invalidated due to change of browsed player. GetFolderItems */
+#define BTSDK_AVRCP_ERROR_NO_AVAILABLE_PLAYERS							0x15/* All */
+#define BTSDK_AVRCP_ERROR_ADDRESSED_PLAYER_CHANGED						0x16/* Register Notification. 0x17-0xff Reserved all */
+#define BTSDK_AVRCP_ERROR_TIMEOUT										0x88/* Monitor timer expired. Private error code. */
+#define BTSDK_AVRCP_ERROR_NOT_IMPLEMENTED								0x89/* Not Implemented response is recived. Private error code. */
+
+/* AV/C Response Code, 4 Bits */
+#define BTSDK_AVRCP_RSP_NOT_IMPLEMENTED 				0x08
+#define BTSDK_AVRCP_RSP_ACCEPTED 						0x09
+#define BTSDK_AVRCP_RSP_REJECTED 						0x0A
+#define BTSDK_AVRCP_RSP_STABLE 							0x0C/* Implemented */
+#define BTSDK_AVRCP_RSP_CHANGED 						0x0D/* for notification */
+#define BTSDK_AVRCP_RSP_INTERIM 						0x0F
+
+/* AVRCP CT AV/C & Browsing specific event */
+#define BTSDK_APP_EV_AVRCP_CT_METARSP_BASE							0xD00
+#define BTSDK_APP_EV_AVRCP_GET_CAPABILITIES_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x10)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_ATTR_RSP 			(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x11)
+#define BTSDK_APP_EV_AVRCP_LIST_PLAYER_SETTING_VALUES_RSP			(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x12)
+#define BTSDK_APP_EV_AVRCP_GET_CURRENTPLAYER_SETTING_VALUE_RSP		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x13)
+#define BTSDK_APP_EV_AVRCP_SET_CURRENTPLAYER_SETTING_VALUE_RSP		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x14)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_ATTR_TEXT_RSP 		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x15)
+#define BTSDK_APP_EV_AVRCP_GET_PLAYER_SETTING_VALUE_TEXT_RSP		(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x16)
+#define BTSDK_APP_EV_AVRCP_INFORM_CHARACTERSET_RSP	 				(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x17)
+#define BTSDK_APP_EV_AVRCP_INFORM_BATTERYSTATUS_OF_CT_RSP			(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x18)
+#define BTSDK_APP_EV_AVRCP_GET_ELEMENT_ATTR_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x20)
+#define BTSDK_APP_EV_AVRCP_GET_PLAY_STATUS_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x30)
+#define BTSDK_APP_EV_AVRCP_SET_ABSOLUTE_VOLUME_RSP	 				(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x50)
+#define BTSDK_APP_EV_AVRCP_SET_ADDRESSED_PLAYER_RSP	 				(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x60)
+#define BTSDK_APP_EV_AVRCP_SET_BROWSED_PLAYER_RSP					(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x70)
+#define BTSDK_APP_EV_AVRCP_GET_FOLDER_ITEMS_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x71)
+#define BTSDK_APP_EV_AVRCP_CHANGE_PATH_RSP							(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x72)
+#define BTSDK_APP_EV_AVRCP_GET_ITEM_ATTRIBUTES_RSP					(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x73)
+#define BTSDK_APP_EV_AVRCP_PLAY_ITEM_RSP							(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x74)
+#define BTSDK_APP_EV_AVRCP_SEARCH_RSP								(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x80)
+#define BTSDK_APP_EV_AVRCP_ADDTO_NOWPLAYING_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0x90)
+#define BTSDK_APP_EV_AVRCP_GENERAL_REJECT_RSP						(BTSDK_APP_EV_AVRCP_CT_METARSP_BASE + 0xA0)
+
+/* AVRCP CT change notification events */
+#define BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE						    (BTSDK_APP_EV_AVRCP_BASE + 0x80)
+#define BTSDK_APP_EV_AVRCP_PLAYBACK_STATUS_CHANGED_NOTIF			(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x01)
+#define BTSDK_APP_EV_AVRCP_TRACK_CHANGED_NOTIF						(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x02)
+#define BTSDK_APP_EV_AVRCP_TRACK_REACHED_END_NOTIF					(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x03)
+#define BTSDK_APP_EV_AVRCP_TRACK_REACHED_START_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x04)
+#define BTSDK_APP_EV_AVRCP_PLAYBACK_POS_CHANGED_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x05)
+#define BTSDK_APP_EV_AVRCP_BATT_STATUS_CHANGED_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x06)
+#define BTSDK_APP_EV_AVRCP_SYSTEM_STATUS_CHANGED_NOTIF				(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x07)
+#define BTSDK_APP_EV_AVRCP_PLAYER_APPLICATION_SETTING_CHANGED_NOTIF	(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x08)
+#define BTSDK_APP_EV_AVRCP_NOW_PLAYING_CONTENT_CHANGED_NOTIF		(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x09)
+#define BTSDK_APP_EV_AVRCP_AVAILABLE_PLAYERS_CHANGED_NOTIF			(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0A)
+#define BTSDK_APP_EV_AVRCP_ADDRESSED_PLAYER_CHANGED_NOTIF			(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0B)
+#define BTSDK_APP_EV_AVRCP_UIDS_CHANGED_NOTIF						(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0C)
+#define BTSDK_APP_EV_AVRCP_VOLUME_CHANGED_NOTIF						(BTSDK_APP_EV_AVRCP_CT_NOTIF_BASE + 0x0D)
+
+#define BTSDK_AVRCP_PACKET_HEAD							0x01
+#define BTSDK_AVRCP_SUBPACKET							0x02
+
+/* The type of subpacket in BtSdkGetFolderItemRsp struct */
+#define BTSDK_AVRCP_PACKET_BROWSABLE_ITEM				0x01
+#define BTSDK_AVRCP_PACKET_MEDIA_ATTR					0x02
+
+#define BTSDK_AVRCP_CHARACTERSETID_UTF8					0x006A
+
+/* GetElementAttributes */
+/* List of Media Attributes */
+#define BTSDK_AVRCP_MA_ILLEGAL											0x00 /* should not be used */
+#define BTSDK_AVRCP_MA_TITLEOF_MEDIA									0x01 /* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_NAMEOF_ARTIST									0x02 /* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_NAMEOF_ALBUM										0x03 /* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_NUMBEROF_MEDIA									0x04 /* Numeric ASCII text with zero suppresses, ex. Track number of the CD */
+#define BTSDK_AVRCP_MA_TOTALNUMBEROF_MEDIA								0x05 /* Numeric ASCII text with zero suppresses */
+#define BTSDK_AVRCP_MA_GENRE											0x06 /* Any text encoded in specified character set */
+#define BTSDK_AVRCP_MA_PLAYING_TIME										0x07 /* Playing time in millisecond, 2min30sec->150000, 08-0xFFFFFFFF reserved for future use */
+
+//LE Flag
+#define BTSDK_GATT_FLAG_NONE						0x00000001
+#define BTSDK_GATT_FLAG_CONNECTION_ENCRYPTED		0x00000002
+#define BTSDK_GATT_FLAG_CONNECTION_AUTHENTICATED	0x00000004
+#define BTSDK_GATT_FLAG_FORCE_READ_FROM_DEVICE		0x00000008
+#define BTSDK_GATT_FLAG_FORCE_READ_FROM_CACHE		0x00000010
+
+/* Device type for upper layer */
+#define BTSDK_DEV_TYPE_LE_ONLY		0x01
+#define BTSDK_DEV_TYPE_BREDR_ONLY	0x10
+#define BTSDK_DEV_TYPE_BREDR_LE		0x11
+
+enum {/* Appearance, 2A01 */	
+    /* Category */
+    GATT_APPEARANCE_CATEGORY_UNKNOWN =                                          0,/* None */
+	GATT_APPEARANCE_CATEGORY_GENERIC_PHONE =                                    64,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_COMPUTER =                                 128,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_WATCH =                                    192,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_WATCH_SPORTS_WATCH =                               193,/* Watch subtype */
+	GATT_APPEARANCE_CATEGORY_GENERIC_CLOCK =                                    256,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_DISPLAY =                                  320,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_REMOTE_CONTROL =                           384,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_EYE_GLASSES =                              448,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_TAG =                                      512,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_KEYRING =                                  576,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_MEDIA_PLAYER =                             640,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_BARCODE_SCANNER =                          704,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_THERMOMETER =                              768,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_THERMOMETER_EAR =                                  769,/* Thermometer subtype */
+	GATT_APPEARANCE_CATEGORY_GENERIC_HEART_RATE_SENSOR =                        832,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_HEART_RATE_SENSOR_HEART_RATE_BELT =                833,/* Heart Rate Sensor subtype */
+	GATT_APPEARANCE_CATEGORY_GENERIC_BLOOD_PRESSURE =                           896,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_BLOOD_PRESSURE_ARM =                               897,/* Blood Pressure subtype */
+	GATT_APPEARANCE_CATEGORY_BLOOD_PRESSURE_WRIST =                             898,/* Blood Pressure subtype */
+	GATT_APPEARANCE_CATEGORY_HUMAN_INTERFACE_DEVICE_HID =                       960,/* HID Generic */
+	GATT_APPEARANCE_CATEGORY_KEYBOARD =                                         961,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_MOUSE =                                            962,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_JOYSTICK =                                         963,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_GAMEPAD =                                          964,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_DIGITIZER_TABLET =                                 965,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_CARD_READER =                                      966,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_DIGITAL_PEN =                                      967,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_BARCODE_SCANNER =                                  968,/* HID subtype */
+	GATT_APPEARANCE_CATEGORY_GENERIC_GLUCOSE_METER =                            1024,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_GENERIC_RUNNING_WALKING_SENSOR =                   1088,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR_IN_SHOE =                   1089,/* Running Walking Sensor subtype */
+	GATT_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR_ON_SHOE =                   1090,/* Running Walking Sensor subtype */
+	GATT_APPEARANCE_CATEGORY_RUNNING_WALKING_SENSOR_ON_HIP =                    1091,/* Running Walking Sensor subtype */
+	GATT_APPEARANCE_CATEGORY_GENERIC_CYCLING =                                  1152,/* Generic category */
+	GATT_APPEARANCE_CATEGORY_CYCLING_CYCLING_COMPUTER =                         1153,/* Cycling subtype */
+	GATT_APPEARANCE_CATEGORY_CYCLING_SPEED_SENSOR =                             1154,/* Cycling subtype */
+	GATT_APPEARANCE_CATEGORY_CYCLING_CADENCE_SENSOR =                           1155,/* Cycling subtype */
+	GATT_APPEARANCE_CATEGORY_CYCLING_POWER_SENSOR =                             1156,/* Cycling subtype */
+	GATT_APPEARANCE_CATEGORY_CYCLING_SPEED_AND_CADENCE_SENSOR =                 1157,/* Cycling subtype */
+};
+
+/* Possible flags for member 'mask' in _BtSdkShortCutPropertyStru */
+#define BTSDK_SCPM_SHCNAME					0x0001
+#define BTSDK_SCPM_DEVNAME					0x0002
+#define BTSDK_SCPM_SVCNAME					0x0004
+#define BTSDK_SCPM_DEVCLASS					0x0008
+#define BTSDK_SCPM_ISDEFAULT				0x0010
+#define BTSDK_SCPM_SECLEVEL					0x0020
+#define BTSDK_SCPM_SHCATTR					0x0040
+#define BTSDK_SCPM_ALL						0x0FFF
+
+#define BTSDK_LINK_KEY_LENGTH 16
+
+/* Possible values of 'le_discovery_mode' in Btsdk_LESetScanEnable and Btsdk_LESetAdvertisingEnable */
+#define BTSDK_LE_NONE_DISCOVERABLE       0x00   /* LE Scan or Advertising disabled */
+#define BTSDK_LE_LIMITED_DISCOVERABLE    0x01   /* Limited discoverable mode or procedure */
+#define BTSDK_LE_GENERAL_DISCOVERABLE    0x02   /* General discoverable mode or procedure */
+
+/* Possible values of 'speed' in Btsdk_LESetScanEnable and Btsdk_LESetAdvertisingEnable */
+#define BTSDK_LE_ADV_SCAN_FAST           0x00   /* Use Tgap(scan_fast) or Tgap(adv_fast) */
+#define BTSDK_LE_ADV_SCAN_SLOW           0x01   /* Use Tgap(scan_slow) or Tgap(adv_slow) */
+#define BTSDK_LE_ADV_SCAN_AUTO           0x02   /* Use Tgap(scan_fast) or Tgap(adv_fast) for 30s, then change to use Tgap(scan_slow) or Tgap(adv_slow) */
+
+/*Link type for Btsdk_CreateACLLink*/
+#define BTSDK_LINK_TYPE_LE				0x01
+#define BTSDK_LINK_TYPE_BREDR			0x02
+
+/* Device Address type for upper layer */
+#define BTSDK_DEV_ADDR_TYPE_PUBLIC	0x00
+#define BTSDK_DEV_ADDR_TYPE_RANDOM	0x01
+
+/* if: BT2.1 Supported */
+#define BTSDK_MAX_EIR_LEN                       240
+
+typedef enum {
+	BTSDK_EIR_FLAGS = 1,
+	BTSDK_EIR_UUID16_MORE,
+	BTSDK_EIR_UUID16_COMPLETE,
+	BTSDK_EIR_UUID32_MORE,
+	BTSDK_EIR_UUID32_COMPLETE,
+	BTSDK_EIR_UUID128_MORE,
+	BTSDK_EIR_UUID128_COMPLETE,
+	BTSDK_EIR_NAME_SHORT,
+	BTSDK_EIR_NAME_COMPLETE,
+	BTSDK_EIR_TX_POWER_LEVEL,
+	BTSDK_EIR_VENDOR_SPECIFIC = 0xFF,
+} BTSDK_EIR_DATA_TYPE;
+/* endif: BT2.1 Supported */
+
+>>>>>>> refs/remotes/origin/master
 #endif

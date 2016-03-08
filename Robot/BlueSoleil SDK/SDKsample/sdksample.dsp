@@ -50,8 +50,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 winmm.lib Setupapi.lib Advapi32.lib ws2_32.lib Shlwapi.lib Winspool.lib Msacm32.lib BSSDK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib BSSDK.lib bmsg_parser.lib shlwapi.lib /nologo /subsystem:console /machine:I386 /out:"../bin/sdksample_release.exe" /libpath:"..\BIN" /libpath:"$(MSSDK)\Lib"
-# SUBTRACT LINK32 /pdb:none /nodefaultlib
+# ADD LINK32 msvcrt.lib Winmm.lib setupapi.lib kernel32.lib user32.lib Advapi32.lib ws2_32.lib Shlwapi.lib Winspool.lib Msacm32.lib BSSDK.lib /nologo /subsystem:console /machine:I386 /nodefaultlib /out:"../bin/sdksample.exe" /libpath:"..\BIN" /libpath:"$(MSSDK)\Lib"
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "sdksample - Win32 Debug"
 
@@ -75,7 +75,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 msvcrtd.lib winmm.lib Setupapi.lib Advapi32.lib ws2_32.lib Shlwapi.lib Winspool.lib Msacm32.lib BSSDK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib BSSDK.lib bmsg_parserd.lib shlwapi.lib /nologo /subsystem:console /map /debug /machine:I386 /nodefaultlib:"libcmtd.lib" /nodefaultlib:"libcd.lib" /out:"../bin/sdksample_debug.exe" /pdbtype:sept /libpath:"..\BIN" /libpath:"$(MSSDK)\Lib"
+# ADD LINK32 msvcrtd.lib winmm.lib Setupapi.lib Advapi32.lib ws2_32.lib Shlwapi.lib Winspool.lib Msacm32.lib BSSDK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib BSSDK.lib /nologo /subsystem:console /map /debug /machine:I386 /out:"../bin/sdksample.exe" /pdbtype:sept /libpath:"..\BIN" /libpath:"$(MSSDK)\Lib"
 # SUBTRACT LINK32 /pdb:none /nodefaultlib
 
 !ENDIF 
@@ -97,10 +97,6 @@ SOURCE=.\ftpopp_tst.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\gatt_test.c
-# End Source File
-# Begin Source File
-
 SOURCE=.\hfp_tst.c
 # End Source File
 # Begin Source File
@@ -113,15 +109,7 @@ SOURCE=.\loc_dev_tst.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\map_tst.c
-# End Source File
-# Begin Source File
-
 SOURCE=.\pan_tst.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\pbap_tst.c
 # End Source File
 # Begin Source File
 
@@ -147,41 +135,17 @@ SOURCE=.\sdk_tst.c
 
 SOURCE=.\spp_tst.c
 # End Source File
-# Begin Source File
-
-SOURCE=.\vcard_parser\vcc.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\vcard_parser\vobject.c
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\map_tst.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\profiles_tst.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sdk_gatt.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\sdk_tst.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\vcard_parser\vcc.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\vcard_parser\vobject.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

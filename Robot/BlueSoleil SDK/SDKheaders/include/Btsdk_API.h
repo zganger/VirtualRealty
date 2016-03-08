@@ -39,7 +39,6 @@ BTBOOL Btsdk_IsServerConnected();
 BTINT32	Btsdk_RegisterGetStatusInfoCB4ThirdParty(Func_ReceiveBluetoothStatusInfo* statusCBK);
 BTINT32 Btsdk_RegisterCallback4ThirdParty(BtSdkCallbackStru* call_back);
 BTINT32 Btsdk_RegisterCallbackEx(BtSdkCallbackStru* call_back, DWORD priority);
-BTINT32 Btsdk_RegisterCallback(BtSdkCallbackStru* call_back);
 BTINT32	Btsdk_SetStatusInfoFlag(USHORT usMsgType);
 
 
@@ -80,7 +79,6 @@ typedef void  (Btsdk_Inquiry_Complete_Ind_Func)(void);
 FUNC_EXPORT BTINT32 Btsdk_StopDeviceDiscovery(void);
 FUNC_EXPORT BTINT32 Btsdk_UpdateRemoteDeviceName(BTDEVHDL dev_hdl, BTUINT8 *name, BTUINT16 *plen);
 FUNC_EXPORT BTINT32 Btsdk_CancelUpdateRemoteDeviceName(BTDEVHDL dev_hdl);
-FUNC_EXPORT BTINT32 Btsdk_LinkKeyReply(BTDEVHDL dev_hdl, BTUINT8* link_key);
 
 /* Device Pairing */
 FUNC_EXPORT BTINT32 Btsdk_IsDevicePaired(BTDEVHDL dev_hdl, BTBOOL *pis_paired);
@@ -244,84 +242,7 @@ void Btsdk_AVRCP_RegPassThrCmdCbk4ThirdParty(Btsdk_AVRCP_PassThr_Cmd_Func *pfunc
 /* AVRCP event processing callback function type */
 typedef void (Btsdk_AVRCP_Event_Ind_Func)(BTUINT16 event, BTUINT8 *param);
 void Btsdk_AVRCP_RegIndCbk4ThirdParty(Btsdk_AVRCP_Event_Ind_Func * pfunc);
-typedef BTBOOL (Btsdk_AVRCP_TG_Command_Cbk_Func)(BTDEVHDL hdl, BTUINT8 tl, BTUINT16 cmd_type, BTUINT8 *param);
-void Btsdk_AVRCP_TGRegCommandCbk(Btsdk_AVRCP_TG_Command_Cbk_Func *pfunc);
 
-/* AVRCP CT Response callback function type.
-   Return value: Ignored currently, always return BTSDK_TRUE. */
-typedef BTBOOL (Btsdk_AVRCP_CT_Response_Cbk_Func)(BTDEVHDL hdl, BTUINT16 rsp_type, BTUINT8 *param);
-void Btsdk_AVRCP_CTRegResponseCbk(Btsdk_AVRCP_CT_Response_Cbk_Func *pfunc);
-
-/*  AVRCP Function*/
-void Btsdk_AVRCP_RegIndCbk(Btsdk_AVRCP_Event_Ind_Func * pfunc);
-void Btsdk_AVRCP_RegPassThrCmdCbk(Btsdk_AVRCP_PassThr_Cmd_Func *pfunc);
-void Btsdk_AVRCP_TGRegCommandCbk(Btsdk_AVRCP_TG_Command_Cbk_Func *pfunc);
-void Btsdk_AVRCP_CTRegResponseCbk(Btsdk_AVRCP_CT_Response_Cbk_Func *pfunc);
-
-/* CT functions */
-BTINT32 Btsdk_AVRCP_PassThroughReq(PBtSdkPassThrReqStru preq);
-BTINT32 Btsdk_AVRCP_Group_NavigateReq(PBtSdkGroupNaviReqStru preq);
-
-BTINT32 Btsdk_AVRCP_GetCapabilitiesReq(BTDEVHDL hdl, PBtSdkGetCapabilitiesReqStru param);
-BTINT32 Btsdk_AVRCP_ListPlayerAppSetAttrReq(BTDEVHDL hdl);
-BTINT32 Btsdk_AVRCP_ListPlayerAppSetValReq(BTDEVHDL hdl, PBtSdkListPlayerAppSetValReqStru param);
-BTINT32 Btsdk_AVRCP_GetCurPlayerAppSetValReq(BTDEVHDL hdl, PBtSdkGetCurPlayerAppSetValReqStru param);
-BTINT32 Btsdk_AVRCP_SetCurPlayerAppSetValReq(BTDEVHDL hdl, PBtSdkSetCurPlayerAppSetValReqStru param);
-BTINT32 Btsdk_AVRCP_GetPlayerAppSetAttrTxtReq(BTDEVHDL hdl, PBtSdkGetPlayerAppSetAttrTxtReqStru param);
-BTINT32 Btsdk_AVRCP_GetPlayerAppSetValTxtReq(BTDEVHDL hdl, PBtSdkGetPlayerAppSetValTxtReqStru param);
-BTINT32 Btsdk_AVRCP_InformCharSetReq(BTDEVHDL hdl, PBtSdkInformCharSetReqStru param);
-BTINT32 Btsdk_AVRCP_InformBattStatusReq(BTDEVHDL hdl, PBtSdkInformBattStatusReqStru param);
-BTINT32 Btsdk_AVRCP_GetElementAttrReq(BTDEVHDL hdl, PBtSdkGetElementAttrReqStru param);
-BTINT32 Btsdk_AVRCP_GetPlayStatusReq(BTDEVHDL hdl);
-BTINT32 Btsdk_AVRCP_RegNotifReq(BTDEVHDL hdl, PBtSdkRegisterNotifReqStru param);
-BTINT32 Btsdk_AVRCP_SetAddressedPlayerReq(BTDEVHDL hdl, PBtSdkSetAddresedPlayerReqStru param);
-BTINT32 Btsdk_AVRCP_SetBrowsedPlayerReq(BTDEVHDL hdl, PBtSdkSetAddresedPlayerReqStru param);
-BTINT32 Btsdk_AVRCP_ChangePathReq(BTDEVHDL hdl, PBtSdkChangePathReqStru param);
-BTINT32 Btsdk_AVRCP_GetFolderItemsReq(BTDEVHDL hdl, PBtSdkGetFolderItemReqStru param);
-BTINT32 Btsdk_AVRCP_GetItemAttrReq(BTDEVHDL hdl, PBtSdkGetItemAttrReqStru param);
-BTINT32 Btsdk_AVRCP_SearchReq(BTDEVHDL hdl, PBtSdkSearchReqStru param);
-BTINT32 Btsdk_AVRCP_PlayItemReq(BTDEVHDL hdl, PBtSdkPlayItemReqStru param);
-BTINT32 Btsdk_AVRCP_AddToNowPlayingReq(BTDEVHDL hdl, PBtSdkAddToNowPlayingReqStru param);
-BTINT32 Btsdk_AVRCP_SetAbsoluteVolReq(BTDEVHDL hdl, PBtSdkSetAbsoluteVolReqStru param);
-
-/* TG function */
-BTINT32 Btsdk_AVRCP_PassThroughRsp(PBtSdkPassThrRspStru param);
-BTINT32 Btsdk_AVRCP_GetCapabilitiesRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetCapabilitiesRspStru param);
-BTINT32 Btsdk_AVRCP_ListPlayerAppSetAttrRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkListPlayerAppSetAttrRspStru param);
-BTINT32 Btsdk_AVRCP_ListPlayerAppSetValRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkListPlayerAppSetValRspStru param);
-BTINT32 Btsdk_AVRCP_GetCurPlayerAppSetValRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetCurPlayerAppSetValRspStru param);
-BTINT32 Btsdk_AVRCP_SetCurPlayerAppSetValRsp(BTDEVHDL hdl, BTUINT8 tl);
-BTINT32 Btsdk_AVRCP_GetPlayerAppSetAttrTxtRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetPlayerAppSettingAttrTxtRspStru param);
-BTINT32 Btsdk_AVRCP_GetPlayerAppSetValTxtRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetPlayerAppSettingValTxtRspStru param);
-BTINT32 Btsdk_AVRCP_InformCharSetRsp(BTDEVHDL hdl, BTUINT8 tl);
-BTINT32 Btsdk_AVRCP_InformBattStatusRsp(BTDEVHDL hdl, BTUINT8 tl);
-BTINT32 Btsdk_AVRCP_GetElementAttrRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetElementAttrRspStru param);
-BTINT32 Btsdk_AVRCP_GetPlayStatusRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkPlayStatusRspStru param);
-BTINT32 Btsdk_AVRCP_SetAddressedPlayerRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkSetAddresedPlayerRspStru param);
-BTINT32 Btsdk_AVRCP_SetBrowsedPlayerRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkSetBrowsedPlayerRspStru param);
-BTINT32 Btsdk_AVRCP_ChangePathRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkChangePathRspStru param);
-BTINT32 Btsdk_AVRCP_GetFolderItemsRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetFolderItemRspStru param);
-BTINT32 Btsdk_AVRCP_GetItemAttrRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGetItemAttrRspStru param);
-BTINT32 Btsdk_AVRCP_SearchRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkSearchRspStru param);
-BTINT32 Btsdk_AVRCP_PlayItemRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkPlayItemRspStru param);
-BTINT32 Btsdk_AVRCP_AddToNowPlayingRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkAddToNowPlayingRspStru param);
-BTINT32 Btsdk_AVRCP_SetAbsoluteVolRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkSetAbsoluteVolRspStru param);
-BTINT32 Btsdk_AVRCP_GeneralRejectRsp(BTDEVHDL hdl, BTUINT8 tl, PBtSdkGeneralRejectRspStru param);
-
-/* Response of the RegisterNotification command */
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventPlayStatusChanged(PBtSdkPlayStatusChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventTrackChanged(PBtSdkTrackChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventTrackReachEnd(PBtSdkTrackReachEndStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventTrackReachStart(PBtSdkTrackReachStartStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventPlayPosChanged(PBtSdkPlayPosChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventBattStatusChanged(PBtSdkBattStatusChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventSysStatusChanged(PBtSdkSysStatusChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventPlayerAppSetChanged(PBtSdkPlayerAppSetChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventVolChanged(PBtSdkVolChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventAddrPlayerChanged(PBtSdkAddrPlayerChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventAvailablePlayerChanged(PBtSdkAvailablePlayerChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventUIDSChanged(PBtSdkUIDSChangedStru param);
-FUNC_EXPORT BTINT32 Btsdk_AVRCP_EventNowPlayingContentChanged(PBtSdkNowPlayingContentChangedStru param);
 
 /* 
 		Serial Port Profile 
@@ -415,146 +336,5 @@ BTSVCHDL Btsdk_RegisterA2DPSNKService(BTUINT16 len, const BTUINT8 *audio_card);
 BTUINT32 Btsdk_UnregisterA2DPSNKService(void);
 
 /*HID APIS*/
-BTINT32 Btsdk_CreateShortCutEx(PBtSdkShortCutPropertyStru shc_prop);
-BTINT32 Btsdk_GetShortCutProperty(PBtSdkShortCutPropertyStru pshc_prop);
-BTINT32 Btsdk_SetShortCutProperty(PBtSdkShortCutPropertyStru pshc_prop);
-BTUINT32 Btsdk_GetShortCutByDeviceHandle(BTDEVHDL dev_hdl, BTUINT16 service_class, BTSHCHDL *pshc_hdl, BTUINT32 max_shc_num);
-BTINT32 Btsdk_Hid_ClntPluggedDev(BTUINT8 *bdaddr, BTUINT8 *sdapattr, BTUINT8 *localattr);
-BTUINT8 Btsdk_Hid_ClntGetPlugFlag(BTUINT8 * bdaddr);
-BTINT32 Btsdk_DeleteShortCut(BTSHCHDL shc_hdl);
 BTUINT32 Btsdk_Hid_ClntUnPluggedDev(BTUINT8 * bdaddr);
-BTINT32 Btsdk_ConnectShortCut(BTSHCHDL shc_hdl);
-BTINT32 Btsdk_DisconnectShortCut(BTSHCHDL shc_hdl);
-BTINT32 Btsdk_RecoverRemoteDeviceLinkKey(BTDEVHDL dev_hdl, BTUINT8* link_key);
-
-/*Local SPP service*/
-/* Service Manager */
-BTSVCHDL Btsdk_AddServer(BtSdkLocalServerAttrStru *attribute);
-BTINT32 Btsdk_RemoveServer(BTSVCHDL handle);
-BTINT32 Btsdk_UpdateServerAttributes(BTSVCHDL handle, BtSdkLocalServerAttrStru *attribute);
-BTINT32 Btsdk_StartServer(BTSVCHDL handle);
-BTINT32 Btsdk_StopServer(BTSVCHDL handle);
-BTINT32 Btsdk_GetServerAttributes(BTSVCHDL handle, BtSdkLocalServerAttrStru *attribute);
-BTINT32 Btsdk_GetLocalServers(BTSVCHDL * svc_hdl, BTUINT32 * svc_count);
-
-
-BTSDKHANDLE Btsdk_StartEnumLocalServer(void);
-BTSVCHDL Btsdk_EnumLocalServer(BTSDKHANDLE enum_handle, PBtSdkLocalServerAttrStru attribute);
-BTINT32 Btsdk_EndEnumLocalServer(BTSDKHANDLE enum_handle);
-
-/*INI file operation API*/
-/*get/write from/to file*/
-BTUINT32 Btsdk_GetPrivateProfileString(BTINT8 *lpAppName, BTINT8 *lpKeyName, BTINT8 *lpDefault, BTINT8 *lpReturnedString, BTUINT32 nSize, BTINT8 *lpFileName);
-BOOL Btsdk_WritePrivateProfileString(BTINT8 *lpAppName, BTINT8 *lpKeyName, BTINT8 *lpString, BTINT8 *lpFileName);
-BTINT32 Btsdk_GetPrivateProfileInt(BTINT8 *lpAppName, BTINT8 *lpKeyName, BTINT32 nDefault, BTINT8 *lpFileName);
-BOOL Btsdk_WritePrivateProfileInt(BTINT8 *lpAppName, BTINT8 *lpKeyName, BTINT32 nNumber, BTINT8 *lpFileName);
-
-/*secure level for local service*/
-BTUINT32 Btsdk_SetServiceSecurityLevel(BTSVCHDL svc_hdl, BTUINT8 level);
-BTUINT32 Btsdk_GetServiceSecurityLevel(BTSVCHDL svc_hdl, BTUINT8 *level);
-
-BTINT32 Btsdk_GetServerStatus(BTSVCHDL svc_hdl, BTUINT16 *status);
-BTUINT32 Btsdk_SetSecurityMode(BTUINT16 secu_mode);
-
-/*Phone Book Access Profile APIs*/
-/*************** Callback function prototype ******************/
-typedef void (Btsdk_PBAP_STATUS_INFO_CB)(BTUINT8 first, BTUINT8 last, BTUINT8* filename, BTUINT32 filesize, BTUINT32 cursize);
-
-/*************** Function Prototype ******************/
-BTSVCHDL Btsdk_RegisterPBAPService(BTUINT8* svc_name, PBtSdkLocalPSEServerAttrStru svr_attr, PBtSdkPBAPSvrCBStru cb_funcs);
-BTINT32 Btsdk_PBAPRegisterFileIORoutines(BTCONNHDL conn_hdl, PBtSdkPBAPFileIORoutinesStru funcs);
-BTINT32 Btsdk_PBAPRegisterSvrCallback(BTSVCHDL svc_hdl, PBtSdkPBAPSvrCBStru cb_funcs);
-BTINT32 Btsdk_UnregisterPBAPService(BTSVCHDL svc_hdl);
-
-BTINT32 Btsdk_PBAPRegisterStatusCallback(BTCONNHDL conn_hdl, Btsdk_PBAP_STATUS_INFO_CB *func);
-
-void Btsdk_PBAPFilterComposer(BTUINT8 *filter, BTUINT8 flag);
-BTINT32 Btsdk_PBAPCancelTransfer(BTCONNHDL conn_hdl);
-BTINT32 Btsdk_PBAPPullPhoneBook(BTCONNHDL conn_hdl, BTUINT8 *path, PBtSdkPBAPParamStru param, BTSDKHANDLE file_hdl);
-BTINT32 Btsdk_PBAPSetPath(BTCONNHDL conn_hdl, BTUINT8 *folder);
-BTINT32 Btsdk_PBAPPullCardList(BTCONNHDL conn_hdl, BTUINT8 *folder, PBtSdkPBAPParamStru param, BTSDKHANDLE file_hdl);
-BTINT32 Btsdk_PBAPPullCardEntry(BTCONNHDL conn_hdl, BTUINT8 *name, PBtSdkPBAPParamStru param, BTSDKHANDLE file_hdl);
-
-/************************************************************************/
-/* BT2.1 support  begin                                                                    */
-/************************************************************************/
-BTINT32 Btsdk_IOCapReqReply(BTDEVHDL dev_hdl, BTUINT8 io_cap, BTUINT8 oob_data_present, BTUINT8 authen_req);
-BTINT32 Btsdk_IOCapReqReject(BTDEVHDL dev_hdl);
-BTINT32 Btsdk_UsrCfmReqReply(BTDEVHDL dev_hdl, BTBOOL accepted);
-BTINT32 Btsdk_PasskeyReqReply(BTDEVHDL dev_hdl, BTUINT32 num_value);
-BTINT32 Btsdk_RemOOBDataReqReply(BTDEVHDL dev_hdl, BTUINT8 *c_val, BTUINT8 *r_val);
-BTINT32 Btsdk_GetRemoteDeviceEIRAdvData(BTDEVHDL dev_hdl, BTUINT8 data_type, BTUINT8 *data_buf, BTUINT8 *buf_size);
-
-/************************************************************************/
-/* BT2.1 support end                                                                     */
-/************************************************************************/
-BTINT32 Btsdk_ExecuteHCICommandEx(BTUINT16 cmd_idx, BTUINT32 cmd_len, BTUINT8 *cmd_param, BTUINT32 ev_len, BTUINT8 *ev_param);
-
-/************************************************************************/
-/* LE support Begin                                                                     */
-/************************************************************************/
-//LE Client
-BTINT32 Btsdk_GATTGetServices(BTDEVHDL hDevice, BTUINT16 ServicesBufferCount, PBtsdkGATTServiceStru ServicesBuffer, BTUINT16* ServicesBufferActual, BTUINT32 Flags);
-BTINT32 Btsdk_GATTGetIncludedServices(BTDEVHDL hDevice, PBtsdkGATTServiceStru ParentService, BTUINT16 IncludedServicesBufferCount, PBtsdkGATTServiceStru IncludedServicesBuffer, BTUINT16* IncludedServicesBufferActual, BTUINT32 Flags);
-BTINT32 Btsdk_GATTGetCharacteristics(BTDEVHDL hDevice, PBtsdkGATTServiceStru Service, BTUINT16 CharacteristicsBufferCount, PBtsdkGATTCharacteristicStru CharacteristicsBuffer, BTUINT16* CharacteristicsBufferActual, BTUINT32 Flags);
-BTINT32 Btsdk_GATTGetCharacteristicValue(BTDEVHDL hDevice, PBtsdkGATTCharacteristicStru Characteristic, BTUINT16 CharacteristicValueDataSize, PBtsdkGATTCharacteristicValueStru CharacteristicValue, BTUINT16* CharacteristicValueSizeRequired, BTUINT32 Flags);
-BTINT32 Btsdk_GATTGetDescriptors(BTDEVHDL hDevice, PBtsdkGATTCharacteristicStru Characteristic, BTUINT16 DescriptorsBufferCount, PBtsdkGATTDescriptorStru DescriptorsBuffer, BTUINT16* DescriptorsBufferActual, BTUINT32 Flags);
-BTINT32 Btsdk_GATTGetDescriptorValue(BTDEVHDL hDevice, PBtsdkGATTDescriptorStru Descriptor, BTUINT16 DescriptorValueDataSize, PBtsdkGATTDescriptorValueStru DescriptorValue, BTUINT16* DescriptorValueSizeRequired, BTUINT32 Flags);
-BTINT32 Btsdk_GATTBeginReliableWrite(BTDEVHDL hDevice, BTSDKHANDLE *ReliableWriteContext, BTUINT32 Flags);
-BTINT32 Btsdk_GATTSetCharacteristicValue( BTDEVHDL hDevice, PBtsdkGATTCharacteristicStru Characteristic, PBtsdkGATTCharacteristicValueStru CharacteristicValue, BTSDKHANDLE ReliableWriteContext, BTUINT32 Flags);
-BTINT32 Btsdk_GATTEndReliableWrite(BTDEVHDL hDevice, BTSDKHANDLE ReliableWriteContext, BTUINT32 Flags);
-BTINT32 Btsdk_GATTAbortReliableWrite(BTDEVHDL hDevice, BTSDKHANDLE ReliableWriteContext, BTUINT32 Flags);
-BTINT32 Btsdk_GATTSetDescriptorValue(BTDEVHDL hDevice, PBtsdkGATTDescriptorStru Descriptor, PBtsdkGATTDescriptorValueStru DescriptorValue, BTUINT32 Flags);
-BTINT32 Btsdk_GATTCloseSession(BTDEVHDL hDevice, BTUINT32 Flags);
-BTINT32 Btsdk_GetLEDeviceAppearance(BTDEVHDL dev_hdl, BTUINT16* appearance);
-BTDEVHDL Btsdk_GetRemoteLEDeviceHandle(BTUINT8 *bd_addr, BTUINT8 addr_type);
-BTINT8 Btsdk_GetRemoteDeviceAddressType(BTDEVHDL dev_hdl);
-
-typedef void FNBLUETOOTH_GATT_NOTIFICATION_CALLBACK(BTUINT16 ChangedAttributeHandle, BTUINT32 CharacteristicValueDataSize, PBtsdkGATTCharacteristicValueStru CharacteristicValue, BTLPVOID Context);
-BTINT32 Btsdk_GATTRegisterEvent(BTDEVHDL hDevice, BTSDK_GATT_EVENT_TYPE EventType, BTLPVOID EventParameter, FNBLUETOOTH_GATT_NOTIFICATION_CALLBACK *Callback, BTLPVOID CallbackContext, BTSDKHANDLE* pEventHandle, BTUINT32 Flags);
-BTINT32 Btsdk_GATTUnregisterEvent(BTSDKHANDLE EventHandle, BTUINT32 Flags);
-BTINT32 Btsdk_GetRemoteDeviceType(BTDEVHDL dev_hdl);
-//LE Server
-
-BTINT32 Btsdk_GATTSetGapUIAttributes(BTUINT8 *dev_name, BTUINT16 appereance);
-typedef BTBOOL FNBLUETOOTH_GATT_SERVER_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, BTLPVOID EventParameter);
-//Server callback related to EventType
-//AddServiceCompleteEvent
-typedef BTBOOL FNBLUETOOTH_GATT_ADD_SERVICE_COMPLETE_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 ServiceID, BTUINT32 EventParameterSize, PBtsdkGATTServiceStru EventParameter);
-//ReadCharacteristicRequestEvent
-typedef BTBOOL FNBLUETOOTH_GATT_READ_CHARACTERISTIC_REQUEST_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, PBtsdkGATTCharacteristicReadRequestStru EventParameter);
-//WriteCharacteristicRequestEvent
-typedef BTBOOL FNBLUETOOTH_GATT_WRITE_CHARACTERISTIC_REQUEST_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, PBtsdkGATTCharacteristicWriteRequestStru EventParameter);
-//ReadDescriptorRequestEvent
-typedef BTBOOL FNBLUETOOTH_GATT_READ_DESCRIPTOR_REQUEST_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, PBtsdkGATTDescriptorReadRequestStru EventParameter);
-//WriteDescriptorRequestEvent
-typedef BTBOOL FNBLUETOOTH_GATT_WRITE_DESCRIPTOR_REQUEST_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, PBtsdkGATTDescriptorWriteRequestStru EventParameter);
-//ExecuteWriteRequestEvent
-typedef BTBOOL FNBLUETOOTH_GATT_EXECUTE_WRITE_REQUEST_CALLBACK(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, PBtsdkGATTExecuteWriteRequestStru EventParameter);
-
-
-BTINT32 Btsdk_GATTRegisterServerEx(FNBLUETOOTH_GATT_SERVER_CALLBACK *Callback, BTLPVOID CallbackContext, BTUINT8* mutext_name, BTSDKHANDLE *hServer);
-BTINT32 Btsdk_GATTUnregisterServer(BTSDKHANDLE hServer);
-BTINT32 Btsdk_GATTCreateService(BTSDKHANDLE hServer, PBtsdkGATTUUIDStru ServiceUuid, BTSDK_GATT_SERVICE_TYPE ServiceType, BTUINT32 *ServiceID);
-BTINT32 Btsdk_GATTAddCharacteristic(BTUINT32 ServiceID, PBtsdkGATTCharacteristicStru CharacteristicProperties, PBtsdkGATTCharacteristicValueStru CharacteristicValue, BTUINT32 *CharacteristicID);
-BTINT32 Btsdk_GATTAddDescriptor(BTUINT32 CharacteristicID, PBtsdkGATTDescriptorValueStru DescriptorValue, PBtsdkGATTDescriptorPermissionStru Permissions);
-BTINT32 Btsdk_GATTAddInclude(BTUINT32 ServiceID, PBtsdkGATTServiceStru Include);
-BTINT32 Btsdk_GATTAddService(BTUINT32 ServiceID);
-BTINT32 Btsdk_GATTRemoveService(BTBOOL FindByUuid, PBtsdkGATTServiceStru Service);
-
-BTINT32 Btsdk_GATTSendResponse(BTDEVHDL hDevice, BTUINT32 RequestID, BTINT32 Status, BTUINT32 Offset, BTUINT8 *Data, BTUINT32 DataSize);
-BTINT32 Btsdk_GATTChangeDescriptorValue(BTUINT16 AttributeHandle, PBtsdkGATTDescriptorValueStru DescriptorValue);
-BTINT32 Btsdk_GATTNotifyCharacteristicChanged(BTDEVHDL hDevice, BTUINT16 AttributeHandle, BTUINT8 *Data, BTUINT32 DataSize);
-
-BTINT32 Btsdk_LESetScanEnable(BTUINT8 le_discovery_mode, BTUINT8 speed);
-BTINT32 Btsdk_LESetAdvertisingEnable(BTUINT8 le_discovery_mode, BTUINT8 speed);
-
-BTINT32 Btsdk_LEWhiteListAddDevice(BTDEVHDL dev_hdl);
-BTINT32 Btsdk_LEWhiteListRemoveDevice(BTDEVHDL dev_hdl);
-BTINT32 Btsdk_LEWhiteListClear(void);
-
-/************************************************************************/
-/* LE support end                                                                     */
-/************************************************************************/
-
 #endif

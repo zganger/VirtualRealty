@@ -19,24 +19,6 @@ Revision History:
 #include "sdk_tst.h"
 #include "profiles_tst.h"
 
-
-typedef struct MenuInputStru
-{
-	HANDLE ev_hdl;
-	UCHAR *out_str;
-	int str_size;
-	struct MenuInputStru *next;
-}NODESTRU;
-
-typedef struct {/* New List Structure by hiw */
-	void *head;
-	void *tail;
-}LISTSTRU;
-
-static DWORD s_input_lock;
-static LISTSTRU s_menus;
-
-
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Description:
 	This function shows the main menu
@@ -47,7 +29,7 @@ Return:
 void SdkTestShowMenu()
 {
 	printf("\n\n");
-	printf("  BlueSoleil SDK Sample App Ver 2.1.6    \n");
+	printf("  BlueSoleil SDK Sample App Ver 2.0.5    \n");
 	printf("*****************************************\n");
 	printf("*         BTSDK Testing Menu            *\n");
 	printf("* <1> Local Device Manager              *\n");
@@ -57,246 +39,6 @@ void SdkTestShowMenu()
 	printf("* <q> Quit                              *\n");
 	printf("*****************************************\n");
 	printf(">");
-}
-
-void List_AddTail(LISTSTRU *list, NODESTRU *node)
-{
-
-	NODESTRU *temp = list->head;
-
-	if (list->tail == NULL) 
-	{
-		list->head = node;
-	} 
-	else 
-	{
-		while(temp->next)
-		{
-			temp = temp->next;
-		}
-		temp->next = node;
-	}
-	list->tail = node;
-	node->next = NULL;
-
-}
-
-NODESTRU *List_RemoveTail(LISTSTRU *list)
-{	
-	NODESTRU *node = list->head;
-	NODESTRU *temp = list->head;
-	
-	if(node != NULL)
-	{
-		if (node->next != NULL) 
-		{
-			while(temp->next)
-			{
-				node = temp;
-				temp = temp->next;
-			}
-			list->tail = node;  
-			node->next = NULL;
-		}
-		else
-		{
-			list->tail = NULL;
-			list->head = NULL;
-		}
-	}
-
-	return temp;
-}
-
-int AppWaitForInput(char *out_str, int str_size)
-{
-	NODESTRU *input;
-	NODESTRU *output;
-	char *str_input = NULL;
-	long r;
-	
-	input = malloc(sizeof(struct MenuInputStru));
-	memset(input,0,sizeof(struct MenuInputStru));
-	input->ev_hdl = CreateEvent(NULL,FALSE,FALSE,NULL);
-	input->out_str = out_str;
-	input->str_size = str_size;
-	memset(out_str, 0, str_size);
-	WaitForSingleObject((HANDLE)s_input_lock,INFINITE);
-	List_AddTail(&s_menus, input);
-	ReleaseSemaphore(s_input_lock, 1, &r);
-	
-	do
-	{
-		if (input == s_menus.head)
-		{
-			if (str_input == NULL)
-			{
-				str_input = malloc(512);
-			}
-			scanf("%s", str_input);
-			WaitForSingleObject((HANDLE)s_input_lock,INFINITE);
-			output = List_RemoveTail(&s_menus);
-			ReleaseSemaphore(s_input_lock, 1, &r);
-			if (output->str_size > (int)strlen(str_input))
-			{
-				strcpy(output->out_str, str_input);
-			}
-			else
-			{
-				memcpy(output->out_str, str_input, output->str_size);
-			}
-			if (input != output)
-			{
-				SetEvent(output->ev_hdl);
-			}
-			else
-			{
-				break;
-			}
-		}
-		else
-		{
-			WaitForSingleObject(input->ev_hdl,INFINITE);
-			break;
-		}
-	} while (s_menus.head != NULL);
-	
-	CloseHandle(input->ev_hdl);
-	free(input);
-	input = NULL;
-	if (str_input != NULL)
-	{
-		free(str_input);
-	}
-	return strlen(out_str);
-}
-
-BTUINT32 AppWaitForInputInt(BTUINT32 *outp)
-{
-	char int_str[24];
-	BTUINT32 ret;
-	
-	AppWaitForInput(int_str, 24);
-	ret = atol(int_str);
-	if (outp != NULL)
-	{
-		*outp = ret;
-	}
-	return ret;
-}
-
-BTUINT16 AppWaitForInputSFloat(BTUINT16 *outp)
-{
-	char int_str[24] = {0};
-	BTUINT16 ret = 0;
-	char integer_str[24] = {0};
-	char *point;
-	char decimal_str[24] = {0};
-	BTUINT8 len;
-	int decimal;
-	int i;
-
-	AppWaitForInput(int_str, 24);
-
-	strcpy(integer_str, int_str);
-	point = strchr(integer_str,'.'); //find the '.'
-	
-	if(point == NULL)
-	{
-		ret = atoi(integer_str);
-		if(ret > 4095)
-		{
-			printf("Your input is beyond the scope of percision!\nPlease input again:");
-			ret = AppWaitForInputSFloat(outp);
-			return ret;
-		}
-	}
-	else
-	{
-		*point = 0;
-		strcpy(decimal_str, point+1);
-		len = strlen(decimal_str);
-		for(i=0; i<len; i++)	
-		{
-			if(decimal_str[i] != '0') //if the decimal is .0....
-			{
-				break;
-			}
-		}
-		decimal = atoi(decimal_str);
-		itoa(decimal, decimal_str, 10);	
-		len = strlen(decimal_str);
-		len = len + i;
-		for(; i>0; i--)
-		{
-			strcat(integer_str, "0");
-		}
-		strcat(integer_str, decimal_str);
-		ret = atoi(integer_str);
-		len = 0xF - len + 1;
-		if(ret > 4095)
-		{
-			printf("Your input is beyond the scope of percision!\nPlease input again:");
-			ret = AppWaitForInputSFloat(outp);
-			return ret;
-		}
-		ret = len * 4096 + ret;
-	}
-	
-	if (outp != NULL)
-	{
-		*outp = ret;
-	}
-
-	return ret;
-}
-
-BTUCHAR *SFloatToString(BTUINT16 data,BTUCHAR *out_str)
-{
-	BTUCHAR ret_str[24] = {0};
-	BTUCHAR integer_str[24] = {0};
-	BTUCHAR decimal_str[24] = {0};
-	int decimal = 0;
-	int integer = 0;
-	int exponent = 0;
-	int len = 0;
-	int i;
-	
-	integer = data % 4096;
-	itoa(integer, integer_str, 10);
-	len = strlen(integer_str);
-	if(data/4096 == 0)
-	{
-		exponent = 0;
-		strcpy(out_str, integer_str);
-		return out_str;
-	}
-	else
-	{
-		exponent = 16 - data / 4096; 
-	}
-
-	if(exponent >= len)	//if integer is 0
-	{
-		strcpy(decimal_str, "0.");
-		for(i=0; i<(exponent-len); i++)
-		{
-			strcat(decimal_str, "0");
-		}
-		strcat(decimal_str, integer_str);
-		strcpy(out_str, decimal_str);
-		return out_str;
-	}
-	else
-	{
-		for(i=0; i<exponent; i++)
-		{
-			integer_str[len-i] = integer_str[len-i-1];
-		}
-		integer_str[len-exponent] = '.';
-		strcpy(out_str, integer_str);
-	}
-	return out_str;
 }
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -441,16 +183,13 @@ int main(void)
 	BTUINT8 chInputCmd = 0;
 	BTUINT8 chEnterChoice = 0;
 	
-	s_input_lock = (DWORD)CreateSemaphore(NULL, 1, 1, NULL);
-
 	printf("IVT BlueSoleil SDK is being Initialized....\n");
 	if (FALSE == InitBlueSoleilForSample())
 	{
 		printf("Fail to initialize BlueSoleil, assure BlueSoleil is installed!\n");
 		printf("Press any key to exit this application please.\n");
-		AppWaitForInput(&chEnterChoice, 1);
-
-		CloseHandle((HANDLE)s_input_lock);
+		scanf(" %c", &chEnterChoice);
+		getchar();
 		return 1;
 	}
 	else
@@ -466,7 +205,8 @@ int main(void)
 			
 			while (TRUE)
 			{
-				AppWaitForInput(&chEnterChoice, 1);
+				scanf(" %c",&chEnterChoice);
+				getchar();
 
 				if (('y'==chEnterChoice)||('Y'==chEnterChoice))
 				{
@@ -484,7 +224,6 @@ int main(void)
 				}
 				else if(('n'==chEnterChoice)||('N'== chEnterChoice))
 				{
-					CloseHandle((HANDLE)s_input_lock);
 					return 1;
 				}
 				else
@@ -508,8 +247,8 @@ int main(void)
 			SdkTestShowMenu();
 			while (chInputCmd != 'q')
 			{
-				AppWaitForInput(&chInputCmd, 1);
-
+				scanf(" %c", &chInputCmd);
+				getchar();
 				if ('\n' == chInputCmd)
 				{
 					printf(">>");
@@ -535,7 +274,6 @@ int main(void)
 		Btsdk_RegisterGetStatusInfoCB4ThirdParty(NULL);
 		UnRegAppIndCallback();	
 		Btsdk_Done();
-		CloseHandle((HANDLE)s_input_lock);
 		return 0;
 		
 	}	

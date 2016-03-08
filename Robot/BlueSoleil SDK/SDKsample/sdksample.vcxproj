@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <SccProjectName>"$/006_BlueSoleil5/sdksample", GEUBAAAA</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
-    <ProjectGuid>{3ECE84F3-1FB6-49C2-ACFB-F50F0A7428C4}</ProjectGuid>
+    <ProjectGuid>{44C39255-71E5-4A4F-BEAE-26AB53E3CC80}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -84,11 +84,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <IgnoreSpecificDefaultLibraries>libcmtd.lib;libcd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>../bin/sdksample_debug.exe</OutputFile>
+      <OutputFile>../bin/sdksample.exe</OutputFile>
       <AdditionalLibraryDirectories>..\BIN;$(MSSDK)\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>msvcrtd.lib;winmm.lib;Setupapi.lib;Advapi32.lib;ws2_32.lib;Shlwapi.lib;Winspool.lib;Msacm32.lib;BSSDK.lib;odbc32.lib;odbccp32.lib;bmsg_parserd.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>msvcrtd.lib;winmm.lib;Setupapi.lib;Advapi32.lib;ws2_32.lib;Shlwapi.lib;Winspool.lib;Msacm32.lib;BSSDK.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,39 +120,29 @@
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <OutputFile>../bin/sdksample.exe</OutputFile>
       <AdditionalLibraryDirectories>..\BIN;$(MSSDK)\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>winmm.lib;Setupapi.lib;Advapi32.lib;ws2_32.lib;Shlwapi.lib;Winspool.lib;Msacm32.lib;BSSDK.lib;odbc32.lib;odbccp32.lib;bmsg_parser.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>libc.lib</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>msvcrt.lib;Winmm.lib;setupapi.lib;Advapi32.lib;ws2_32.lib;Shlwapi.lib;Winspool.lib;Msacm32.lib;BSSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="av_tst.c" />
     <ClCompile Include="ftpopp_tst.c" />
-    <ClCompile Include="gatt_test.c" />
     <ClCompile Include="hfp_tst.c" />
     <ClCompile Include="hid_tst.c" />
     <ClCompile Include="loc_dev_tst.c" />
-    <ClCompile Include="map_tst.c" />
     <ClCompile Include="pan_tst.c" />
-    <ClCompile Include="pbap_tst.c" />
     <ClCompile Include="profiles_tst.c" />
     <ClCompile Include="report.c" />
     <ClCompile Include="rmt_dev_tst.c" />
     <ClCompile Include="rmt_svc_tst.c" />
     <ClCompile Include="sdk_tst.c" />
     <ClCompile Include="spp_tst.c" />
-    <ClCompile Include="vcard_parser\vcc.c" />
-    <ClCompile Include="vcard_parser\vobject.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="map_tst.h" />
     <ClInclude Include="profiles_tst.h" />
-    <ClInclude Include="sdk_gatt.h" />
     <ClInclude Include="sdk_tst.h" />
-    <ClInclude Include="vcard_parser\vcc.h" />
-    <ClInclude Include="vcard_parser\vobject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

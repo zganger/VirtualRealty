@@ -139,8 +139,8 @@ void TestPANFunc(void)
 	Btsdk_PAN_RegIndCbk4ThirdParty(Btsdk_PAN_Event_CbkFunc);
 	while (ch != 'r')
 	{	
-		AppWaitForInput(&ch, 1);
-
+		scanf(" %c", &ch);	
+		getchar();
 		if (ch == '\n')
 		{
 			printf(">>");

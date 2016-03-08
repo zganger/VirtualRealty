@@ -31,19 +31,13 @@ void ProfilesTestShowMenu(void)
 {
    	printf("*****************************************\n");
 	printf("*         Profile Testing Menu          *\n");
-	printf("* <1> A2DP Profile                      *\n");
+	printf("* <1> AVRCP & A2DP Profile              *\n");
 	printf("* <2> FTP Profile                       *\n");
 	printf("* <3> OPP Profile                       *\n");
 	printf("* <4> PAN Profile                       *\n");
 	printf("* <5> HFP/HSP Profile                   *\n");
 	printf("* <6> SPP Profile                       *\n");
 	printf("* <7> HID Profile                       *\n");
-	printf("* <8> Local SPP Service                 *\n");
-	printf("* <9> PBAP profile                      *\n");
-	printf("* <a> MAP profile                       *\n");
-	printf("* <b> GATT profile                      *\n");
-	printf("* <c> AVRCP profile                     *\n");
-	printf("* <d> GATT Server                       *\n");
 	printf("* <r> Return to the upper menu          *\n");
 	printf("*****************************************\n");
 	printf(">");
@@ -111,24 +105,6 @@ void ProfilesMgrExc(BTUINT8 chChoice)
 		case '7':
 			TestHidFunc();
 			break;
-		case '8':
-			TestLocalSPPServiceFunc();
-			break;
-		case '9':
-			TestPBAPFunc();
-			break;	
-		case 'a':
-			TestMAPFunc();
-			break;
-		case 'b':
-			TestGATT();
-			break;
-		case 'c':
-			TestAVRCPFunc();
-			break;
-		case 'd':
-			TestGATTServerFunc();
-			break;
 		default:
 			printf("Invalid command.\n");
 			break;
@@ -148,8 +124,8 @@ void TestProfiles(void)
 	ProfilesTestShowMenu();
 	while (ucChoice != 'r')
 	{
-		AppWaitForInput(&ucChoice, 1);
-
+		scanf(" %c", &ucChoice);
+		getchar();
 		if ('\n' == ucChoice)
 		{
 			printf(">>");

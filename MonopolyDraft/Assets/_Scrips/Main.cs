@@ -28,7 +28,7 @@ namespace Backend
 			GameBoard.beginGameplay ();
 		}
 	}
-	class Board
+	public class Board
 	{
 		public MoveP2 ourFirstPiece;				//declare a thing exists
 		public MoveP2 ourSecondPiece;				//declare another thing exists
@@ -40,23 +40,24 @@ namespace Backend
 		public ArrayList unityPieces = new ArrayList();
 		public bool gameOver = false;
 		public int diceTotal;
+		public int[,] Unitycoordinates = new int[40,2] { {88, -146}, {58, -146}, {34, -146}, {-3, -146}, {-30, -146}, {-60, -146}, {-90, -146}, {-120, -146}, {-150, -146}, {-180, -146}, {-220, -146}, {-200, -120}, {-200, -90}, {-200, -60}, {-200, -30}, {-200, 0}, {-200, 30}, {-200, 60}, {-200, 90}, {-200, 120}, {-200, 150}, {-180, 170}, {-150, 170}, {-120, 170}, {-90, 170}, {-60, 170}, {-30, 170}, {0, 170}, {30, 170}, {60, 170}, {90, 170}, {85, 120}, {85, 90}, {85, 60}, {85, 30}, {85, 0}, {85, -30}, {85, -60}, {85, -90}, {85, -115} };
+		public int getUnityCoords (int loc, int xy)
+		{
+			return Unitycoordinates[loc, xy];
+		}
 		public Board()
 		{
-//			GameObject g = new GameObject("g");
-//			MoveP2 UnityPiece1;// = new ourUnityThings.MoveP1();
-//			MoveP2 UnityPiece2;// = new ourUnityThings.MoveP1();
+			GameObject g = new GameObject("g");
 
-
-			unityPieces.Add (ourFirstPiece);
-			unityPieces.Add (ourSecondPiece);
+			unityPieces.Add (g.AddComponent<MoveP2>());
+			unityPieces.Add (g.AddComponent<MoveP2>());
 			pieces.Add (new Piece ("Racecar", "Red", 0));
 			pieces.Add (new Piece ("Tophat", "Black", 1));
 			int[] values = new int[40] {0, 60, 0, 60, 0, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 0, 400};
 			string[] spaces = new string[40]{"Go", "Mediterranean Avenue", "Community Chest", "Baltic Avenue", "Income Tax", "Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B&O Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"};
 			int[] mortgages = new int[40] {0, 30, 0, 30, 0, 100, 50, 0, 50, 60, 0, 70, 75, 70, 80, 100, 90, 0, 90, 100, 0, 110, 0, 110, 120, 100, 130, 130, 75, 140, 0, 150, 0, 150, 160, 100, 0, 175, 0, 200};
 			string[] colorGroups = new string[40]{null, "brown", null, "brown", null, "RR", "powder", null, "powder", "powder", null, "pink", "UTIL", "pink", "pink", "RR", "orange", null,"orange", "orange", null, "red", null, "red", "red", "RR", "yellow", "yellow", "UTIL", "yellow", null, "green", "green", null, "green", "RR", null, "blue", null, "blue"};
-			int[,] rents = new int[40, 7] { {-200, -200, -200, -200, -200, -200, -200}, {2, 4, 10, 30, 90, 160, 250}, {0, 0, 0, 0, 0, 0, 0}, {4, 8, 20, 60, 180, 320, 450}, {200, 200, 200, 200, 200, 200, 200}, {25, 50, 100, 200, 200, 200, 200}, {6, 12, 30, 90, 270, 400, 550}, {0, 0, 0, 0, 0, 0, 0}, {6, 12, 30, 90, 270, 400, 550}, {8, 16, 40, 100, 300, 450, 600}, {0, 0, 0, 0, 0, 0, 0}, {10, 20, 50, 150, 450, 625, 750}, {0, 0, 0, 0, 0, 0, 0}, {10, 20, 50, 150, 450, 625, 750}, {12, 24, 60, 180, 500, 700, 900}, {25, 50, 100, 200, 200, 200, 200}, {14, 28, 70, 200, 550, 750, 950}, {0, 0, 0, 0, 0, 0, 0}, {14, 28, 70, 200, 550, 750, 950}, {16, 32, 80, 220, 600, 800, 1000}, {0, 0, 0, 0, 0, 0, 0}, {18, 36, 90, 250, 700, 875, 1050}, {0, 0, 0, 0, 0, 0, 0}, {18, 36, 90, 250, 700, 875, 1050}, {20, 40, 100, 300, 750, 925, 1100}, {25, 50, 100, 200, 200, 200, 200}, {22, 44, 110, 330, 800, 975, 1150}, {22, 44, 110, 330, 800, 975, 1150}, {0, 0, 0, 0, 0, 0, 0}, {24, 48, 120, 360, 850, 1025, 1200}, {0, 0, 0, 0, 0, 0, 0}, {26, 52, 130, 390, 900, 1100, 1275}, {26, 52, 130, 390, 900, 1100, 1275}, {0, 0, 0, 0, 0, 0, 0}, {28, 52, 150, 450, 1000, 1200, 1400}, {25, 50, 100, 200, 200, 200, 200}, {0, 0, 0, 0, 0, 0, 0}, {35, 70, 175, 500, 1100, 1300, 1500}, {100, 100, 100, 100, 100, 100, 100}, {50, 100, 200, 600, 1400, 1700, 2000} };
-			for (int i = 0; i < 40; i++) {
+			int[,] rents = new int[40, 7] { {-200, -200, -200, -200, -200, -200, -200}, {2, 4, 10, 30, 90, 160, 250}, {0, 0, 0, 0, 0, 0, 0}, {4, 8, 20, 60, 180, 320, 450}, {200, 200, 200, 200, 200, 200, 200}, {25, 50, 100, 200, 200, 200, 200}, {6, 12, 30, 90, 270, 400, 550}, {0, 0, 0, 0, 0, 0, 0}, {6, 12, 30, 90, 270, 400, 550}, {8, 16, 40, 100, 300, 450, 600}, {0, 0, 0, 0, 0, 0, 0}, {10, 20, 50, 150, 450, 625, 750}, {0, 0, 0, 0, 0, 0, 0}, {10, 20, 50, 150, 450, 625, 750}, {12, 24, 60, 180, 500, 700, 900}, {25, 50, 100, 200, 200, 200, 200}, {14, 28, 70, 200, 550, 750, 950}, {0, 0, 0, 0, 0, 0, 0}, {14, 28, 70, 200, 550, 750, 950}, {16, 32, 80, 220, 600, 800, 1000}, {0, 0, 0, 0, 0, 0, 0}, {18, 36, 90, 250, 700, 875, 1050}, {0, 0, 0, 0, 0, 0, 0}, {18, 36, 90, 250, 700, 875, 1050}, {20, 40, 100, 300, 750, 925, 1100}, {25, 50, 100, 200, 200, 200, 200}, {22, 44, 110, 330, 800, 975, 1150}, {22, 44, 110, 330, 800, 975, 1150}, {0, 0, 0, 0, 0, 0, 0}, {24, 48, 120, 360, 850, 1025, 1200}, {0, 0, 0, 0, 0, 0, 0}, {26, 52, 130, 390, 900, 1100, 1275}, {26, 52, 130, 390, 900, 1100, 1275}, {0, 0, 0, 0, 0, 0, 0}, {28, 52, 150, 450, 1000, 1200, 1400}, {25, 50, 100, 200, 200, 200, 200}, {0, 0, 0, 0, 0, 0, 0}, {35, 70, 175, 500, 1100, 1300, 1500}, {100, 100, 100, 100, 100, 100, 100}, {50, 100, 200, 600, 1400, 1700, 2000} };			for (int i = 0; i < 40; i++) {
 				int[] passRents = new int[7];
 				for(int jj = 0; jj < 7; jj++)
 				{
@@ -78,6 +79,7 @@ namespace Backend
 				if (currPlayer.doubcount == 3) {
 					Console.WriteLine ("Player " + currPlayer.player.ID + " has three sets of doubles and goes to jail");
 					currPlayer.location = 10;
+					currPlayerUnity.MoveTo(currPlayer.location, this);
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;
 					currPlayer.player.money = currPlayer.player.money - 50; //bail immediate for the time being
@@ -89,10 +91,11 @@ namespace Backend
 					}
 					Debug.Log("here2");
 
-					currPlayerUnity.MoveTo(currPlayer.location, ((currPlayer.location + diceTotal) % 40), diceTotal);	//add to P1 as well and in new version
+					//currPlayerUnity.MoveTo(currPlayer.location, ((currPlayer.location + diceTotal) % 40), diceTotal);	//add to P1 as well and in new version
 
 					Debug.Log("here3");
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
+					currPlayerUnity.MoveTo(currPlayer.location, this);
 					Console.WriteLine ("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles [currPlayer.location]).title);
 					Console.WriteLine ("Doubles, go again!");
 				}
@@ -106,6 +109,7 @@ namespace Backend
 					Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 				}
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
+				currPlayerUnity.MoveTo(currPlayer.location, this);
 				Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
 				currPlayer.doubcount = 0;
 			}
@@ -174,7 +178,7 @@ namespace Backend
 				int playerID = (turncounter % 2);
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
 				//???
-				MoveP2 currPlayerUnity = g.AddComponent<MoveP2>(); //((MoveP2)this.unityPieces[playerID]); //again, more like .MoveP not .MoveP1
+				MoveP2 currPlayerUnity = ((MoveP2)this.unityPieces[playerID]); //again, more like .MoveP not .MoveP1
 				//Thread.Sleep(1000);	//delay before next dice rolling
 
 				Debug.Log("working1?");
@@ -234,6 +238,7 @@ namespace Backend
 					else if(currPlayer.location == 30) //go to jail
 					{
 						currPlayer.location = 10;
+						currPlayerUnity.MoveTo(currPlayer.location, this);
 						currPlayer.isJailed = true;
 						Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
 					}
@@ -252,7 +257,7 @@ namespace Backend
 		}
 	}
 
-	class Piece
+	public class Piece
 	{
 		public Owner player;
 		public string type;
@@ -270,7 +275,7 @@ namespace Backend
 		}
 	}
 
-	class Tile
+	public class Tile
 	{
 		public string title;
 		public Property property;
@@ -290,7 +295,7 @@ namespace Backend
 		}
 	}
 
-	class Owner
+	public class Owner
 	{
 		public int ID;
 		public ArrayList properties = new ArrayList();
@@ -308,7 +313,7 @@ namespace Backend
 		}
 	}
 
-	class Property
+	public class Property
 	{
 		public int mortgage;
 		public bool isMortgaged;
@@ -343,7 +348,7 @@ namespace Backend
 		}
 	}
 
-	class Card
+	public class Card
 	{
 		public bool type; //comm chest or chance
 		public string text;
@@ -357,7 +362,7 @@ namespace Backend
 		}
 	}
 
-	class Action
+	public class Action
 	{
 		public bool m; //money or motion
 		public int value;

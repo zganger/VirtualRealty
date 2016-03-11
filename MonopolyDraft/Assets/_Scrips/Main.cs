@@ -79,6 +79,7 @@ namespace Backend
 				if (currPlayer.doubcount == 3) {
 					Console.WriteLine ("Player " + currPlayer.player.ID + " has three sets of doubles and goes to jail");
 					currPlayer.location = 10;
+					Debug.Log("movingTo");
 					currPlayerUnity.MoveTo(currPlayer.location, this);
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;

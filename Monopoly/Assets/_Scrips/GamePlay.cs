@@ -88,7 +88,7 @@ public class GamePlay : MonoBehaviour {
 				if (currPlayer.doubcount == 3) {
 					Console.WriteLine ("Player " + currPlayer.player.ID + " has three sets of doubles and goes to jail");
 					currPlayer.location = 10;
-					currPlayerUnity.MoveTo(currPlayer.location, this);
+					currPlayerUnity.MoveTo(currPlayer.location);
 					currPlayer.isJailed = true;
 					currPlayer.doubcount = 0;
 					currPlayer.player.money = currPlayer.player.money - 50; //bail immediate for the time being
@@ -99,7 +99,7 @@ public class GamePlay : MonoBehaviour {
 						Console.WriteLine ("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 					}
 					currPlayer.location = (currPlayer.location + diceTotal) % 40;
-					currPlayerUnity.MoveTo(currPlayer.location, this);
+					currPlayerUnity.MoveTo(currPlayer.location);
 					Console.WriteLine ("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles [currPlayer.location]).title);
 					Console.WriteLine ("Doubles, go again!");
 				}
@@ -113,7 +113,7 @@ public class GamePlay : MonoBehaviour {
 					Console.WriteLine("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money);
 				}
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
-				currPlayerUnity.MoveTo(currPlayer.location, this);
+				currPlayerUnity.MoveTo(currPlayer.location);
 				Console.WriteLine("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)this.tiles[currPlayer.location]).title);
 				currPlayer.doubcount = 0;
 			}
@@ -238,7 +238,7 @@ public class GamePlay : MonoBehaviour {
 					else if(currPlayer.location == 30) //go to jail
 					{
 						currPlayer.location = 10;
-						currPlayerUnity.MoveTo(currPlayer.location, this);
+						currPlayerUnity.MoveTo(currPlayer.location);
 						currPlayer.isJailed = true;
 						Console.WriteLine ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
 					}

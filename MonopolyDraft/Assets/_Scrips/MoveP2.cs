@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Backend;
 
 public class MoveP2 : MonoBehaviour {
 
@@ -39,9 +38,5 @@ public class MoveP2 : MonoBehaviour {
 			isFinished = true;
 			Debug.Log(transform.position);
 		}
-//		while (transform.position.x != inDest)
-//			{
-//				transform.position = new Vector3(transform.position.x - 60 * Time.deltaTime, 40, 0);
-//			}
 	}
 }

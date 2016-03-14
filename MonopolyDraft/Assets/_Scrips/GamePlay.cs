@@ -27,7 +27,7 @@ public class GamePlay : MonoBehaviour {
 		foreach (Tile t in GameBoard.tiles) {
 			if (t.isProperty) {
 				Balances.text = Balances.text + t.title + ": ";
-				if (!t.property.player.Equals (null)) {
+				if (t.property.player != null) {
 					Balances.text = Balances.text + "Player " + t.property.player.ID;
 				}
 				Balances.text = Balances.text + "\n";

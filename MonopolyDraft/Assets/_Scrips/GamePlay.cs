@@ -23,6 +23,16 @@ public class GamePlay : MonoBehaviour {
 		foreach (Piece p in GameBoard.pieces) {
 			Balances.text = Balances.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
 		}
+		Balances.text = Balances.text + "\nProperties: \n";
+		foreach (Tile t in GameBoard.tiles) {
+			if (t.isProperty) {
+				Balances.text = Balances.text + t.title + ": ";
+				if (!t.property.player.Equals (null)) {
+					Balances.text = Balances.text + "Player " + t.property.player.ID;
+				}
+				Balances.text = Balances.text + "\n";
+			}
+		}
 	}
 
 	public static void Main()

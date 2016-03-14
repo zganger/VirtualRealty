@@ -13,8 +13,6 @@ public class GamePlay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("here");
-		//Backend.MainClass.Main();
 		Main();
 	}
 	void Update ()
@@ -184,8 +182,6 @@ public class GamePlay : MonoBehaviour {
 				Piece currPlayer = ((Piece)this.pieces[playerID]);
 				MoveP2 currPlayerUnity = ((MoveP2)this.unityPieces[playerID]);
 				//Thread.Sleep(1000);	//delay before next dice rolling
-
-				Debug.Log("working1?");
 				Dice(currPlayer, currPlayerUnity); //roll and move to new location
 				Tile thisTile = (Tile)this.tiles[currPlayer.location];
 				if(thisTile.isProperty) //is property

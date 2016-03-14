@@ -19,13 +19,8 @@ public class MoveP2 : MonoBehaviour {
 
 	public void MoveTo (int inDest, Board gameBoard)
 	{
-//		Dest = inDest;
-//		Origin = inOrigin;
-//		diceTotal = inDice;
 		bool isFinished = false;
-		Debug.Log("MovedTo");
 		while (isFinished==false && (transform.position.x != gameBoard.Unitycoordinates [inDest, 0] || transform.position.x != gameBoard.Unitycoordinates [inDest, 1])) {
-			Debug.Log ("enter while loop");
 			if (transform.position.x > 240 && transform.position.y < 42) { //will skip the tiniest bit
 				transform.position = new Vector3 (transform.position.x - 60,40,0);// * Time.deltaTime, 40, 0);
 			} else if (transform.position.x <= 240 && transform.position.y <= 350) {

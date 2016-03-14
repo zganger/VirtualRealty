@@ -172,27 +172,27 @@ public class GamePlay : MonoBehaviour {
 				gameOver = true;
 			}
 		}
-		public void beginGameplay()
-		{
-			//start the game
-			int turncounter = 0;
-			while(!gameOver)
-			{
-				int playerID = (turncounter % 2);
-				Piece currPlayer = ((Piece)this.pieces[playerID]);
-				MoveP2 currPlayerUnity = ((MoveP2)this.unityPieces[playerID]);
-				//Thread.Sleep(1000);	//delay before next dice rolling
-				Dice(currPlayer, currPlayerUnity); //roll and move to new location
-				Tile thisTile = (Tile)this.tiles[currPlayer.location];
-				if(thisTile.isProperty) //is property
-				{
-					if(thisTile.property.player != null) //owned
-					{
-						if (thisTile.property.player.ID != currPlayer.player.ID) {
-							payRent (currPlayer.player, thisTile.property);
-						} else if (thisTile.property.buildings > 0) { //if has color set, color set is buildings = 1
-							thisTile.property.addBuilding (); //purchase a building, make conditional later
-							currPlayer.player.money = currPlayer.player.money - (((currPlayer.location / 10) + 1) * 50); //cost to purchase a building
+		public void beginGameplay ()
+	{
+		//start the game
+		int turncounter = 0;
+		while (!gameOver) {
+			int playerID = (turncounter % 2);
+			Piece currPlayer = ((Piece)this.pieces [playerID]);
+			MoveP2 currPlayerUnity = ((MoveP2)this.unityPieces [playerID]);
+			//Thread.Sleep(1000);	//delay before next dice rolling
+			Dice (currPlayer, currPlayerUnity); //roll and move to new location
+			Tile thisTile = (Tile)this.tiles [currPlayer.location];
+			if (thisTile.isProperty) { //is property
+				if (thisTile.property.player != null) { //owned
+					if (thisTile.property.player.ID != currPlayer.player.ID) {
+						payRent (currPlayer.player, thisTile.property);
+					} else if (thisTile.property.buildings > 0) { //if has color set, color set is buildings = 1
+						int buildingCost = (((currPlayer.location / 10) + 1) * 50);
+						if (currPlayer.player.money > buildingCost) {
+							thisTile.property.addBuilding();
+							currPlayer.player.money = currPlayer.player.money - buildingCost;
+						}
 							if (thisTile.property.buildings < 6) {
 								Console.WriteLine ("Player " + currPlayer.player.ID + " has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.");
 							} else {

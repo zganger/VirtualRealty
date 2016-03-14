@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_Scrips\GamePlay.cs" />
-     <Compile Include="Assets\_Scrips\Main.cs" />
      <Compile Include="Assets\_Scrips\MoveP1.cs" />
      <Compile Include="Assets\_Scrips\MoveP2.cs" />
  <Reference Include="UnityEngine.UI">

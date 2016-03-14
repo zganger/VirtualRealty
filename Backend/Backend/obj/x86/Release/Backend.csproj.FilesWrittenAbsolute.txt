@@ -1,3 +1,0 @@
-/Users/zganger/Documents/Software_Engineering/VirtualRealty/Backend/Backend/obj/x86/Release/.NETFramework,Version=v4.0.AssemblyAttribute.cs
-/Users/zganger/Documents/Software_Engineering/VirtualRealty/Backend/Backend/bin/Release/Backend.exe
-/Users/zganger/Documents/Software_Engineering/VirtualRealty/Backend/Backend/obj/x86/Release/Backend.exe

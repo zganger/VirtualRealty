@@ -10,7 +10,8 @@
 -r:'/Applications/Unity/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Common.dll'
 -r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll'
 -r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll'
--define:UNITY_5_3_3
+-define:UNITY_5_3_OR_NEWER
+-define:UNITY_5_3_4
 -define:UNITY_5_3
 -define:UNITY_5
 -define:ENABLE_NEW_BUGREPORTER

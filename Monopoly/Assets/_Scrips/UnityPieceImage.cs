@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoveP2 : MonoBehaviour {
+public class UnityPieceImage : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () 

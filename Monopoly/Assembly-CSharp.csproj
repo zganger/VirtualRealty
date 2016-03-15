@@ -46,8 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_Scrips\GamePlay.cs" />
-     <Compile Include="Assets\_Scrips\MoveP1.cs" />
-     <Compile Include="Assets\_Scrips\MoveP2.cs" />
+     <Compile Include="Assets\_Scrips\UnityPieceImage.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

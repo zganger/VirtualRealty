@@ -105,9 +105,7 @@ public class GamePlay : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
 	void Start () {
-		//Main();
 		Actions.text = ("Game Start");
 		GameBoard = new Board ();
 		//start the game
@@ -118,7 +116,6 @@ public class GamePlay : MonoBehaviour {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
-			//Thread.Sleep(1000);	//delay before next dice rolling
 			Dice (currPlayer, currPlayerUnity); //roll and move to new location
 			Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
 			if (thisTile.isProperty) { //is property
@@ -211,7 +208,7 @@ public class Board
 	public ArrayList chanceCards = new ArrayList ();
 	public ArrayList commChests = new ArrayList ();
 	public int[,] Unitycoordinates = new int[40,2] { {88, -146}, {58, -146}, {34, -146}, {-3, -146}, {-30, -146}, {-60, -146}, {-90, -146}, {-120, -146}, {-150, -146}, {-180, -146}, {-220, -146}, {-200, -120}, {-200, -90}, {-200, -60}, {-200, -30}, {-200, 0}, {-200, 30}, {-200, 60}, {-200, 90}, {-200, 120}, {-200, 150}, {-180, 170}, {-150, 170}, {-120, 170}, {-90, 170}, {-60, 170}, {-30, 170}, {0, 170}, {30, 170}, {60, 170}, {90, 170}, {85, 120}, {85, 90}, {85, 60}, {85, 30}, {85, 0}, {85, -30}, {85, -60}, {85, -90}, {85, -115} };
-		public int getUnityCoords (int loc, int xy)
+	public int getUnityCoords (int loc, int xy)
 	{
 		return Unitycoordinates [loc, xy];
 	}

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class GamePlay : MonoBehaviour {
 
-	public class MultiDimList: ArrayList<List<string>> {  }
 	public Transform target;	//where a piece is going
     public float speed;			//how fast
 	public Text Balances;
@@ -21,7 +20,7 @@ public class GamePlay : MonoBehaviour {
 	public int diceTotal;
 	public bool gameOver = false;
 	public ArrayList unityPieces = new ArrayList ();
-	public Image[,] unityBuildings = new Image[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
+	public Image[,] unityBuildings;
 
 	public void Dice (Piece currPlayer, UnityPieceImage currPlayerUnity)	//probably an int later when taking care of front end
 	{
@@ -115,6 +114,7 @@ public class GamePlay : MonoBehaviour {
 	{
 		Actions.text = ("Game Start");
 		GameBoard = new Board ();
+		unityBuildings = new Image[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
 		//start the game
 		int turncounter = 0;
 		unityPieces.Add (ShoePiece);

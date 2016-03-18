@@ -35,33 +35,43 @@ public class UnityPieceImage : MonoBehaviour {
 		}
 	}
 */
-
+	public float xLenient, yLenient;
 	void Update ()
 	{
 		movementFinished = true;
 		//check if coordinates are in range of the specified location
-		if (!(transform.position.x + 5 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y + 5 >= GamePlay.GameBoard.getUnityCoords (Dest, 1)))
-		{ movementFinished = false; } 
-		else if (!(transform.position.x - 5 <= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y + 5 >= GamePlay.GameBoard.getUnityCoords (Dest, 1)))
-		{ movementFinished = false; } 
-		else if(!(transform.position.x + 5 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y - 5 <= GamePlay.GameBoard.getUnityCoords (Dest, 1)))
-		{ movementFinished = false; } 
-		else if(!(transform.position.x - 5 <= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y - 5 <= GamePlay.GameBoard.getUnityCoords (Dest, 1)))
-		{ movementFinished = false; }
+		if (!(transform.position.x + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
+			movementFinished = false;
+			xLenient = transform.position.x;
+			yLenient = transform.position.y;
+		} else if (!(transform.position.x - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 1))) { 	
+			xLenient = transform.position.x;
+			yLenient = transform.position.y;
+			movementFinished = false; 
+		} else if(!(transform.position.x + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
+			xLenient = transform.position.x;
+			yLenient = transform.position.y;
+			movementFinished = false;
+		} else if(!(transform.position.x - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
+			xLenient = transform.position.x;
+			yLenient = transform.position.y;
+			movementFinished = false; 
+		}
 		while (!movementFinished)
 		{
-			if (transform.position.x >= 150 && transform.position.y <= -150) { //THESE NEED A BUFFER AND IT SHOULD WORK!
+			if (xLenient >= 150 && yLenient <= -150) { //THESE NEED A BUFFER AND IT SHOULD WORK!
 				moveLeft();
-			} else if (transform.position.x <= -150 && transform.position.y <= -150) {
+			} else if (xLenient <= -150 && yLenient <= -150) {
 				moveUp();
-			} else if (transform.position.x <= -150 && transform.position.y >= 150) {
+			} else if (xLenient <= -150 && yLenient >= 150) {
 				moveRight();
-			} else if(transform.position.x >= 150 && transform.position.y >= 150){
+			} else if(xLenient >= 150 && yLenient >= 150){
 				moveDown();
 			}
 			movementFinished=true;
 		}
 	}
+
 	public void moveLeft ()
 	{
 		Debug.Log("moving Left");

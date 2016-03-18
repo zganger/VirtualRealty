@@ -35,6 +35,8 @@ public class UnityPieceImage : MonoBehaviour {
 		}
 	}
 */
+	float offX = 347.2f;	//offset
+	float offY = 182f;		//offset
 	public float xLenient, yLenient;
 	void Update ()
 	{
@@ -42,30 +44,31 @@ public class UnityPieceImage : MonoBehaviour {
 		//check if coordinates are in range of the specified location
 		if (!(transform.position.x + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
 			movementFinished = false;
-			xLenient = transform.position.x;
-			yLenient = transform.position.y;
+			xLenient = transform.position.x-offX;	//ACCOUNT FOR DIFFERENT ORIGINS
+			yLenient = transform.position.y-offY;	//ACCOUNT FOR DIFFERENT ORIGINS
 		} else if (!(transform.position.x - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 1))) { 	
-			xLenient = transform.position.x;
-			yLenient = transform.position.y;
-			movementFinished = false; 
+			xLenient = transform.position.x-offX;	//ACCOUNT FOR DIFFERENT ORIGINS
+			yLenient = transform.position.y-offY;	//ACCOUNT FOR DIFFERENT ORIGINS
+			movementFinished = false;
 		} else if(!(transform.position.x + 50 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
-			xLenient = transform.position.x;
-			yLenient = transform.position.y;
+			xLenient = transform.position.x-offX;	//ACCOUNT FOR DIFFERENT ORIGINS
+			yLenient = transform.position.y-offY;	//ACCOUNT FOR DIFFERENT ORIGINS
 			movementFinished = false;
 		} else if(!(transform.position.x - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 0) && transform.position.y - 50 <= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
-			xLenient = transform.position.x;
-			yLenient = transform.position.y;
-			movementFinished = false; 
+			xLenient = transform.position.x-offX;	//ACCOUNT FOR DIFFERENT ORIGINS
+			yLenient = transform.position.y-offY;	//ACCOUNT FOR DIFFERENT ORIGINS
+			movementFinished = false;
 		}
 		while (!movementFinished)
 		{
-			if (xLenient >= 150 && yLenient <= -150) { //THESE NEED A BUFFER AND IT SHOULD WORK!
+			Debug.Log(xLenient + "," + yLenient);
+			if (xLenient >= -149 && yLenient <= -149) { //THESE NEED A BUFFER AND IT SHOULD WORK!
 				moveLeft();
-			} else if (xLenient <= -150 && yLenient <= -150) {
+			} else if (xLenient <= -149 && yLenient <= -149) {
 				moveUp();
-			} else if (xLenient <= -150 && yLenient >= 150) {
+			} else if (xLenient <= -149 && yLenient >= 149) {
 				moveRight();
-			} else if(xLenient >= 150 && yLenient >= 150){
+			} else if(xLenient >= 149 && yLenient >= 149){
 				moveDown();
 			}
 			movementFinished=true;
@@ -75,22 +78,22 @@ public class UnityPieceImage : MonoBehaviour {
 	public void moveLeft ()
 	{
 		Debug.Log("moving Left");
-		transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, -150, 0);	//this is bottom
+		transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, transform.position.y, 0);	//this is bottom
 	}
 	public void moveUp ()
 	{
 		Debug.Log("moving Up");
-		transform.position = new Vector3 (-150, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
+		transform.position = new Vector3 (transform.position.x, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
 	}
 	public void moveRight ()
 	{
 		Debug.Log("moving Right");
-		transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, 150, 0);
+		transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, transform.position.y, 0);
 	}
 	public void moveDown ()
 	{
 		Debug.Log("moving Down");
-		transform.position = new Vector3 (150, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
+		transform.position = new Vector3 (transform.position.x, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
 	}
 	public void MoveTo (int inDest)
 	{

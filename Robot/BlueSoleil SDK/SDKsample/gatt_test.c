@@ -2,6 +2,12 @@
 #include "sdk_gatt.h"
 #include "..\include\Btsdk_ui.h"
 #include <stdio.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <io.h>
+#include <direct.h>
 //#include <sys/utime.h>
 #include <time.h>
 #define BUFF_NUM 20
@@ -1480,6 +1486,7 @@ void GATTSvrDisableAdvertising()
 BTBOOL HandleReadCharacteristicRequestEvent(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE EventType, BTUINT32 RequestID, BTUINT32 EventParameterSize, PBtsdkGATTCharacteristicReadRequestStru characterReadReq)
 {
 	BTBOOL ret = BTSDK_TRUE;
+
 	if (EventType == ReadCharacteristicRequestEvent && characterReadReq != NULL)
 	{
 		BTUINT16 assigned_num = 0;
@@ -1495,6 +1502,35 @@ BTBOOL HandleReadCharacteristicRequestEvent(BTLPVOID Context, BTSDK_GATT_EVENT_T
 		else
 		{
 			assigned_num = FormateUUIDToBLEAssignedNum((BTUINT8 *)&(characterReadReq->CharacteristicUuid.LongUuid), 16);
+		}
+		if(strcmp(GetNameByUUID(assigned_num),"SystemID")==0)
+		{
+			BTUINT8 data[16] = {0};
+			BTUINT32 data_size = 16;
+			char* pTmp = data;
+			int i;
+			FILE *stream;
+			char line[100];
+			if( fopen_s( &stream, "c:\\Users\\nmemme\\Desktop\\commands.txt", "r" ) == 0 )
+			{
+				if( fgets( line, 100, stream ) == NULL)
+					printf( "fgets error\n" );
+				else
+					printf( "%s\n", line);
+				fclose( stream );
+			}
+			else
+			{
+				printf("Can't Open\n");
+			}
+			for(i=0;i<16;i++)
+			{
+				pTmp += sprintf(pTmp, "%c", line[i]);
+			}
+		   //system("dir c:\\Users\\nmemme\\Desktop");
+		   Btsdk_GATTSendResponse(characterReadReq->hDevice, RequestID, BTSDK_OK, characterReadReq->Offset, data, data_size);
+		   ret = BTSDK_FALSE;
+
 		}
 		printf("Device:%s is reading local characteristic [UUID:0x%04X, NAME:%s] \n", bd_address, assigned_num, GetNameByUUID(assigned_num));
 			
@@ -1553,11 +1589,12 @@ BTBOOL HandleReadDescriptorRequestEvent(BTLPVOID Context, BTSDK_GATT_EVENT_TYPE 
 {
 	if (EventType == ReadDescriptorRequestEvent && descriptorReadReq != NULL)
 	{
+
 		BTUINT16 assigned_num = 0;
 		BTUINT8 bd_addr[BTSDK_BDADDR_LEN] = {0};
 		char bd_address[MAX_PATH] = {0};
 		Btsdk_GetRemoteDeviceAddress(descriptorReadReq->hDevice, bd_addr);
-		sprintf(bd_address, FMTBD2STR(bd_addr));		
+		sprintf(bd_address, FMTBD2STR(bd_addr));
 
 		if (descriptorReadReq->DescriptorUuid.IsShortUuid)
 		{
@@ -1816,12 +1853,13 @@ void GATTInitLocalAttribute()
 					CharacteristicProperties.CharacteristicUuid.ShortUuid = 0x2A23; //System ID
 					CharacteristicProperties.IsReadable = BTSDK_TRUE;
 					
-					strcpy(robotCMD,"P1M10C00C00C00C00P2M20C03C10C00C00");
-					pCharacteristicValue = (PBtsdkGATTCharacteristicValueStru)malloc(sizeof(BtsdkGATTCharacteristicValueStru)+34);
+					//strcpy(robotCMD,"P1M10C00C00C00C00P2M20C03C10C00C00");
+					strcpy(robotCMD,"P1M10C10");
+					pCharacteristicValue = (PBtsdkGATTCharacteristicValueStru)malloc(sizeof(BtsdkGATTCharacteristicValueStru)+16); //+ {num}= length of string
 					if (pCharacteristicValue != NULL)
 					{
-						memset(pCharacteristicValue, 0, sizeof(BtsdkGATTCharacteristicValueStru)+34);
-						pCharacteristicValue->DataSize = 35;
+						memset(pCharacteristicValue, 0, sizeof(BtsdkGATTCharacteristicValueStru)+16); //+ {num}= length of string
+						pCharacteristicValue->DataSize = 17; //+ {num}= length of string +1
 						//Application can add system ID to the pCharacteristicValue->Data
 						
 						strcpy(pCharacteristicValue->Data,robotCMD);

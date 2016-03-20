@@ -507,9 +507,11 @@ int main(void)
 			Btsdk_SetLocalDeviceClass(BTSDK_COMPCLS_DESKTOP);
 			GATTSvrSetLocalName();
 			GATTSvrEnableAdvertising();
-			GATTInitLocalAttribute();
-		}
-			/*
+			GATTInitLocalAttribute(); //UUID 0x2A23
+
+			while(1){};
+		
+		}/*	
 			SdkTestShowMenu();
 			while (chInputCmd != 'q')
 			{
@@ -530,7 +532,7 @@ int main(void)
 				}
 			}
 			
-		}
+		}*/
 		else
 		{
 			printf("BlueSoleil fail to reset hardware...\n");
@@ -540,7 +542,7 @@ int main(void)
 		Btsdk_RegisterGetStatusInfoCB4ThirdParty(NULL);
 		UnRegAppIndCallback();	
 		Btsdk_Done();
-		CloseHandle((HANDLE)s_input_lock);*/
+		CloseHandle((HANDLE)s_input_lock);
 		return 0;
 		
 	}	

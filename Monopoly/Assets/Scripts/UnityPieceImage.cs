@@ -16,25 +16,7 @@ public class UnityPieceImage : MonoBehaviour {
 	{
 
 	}
-/*
-	void Update ()
-	{
-		movementFinished = false;
-		while (!movementFinished) {
-			if ((transform.position.x + 200 >= GamePlay.GameBoard.getUnityCoords (Dest, 0) || transform.position.x - 200 <= GamePlay.GameBoard.getUnityCoords (Dest, 0)) && (transform.position.y + 200 >= GamePlay.GameBoard.getUnityCoords (Dest, 1) || transform.position.y - 200 <= GamePlay.GameBoard.getUnityCoords (Dest, 1))) {
-				movementFinished = true;
-			} else if (transform.position.x > 240 && transform.position.y < 41) { //will skip the tiniest bit
-				transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, 40, 0);
-			} else if (transform.position.x <= 240 && transform.position.y <= 350) {
-				transform.position = new Vector3 (240, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
-			} else if (transform.position.x <= 550 && transform.position.y >= 350) {
-				transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, 350, 0);	//this is top
-			} else {
-				transform.position = new Vector3 (550, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
-			}
-		}
-	}
-*/
+
 	float offX = 347.2f;	//offset
 	float offY = 182f;		//offset
 	public float xLenient, yLenient;
@@ -73,34 +55,33 @@ public class UnityPieceImage : MonoBehaviour {
 				Debug.Log("moving right");
 			} else {
 //				moveDown();
-				
 				Debug.Log("moving down");
 			}
 			movementFinished=true;
-//			Debug.Log("tru");
 		}
 	}
-
-//	public void moveLeft ()
-//	{
-////		Debug.Log("moving Left");
-//		transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, transform.position.y, 0);	//this is bottom
-//	}
-//	public void moveUp ()
-//	{
-////		Debug.Log("moving Up");
-//		transform.position = new Vector3 (transform.position.x, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
-//	}
-//	public void moveRight ()
-//	{
-////		Debug.Log("moving Right");
-//		transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, transform.position.y, 0);
-//	}
-//	public void moveDown ()
-//	{
-////		Debug.Log("moving Down");
-//		transform.position = new Vector3 (transform.position.x, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
-//	}
+/*
+	public void moveLeft ()
+	{
+//		Debug.Log("moving Left");
+		transform.position = new Vector3 (transform.position.x - 60 * Time.deltaTime, transform.position.y, 0);	//this is bottom
+	}
+	public void moveUp ()
+	{
+//		Debug.Log("moving Up");
+		transform.position = new Vector3 (transform.position.x, transform.position.y + 60 * Time.deltaTime, 0);	//this is the left
+	}
+	public void moveRight ()
+	{
+//		Debug.Log("moving Right");
+		transform.position = new Vector3 (transform.position.x + 60 * Time.deltaTime, transform.position.y, 0);
+	}
+	public void moveDown ()
+	{
+//		Debug.Log("moving Down");
+		transform.position = new Vector3 (transform.position.x, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
+	}
+*/
 	public void MoveTo (int inDest)
 	{
 		Dest = inDest;

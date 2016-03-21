@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using UnityEngine.UI;
 
+
 public class GamePlay : MonoBehaviour {
 
 	public Transform target;	//where a piece is going
@@ -21,6 +22,10 @@ public class GamePlay : MonoBehaviour {
 	public bool gameOver = false;
 	public ArrayList unityPieces = new ArrayList ();
 	public Image[,] unityBuildings;
+	public Button RentOkButton;
+	public Button PropertyYes;
+	public Button PropertyNo;
+	public Button Roll;
 
 	public void Dice (Piece currPlayer, UnityPieceImage currPlayerUnity)	//probably an int later when taking care of front end
 	{

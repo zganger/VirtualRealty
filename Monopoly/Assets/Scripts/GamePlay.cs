@@ -155,6 +155,7 @@ public class GamePlay : MonoBehaviour {
 									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
 										if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
 											colorset = false;
+											break;
 										}
 									}
 								}
@@ -214,6 +215,7 @@ public class GamePlay : MonoBehaviour {
 									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
 										if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
 											colorset = false;
+											break;
 										}
 									}
 								}

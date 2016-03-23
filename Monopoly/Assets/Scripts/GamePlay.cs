@@ -135,10 +135,7 @@ public class GamePlay : MonoBehaviour {
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
 			if (playerID == 0) { //if player's turn
-				if (!diceRolled) {
 					Dice (currPlayer, currPlayerUnity); //roll and move
-					diceRolled = true;
-				} else {
 					Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
 					if (thisTile.isProperty) { //is property
 						if (thisTile.property.player != null) { //owned
@@ -180,14 +177,10 @@ public class GamePlay : MonoBehaviour {
 							currPlayer.isJailed = true;
 							Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
 						}
-					}
 				}
 			} else {	//else not player's turn
 				//run above things
-				if (!diceRolled) {
 					Dice (currPlayer, currPlayerUnity); //roll and move
-					diceRolled = true;
-				} else {
 					Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
 					if (thisTile.isProperty) { //is property
 						if (thisTile.property.player != null) { //owned
@@ -241,7 +234,6 @@ public class GamePlay : MonoBehaviour {
 							Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
 						}
 					}
-				}
 			}
 			//update printouts
 			Balances.text = "Balances:\n";
@@ -260,12 +252,12 @@ public class GamePlay : MonoBehaviour {
 			}
 			if (currPlayer.doubcount == 0) { //end of turn, not in jail
 				turncounter++;
-				diceRolled = false;
 			}
 			if (currPlayer.player.money < 0) {//game end condition
 				gameOver = true;
 				Actions.text = ("Game over; Player " + currPlayer.player.ID + " has $" + currPlayer.player.money);
 			}
+			System.Threading.Thread.Sleep(500);
 		}
 	}
 }

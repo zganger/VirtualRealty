@@ -27,7 +27,6 @@ public class GamePlay : MonoBehaviour {
 	public Button PropertyNo;
 	public Button Roll;
 	public int turncounter;
-	public bool diceRolled;
 
 	public void Dice (Piece currPlayer, UnityPieceImage currPlayerUnity)	//probably an int later when taking care of front end
 	{
@@ -126,6 +125,11 @@ public class GamePlay : MonoBehaviour {
 		turncounter = 0;
 		unityPieces.Add (ShoePiece);
 		unityPieces.Add (DogPiece);
+		RentOkButton.interactable = false;
+		Roll.interactable = false;
+		PropertyNo.interactable = false;
+		PropertyYes.interactable = false;
+		GameBoard.state = 0;
 	}
 
 	void Update ()
@@ -135,18 +139,46 @@ public class GamePlay : MonoBehaviour {
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
 			if (playerID == 0) { //if player's turn
+				if (GameBoard.state == 0) {
+					RentOkButton.interactable = false;
+					Roll.interactable = true;
+					PropertyNo.interactable = false;
+					PropertyYes.interactable = false;
+					goto end;
+				}	//reset everything to false
+				else if (GameBoard.state == 1) {
 					Dice (currPlayer, currPlayerUnity); //roll and move
-					Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
-					if (thisTile.isProperty) { //is property
-						if (thisTile.property.player != null) { //owned
-							if (thisTile.property.player.ID != currPlayer.player.ID) {
+					GameBoard.state = 5;
+				}
+				Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
+				if (thisTile.isProperty) { //is property
+					if (thisTile.property.player != null) { //owned
+						if (thisTile.property.player.ID != currPlayer.player.ID) {
+							if (GameBoard.state == 5) {
+								RentOkButton.interactable = true;
+								Roll.interactable = false;
+								PropertyNo.interactable = false;
+								PropertyYes.interactable = false;
+								goto end;
+							}
+							if (GameBoard.state == 2) {
+								Debug.Log ("paying");
 								payRent (currPlayer.player, thisTile.property);
-							} //else owned by you
-						} else { //unowned
-							purchase (currPlayer.player, thisTile.property);//buy tile
-							//now check for color set
-							bool colorset = true;
-							//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+								GameBoard.state = 0;
+							}
+						} //else owned by you
+					} else { //unowned
+						GameBoard.state = 3;
+						if (GameBoard.state == 3) {
+							RentOkButton.interactable = false;
+							Roll.interactable = false;
+							PropertyNo.interactable = true;
+							PropertyYes.interactable = true;
+							goto end;
+						}
+						if (GameBoard.state == 4) {
+							purchase (currPlayer.player, thisTile.property);//buy tile //now check for color set
+							bool colorset = true; //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
 							foreach (Tile T in GameBoard.tiles) {
 								if (T.isProperty) {
 									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
@@ -166,17 +198,20 @@ public class GamePlay : MonoBehaviour {
 									}
 								}
 							}
+							GameBoard.state = 0;
 						}
-					} else { //not property
-						if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
-							currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-							Actions.text = ("Player " + currPlayer.player.ID + " loses $" + thisTile.rents [0] + " on " + thisTile.title);
-						} else if (currPlayer.location == 30) { //go to jail
-							currPlayer.location = 10;
-							currPlayerUnity.MoveTo (currPlayer.location);
-							currPlayer.isJailed = true;
-							Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
-						}
+					}
+				} else { //not property
+					GameBoard.state = 0;
+					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
+						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
+						Actions.text = ("Player " + currPlayer.player.ID + " loses $" + thisTile.rents [0] + " on " + thisTile.title);
+					} else if (currPlayer.location == 30) { //go to jail
+						currPlayer.location = 10;
+						currPlayerUnity.MoveTo (currPlayer.location);
+						currPlayer.isJailed = true;
+						Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
+					}
 				}
 			} else {	//else not player's turn
 				//run above things
@@ -257,6 +292,7 @@ public class GamePlay : MonoBehaviour {
 				gameOver = true;
 				Actions.text = ("Game over; Player " + currPlayer.player.ID + " has $" + currPlayer.player.money);
 			}
+			end:;
 			System.Threading.Thread.Sleep(500);
 		}
 	}
@@ -267,7 +303,8 @@ public class Board
 	public ArrayList tiles = new ArrayList ();
 	public ArrayList pieces = new ArrayList ();
 	public ArrayList chanceCards = new ArrayList ();
-	public ArrayList commChests = new ArrayList ();																																				//bottom done																										//left done																												//top done
+	public ArrayList commChests = new ArrayList ();	
+	public int state;																																//bottom done																										//left done																												//top done
 	public int[,] Unitycoordinates = new int[40,2] { {150, -150}, {120, -150}, {90, -150}, {60, -150}, {30, -150}, {0, -150}, {-30, -150}, {-60, -150}, {-90, -150}, {-120, -150}, {-150, -150}, {-150, -120}, {-150, -90}, {-150, -60}, {-150, -30}, {-150, 0}, {-150, 30}, {-150, 60}, {-150, 90}, {-150, 120}, {-150, 150}, {-120, 150}, {-90, 150}, {-60, 150}, {-30, 150}, {0, 150}, {30, 150}, {60, 150}, {90, 150}, {120, 150}, {150, 150}, {150, 120}, {150, 90}, {150, 60}, {150, 30}, {150, 0}, {150, -30}, {150, -60}, {150, -90}, {150, -120} };
 	public int getUnityCoords (int loc, int xy)
 	{

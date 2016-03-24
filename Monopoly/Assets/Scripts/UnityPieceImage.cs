@@ -46,16 +46,12 @@ public class UnityPieceImage : MonoBehaviour {
 //			Debug.Log(xLenient + "," + yLenient);
 			if (xLenient >= -148 && yLenient <= -148) {
 //				moveLeft();
-				Debug.Log("moving left");
 			} else if (xLenient <= -148 && yLenient <= 148) {
 //				moveUp();
-				Debug.Log("moving up");
 			} else if (xLenient <= 148  && yLenient >= 148 ) {//(xLenient <= -150  &&)
 //				moveRight();
-				Debug.Log("moving right");
 			} else {
 //				moveDown();
-				Debug.Log("moving down");
 			}
 			movementFinished=true;
 		}

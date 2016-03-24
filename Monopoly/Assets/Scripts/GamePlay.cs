@@ -132,14 +132,34 @@ public class GamePlay : MonoBehaviour {
 		GameBoard.state = 0;
 	}
 
+	void updatePrints ()
+	{
+		Balances.text = "Balances:\n";
+		foreach (Piece p in GameBoard.pieces) {
+			Balances.text = Balances.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
+		}
+		Balances.text = Balances.text + "\nProperties: \n";
+		foreach (Tile t in GameBoard.tiles) {
+			if (t.isProperty) {
+				Balances.text = Balances.text + t.title + ": ";
+				if (t.property.player != null) {
+					Balances.text = Balances.text + "Player " + t.property.player.ID;
+				}
+				Balances.text = Balances.text + "\n";
+			}
+		}
+	}
+
 	void Update ()
 	{
+		updatePrints();
 		if (!gameOver) {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
 			if (playerID == 0) { //if player's turn
 				if (GameBoard.state == 0) {
+					Actions.text = ("It's your turn! Roll the dice!");
 					RentOkButton.interactable = false;
 					Roll.interactable = true;
 					PropertyNo.interactable = false;
@@ -155,6 +175,7 @@ public class GamePlay : MonoBehaviour {
 					if (thisTile.property.player != null) { //owned
 						if (thisTile.property.player.ID != currPlayer.player.ID) {
 							if (GameBoard.state == 5) {
+								Actions.text = ("You owe Player " + thisTile.property.player.ID + " $" + thisTile.rents[thisTile.property.buildings] + " for rent on " + thisTile.title + ".");
 								RentOkButton.interactable = true;
 								Roll.interactable = false;
 								PropertyNo.interactable = false;
@@ -162,7 +183,6 @@ public class GamePlay : MonoBehaviour {
 								goto end;
 							}
 							if (GameBoard.state == 2) {
-								Debug.Log ("paying");
 								payRent (currPlayer.player, thisTile.property);
 								GameBoard.state = 0;
 							}
@@ -172,6 +192,7 @@ public class GamePlay : MonoBehaviour {
 							GameBoard.state = 3;
 						}
 						if (GameBoard.state == 3) {
+							Actions.text = ("Would you like to purchase " + thisTile.title + " for $" + thisTile.property.value + "? This would leave you with $" + (currPlayer.player.money - thisTile.property.value) + ".");
 							RentOkButton.interactable = false;
 							Roll.interactable = false;
 							PropertyNo.interactable = true;
@@ -207,12 +228,12 @@ public class GamePlay : MonoBehaviour {
 					GameBoard.state = 0;
 					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
 						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-						Actions.text = ("Player " + currPlayer.player.ID + " loses $" + thisTile.rents [0] + " on " + thisTile.title);
+						Actions.text = ("You pay the bank $" + thisTile.rents [0] + " on " + thisTile.title);
 					} else if (currPlayer.location == 30) { //go to jail
 						currPlayer.location = 10;
 						currPlayerUnity.MoveTo (currPlayer.location);
 						currPlayer.isJailed = true;
-						Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
+						Actions.text = ("You pay $50 in bail"); //will be handled later in the isJailed condition
 					}
 				}
 			} else {	//else not player's turn
@@ -273,20 +294,7 @@ public class GamePlay : MonoBehaviour {
 					}
 			}
 			//update printouts
-			Balances.text = "Balances:\n";
-			foreach (Piece p in GameBoard.pieces) {
-				Balances.text = Balances.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
-			}
-			Balances.text = Balances.text + "\nProperties: \n";
-			foreach (Tile t in GameBoard.tiles) {
-				if (t.isProperty) {
-					Balances.text = Balances.text + t.title + ": ";
-					if (t.property.player != null) {
-						Balances.text = Balances.text + "Player " + t.property.player.ID;
-					}
-					Balances.text = Balances.text + "\n";
-				}
-			}
+			updatePrints();
 			if (currPlayer.doubcount == 0) { //end of turn, not in jail
 				turncounter++;
 			}

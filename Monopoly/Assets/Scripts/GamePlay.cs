@@ -168,7 +168,9 @@ public class GamePlay : MonoBehaviour {
 							}
 						} //else owned by you
 					} else { //unowned
-						GameBoard.state = 3;
+						if (!(GameBoard.state == 4)) {
+							GameBoard.state = 3;
+						}
 						if (GameBoard.state == 3) {
 							RentOkButton.interactable = false;
 							Roll.interactable = false;

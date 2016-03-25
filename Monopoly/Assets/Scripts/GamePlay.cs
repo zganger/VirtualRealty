@@ -121,6 +121,13 @@ public class GamePlay : MonoBehaviour {
 		Actions.text = ("Game Start");
 		GameBoard = new Board ();
 		unityBuildings = new Image[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
+		foreach (Image i in unityBuildings)
+		{
+			if (i != null)
+			{
+				i.enabled = false;
+			}
+		}
 		//start the game
 		turncounter = 0;
 		unityPieces.Add (ShoePiece);
@@ -150,9 +157,21 @@ public class GamePlay : MonoBehaviour {
 		}
 	}
 
+	void enableBuildings (Piece currPlayer, Tile thisTile)
+	{
+		if (thisTile.property.buildings > 1 && thisTile.property.buildings < 6) {
+			unityBuildings [currPlayer.location, thisTile.property.buildings - 2].enabled = true;
+		} else if (thisTile.property.buildings == 6) {
+			for (int i = 0; i < 4; i++) {
+				unityBuildings [currPlayer.location, i].enabled = false;
+			}
+			unityBuildings [currPlayer.location, 4].enabled = true;
+		}
+	}
+
 	void Update ()
 	{
-		updatePrints();
+		updatePrints ();
 		if (!gameOver) {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
@@ -175,7 +194,7 @@ public class GamePlay : MonoBehaviour {
 					if (thisTile.property.player != null) { //owned
 						if (thisTile.property.player.ID != currPlayer.player.ID) {
 							if (GameBoard.state == 5) {
-								Actions.text = ("You owe Player " + thisTile.property.player.ID + " $" + thisTile.rents[thisTile.property.buildings] + " for rent on " + thisTile.title + ".");
+								Actions.text = ("You owe Player " + thisTile.property.player.ID + " $" + thisTile.rents [thisTile.property.buildings] + " for rent on " + thisTile.title + ".");
 								RentOkButton.interactable = true;
 								Roll.interactable = false;
 								PropertyNo.interactable = false;
@@ -238,60 +257,61 @@ public class GamePlay : MonoBehaviour {
 				}
 			} else {	//else not player's turn
 				//run above things
-					Dice (currPlayer, currPlayerUnity); //roll and move
-					Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
-					if (thisTile.isProperty) { //is property
-						if (thisTile.property.player != null) { //owned
-							if (thisTile.property.player.ID != currPlayer.player.ID) {
-								payRent (currPlayer.player, thisTile.property);
-							} else if (thisTile.property.buildings > 0) { //if has color set, color set is buildings = 1
-								int buildingCost = (((currPlayer.location / 10) + 1) * 50);
-								if (currPlayer.player.money > buildingCost && thisTile.property.buildings < 6) {
-									thisTile.property.addBuilding ();
-									currPlayer.player.money = currPlayer.player.money - buildingCost;
-								}
-								if (thisTile.property.buildings < 6) {
-									Actions.text = ("Player " + currPlayer.player.ID + " has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.");
-								} else {
-									Actions.text = ("Player " + currPlayer.player.ID + " has purchased a hotel on " + thisTile.title + ".");
-								}
+				Dice (currPlayer, currPlayerUnity); //roll and move
+				Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
+				if (thisTile.isProperty) { //is property
+					if (thisTile.property.player != null) { //owned
+						if (thisTile.property.player.ID != currPlayer.player.ID) {
+							payRent (currPlayer.player, thisTile.property);
+						} else if (thisTile.property.buildings > 0) { //if has color set, color set is buildings = 1
+							int buildingCost = (((currPlayer.location / 10) + 1) * 50);
+							if (currPlayer.player.money > buildingCost && thisTile.property.buildings < 6) {
+								thisTile.property.addBuilding ();
+								currPlayer.player.money = currPlayer.player.money - buildingCost;
+								enableBuildings(currPlayer, thisTile);
 							}
-						} else { //unowned
-							purchase (currPlayer.player, thisTile.property);//buy tile
-							//now check for color set
-							bool colorset = true;
-							//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
-							foreach (Tile T in GameBoard.tiles) {
-								if (T.isProperty) {
-									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
-										if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
-											colorset = false;
-											break;
-										}
-									}
-								}
+							if (thisTile.property.buildings < 6) {
+								Actions.text = ("Player " + currPlayer.player.ID + " has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.");
+							} else {
+								Actions.text = ("Player " + currPlayer.player.ID + " has purchased a hotel on " + thisTile.title + ".");
 							}
-							if (colorset) {
-								foreach (Tile V in GameBoard.tiles) {
-									if (V.isProperty) {
-										if (V.property.colorGroup == thisTile.property.colorGroup) {
-											V.property.addBuilding ();
-										}
+						}
+					} else { //unowned
+						purchase (currPlayer.player, thisTile.property);//buy tile
+						//now check for color set
+						bool colorset = true;
+						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+						foreach (Tile T in GameBoard.tiles) {
+							if (T.isProperty) {
+								if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup, false) == 1) {
+									if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
+										colorset = false;
+										break;
 									}
 								}
 							}
 						}
-					} else { //not property
-						if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
-							currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-							Actions.text = ("Player " + currPlayer.player.ID + " loses $" + thisTile.rents [0] + " on " + thisTile.title);
-						} else if (currPlayer.location == 30) { //go to jail
-							currPlayer.location = 10;
-							currPlayerUnity.MoveTo (currPlayer.location);
-							currPlayer.isJailed = true;
-							Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
+						if (colorset) {
+							foreach (Tile V in GameBoard.tiles) {
+								if (V.isProperty) {
+									if (V.property.colorGroup == thisTile.property.colorGroup) {
+										V.property.addBuilding ();
+									}
+								}
+							}
 						}
 					}
+				} else { //not property
+					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
+						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
+						Actions.text = ("Player " + currPlayer.player.ID + " loses $" + thisTile.rents [0] + " on " + thisTile.title);
+					} else if (currPlayer.location == 30) { //go to jail
+						currPlayer.location = 10;
+						currPlayerUnity.MoveTo (currPlayer.location);
+						currPlayer.isJailed = true;
+						Actions.text = ("Player " + currPlayer.player.ID + " pays $50 in bail"); //will be handled later in the isJailed condition
+					}
+				}
 			}
 			//update printouts
 			updatePrints();

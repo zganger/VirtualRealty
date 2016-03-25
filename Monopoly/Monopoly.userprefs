@@ -2,28 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GamePlay.cs">
     <Files>
-      <File FileName="Assets/Scripts/GamePlay.cs" Line="188" Column="12" />
       <File FileName="Assets/Scripts/ButtonHandler.cs" Line="23" Column="31" />
-      <File FileName="Assets/Scripts/UnityPieceImage.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UnityPieceImage.cs" Line="8" Column="2" />
+      <File FileName="Assets/Scripts/GamePlay.cs" Line="297" Column="19" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="Monopoly" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="GamePlay.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State name="__root__">
-          <Node name="Monopoly" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

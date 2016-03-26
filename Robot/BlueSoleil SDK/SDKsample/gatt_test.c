@@ -429,8 +429,8 @@ void GATTGetServices()
 	//rmt_ble_dev = SelectRemoteDevice(0);
 	Btsdk_GATTGetServices(rmt_ble_dev, BUFF_NUM, svc, &num, BTSDK_GATT_FLAG_NONE);
 	svc_num = num;
-	printf("get services number: %d\n", num);
-	ShowGATTServices();
+	//printf("get services number: %d\n", num);
+	//ShowGATTServices();
 }
 
 
@@ -439,14 +439,14 @@ void GATTGetCharacteristics()
 	BTUINT16 num = 0;
 	BTUINT32 ch = 0;
 	int sel;
-	if (ShowGATTServices() <=0)
-	{
+	/*if (//ShowGATTServices() <=0)
+	/{
 		return;
-	}
+	}*/
 SELECT_ID:
-	printf("please select a service by type the service's id\n");
-	AppWaitForInputInt(&ch);
-
+	//printf("please select a service by type the service's id\n");
+	//AppWaitForInputInt(&ch);
+	ch=5;
 	sel = (int)(ch - 1);
 	if (sel >= svc_num || sel < 0)
 	{
@@ -455,8 +455,8 @@ SELECT_ID:
 	}
 	Btsdk_GATTGetCharacteristics(rmt_ble_dev, &svc[sel], BUFF_NUM, crt, &num, BTSDK_GATT_FLAG_NONE);
 	crt_num = num;
-	printf("get characteristics number: %d\n", num);
-	ShowGATTCharacteristics();
+	//printf("get characteristics number: %d\n", num);
+	//ShowGATTCharacteristics();
 }
 
 
@@ -622,24 +622,26 @@ void GATTSetCharacteristicsValue()
 	BTUINT8 data[32] = {0};
 	INT index = 0;
 	INT characterValue = 0;
+	FILE *stream;
+	char line[100];
 	val = (PBtsdkGATTCharacteristicValueStru)malloc(sizeof(BtsdkGATTCharacteristicValueStru)+100);
 	memset(val, 0, sizeof(BtsdkGATTCharacteristicValueStru)+100);
-	if (ShowGATTCharacteristics() <= 0)
+	/*if (ShowGATTCharacteristics() <= 0)
 	{
 		return;
-	}
+	}*/
 SELECT_ID:
-	printf("please select a character by type the character's id\n");
-	AppWaitForInputInt(&ch);
-
+	//printf("please select a character by type the character's id\n");
+	//AppWaitForInputInt(&ch);
+	ch=2;
 	sel  = (int)(ch - 1);
 	if (sel >= crt_num || sel < 0)
 	{
 		printf("%c is a wrong character's id\n", ch);
 		goto SELECT_ID;
 	}
-	printf("please enter the characteristics value data length\n");
-	scanf("%x", &ch);
+	//printf("please enter the characteristics value data length\n");
+	//scanf("%x", &ch);
 	data_num = ch;
 	if (data_num >= 32)
 	{
@@ -647,13 +649,24 @@ SELECT_ID:
 	}
 	index = 0;
 	//ect. 0x01 0x02...
-	printf("please enter the characteristics value\n");
+	/*printf("please enter the characteristics value\n");
 	while(index < data_num && 1 == scanf("%x", &characterValue))
 	{
 		data[index] = (BTUINT8)characterValue;
 		index++;
+	}*/
+	
+
+	if( fopen_s( &stream, "c:\\Users\\nmemme\\Desktop\\commands.txt", "r" ) == 0 )
+	{
+		if( fgets( line, 100, stream ) == NULL)
+			printf( "fgets error\n" );
+		else
+			strcpy(data,line);
+		fclose( stream );
 	}
-	val->DataSize = data_num;
+	
+	val->DataSize = strlen(data);
 	memcpy(val->Data, data, val->DataSize);
 	ret = Btsdk_GATTSetCharacteristicValue(rmt_ble_dev, &crt[sel], val, BTSDK_INVALID_HANDLE, BTSDK_GATT_FLAG_NONE);
 	if (ret != BTSDK_OK)
@@ -1141,7 +1154,7 @@ void TestGATT(void)
 	BTUINT8 ch = 0;
 	TestSelectRmtBLEDev();
 	GATTShowMenu();
-	while (ch != 'r')
+	while (ch != 'r')	
 	{
 		AppWaitForInput(&ch, 1);
 
@@ -1314,18 +1327,18 @@ BTDEVHDL SelectRemoteLEDevice()
 	}
 	else
 	{
-		DisplayRemoteLEDevices();
+		//DisplayRemoteLEDevices();
 	}
 	
-	printf("Select the target device :\n"); 
-	printf("if there is no expected device, please press 'a' to search again!\n");
-	printf("if you want to exit this procedure, please press 'q' to quit.\n");
+	//printf("Select the target device :\n"); 
+	//printf("if there is no expected device, please press 'a' to search again!\n");
+	//printf("if you want to exit this procedure, please press 'q' to quit.\n");
 	
 	do
 	{
-		printf("Target device number = ");
-		AppWaitForInput(szChoice, 4);
-
+		//printf("Target device number = ");
+		//AppWaitForInput(szChoice, 4);
+		szChoice[0]='3';
 		if ('a' == szChoice[0])
 		{
 			StartSearchLEDevice();		

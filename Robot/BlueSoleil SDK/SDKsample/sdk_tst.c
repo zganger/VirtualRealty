@@ -20,7 +20,7 @@ Revision History:
 #include "sdk_tst.h"
 #include "profiles_tst.h"
 #include "sdk_gatt.h"
-
+#include <windows.h>
 typedef struct MenuInputStru
 {
 	HANDLE ev_hdl;
@@ -36,7 +36,7 @@ typedef struct {/* New List Structure by hiw */
 
 static DWORD s_input_lock;
 static LISTSTRU s_menus;
-
+BOOL WINAPI ConsoleHandler(DWORD);
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Description:
@@ -441,7 +441,10 @@ int main(void)
 {
 	BTUINT8 chInputCmd = 0;
 	BTUINT8 chEnterChoice = 0;
-	
+	FILE *stream;
+	char line[100];
+	char lastline[100];
+	int newline=0;
 	s_input_lock = (DWORD)CreateSemaphore(NULL, 1, 1, NULL);
 
 	printf("IVT BlueSoleil SDK is being Initialized....\n");
@@ -458,7 +461,7 @@ int main(void)
 	{		
 		RegAppIndCallback();
 		Test_RegisterGetStatusCBK();
-		
+		SetConsoleCtrlHandler( (PHANDLER_ROUTINE) ConsoleHandler, TRUE);
 		if (BTSDK_TRUE != Btsdk_IsBluetoothHardwareExisted())
 		{
 			printf("There isn't any Bluetooth hardware detected.\n");
@@ -505,14 +508,41 @@ int main(void)
 		/*we default expect this application runs on desktop platform. 
 			of course, you can set another device class according to your need. */
 			Btsdk_SetLocalDeviceClass(BTSDK_COMPCLS_DESKTOP);
-			GATTSvrSetLocalName();
-			GATTSvrEnableAdvertising();
-			GATTInitLocalAttribute(); //UUID 0x2A23
+			//GATTSvrSetLocalName();
+			//GATTSvrEnableAdvertising();
+			//GATTInitLocalAttribute(); //UUID 0x2A23
+			while(1)
+			{
 
-			while(1){};
+				if( fopen_s( &stream, "c:\\Users\\nmemme\\Desktop\\commands.txt", "r" ) == 0 )
+				{
+						if( fgets( line, 100, stream ) == NULL)
+							printf( "fgets error\n" );
+				else
+						if(strcmp(line,lastline)!=0)
+						{
+							strcpy(lastline,line);
+							newline=1;
+						}
+						
+						fclose( stream );
+				}
+				if(newline)
+				{
+					
+					TestSelectRmtBLEDev();
+					GATTGetServices();
+					GATTGetCharacteristics();
+					GATTSetCharacteristicsValue();
+					GATTEndSession();
+					newline=0;
+				}
+			}
+
+			//while(1){};
 		
-		}/*	
-			SdkTestShowMenu();
+		
+			/*SdkTestShowMenu();
 			while (chInputCmd != 'q')
 			{
 				AppWaitForInput(&chInputCmd, 1);
@@ -530,9 +560,9 @@ int main(void)
 						SdkTestShowMenu();
 					}
 				}
-			}
+			}*/
 			
-		}*/
+		}
 		else
 		{
 			printf("BlueSoleil fail to reset hardware...\n");
@@ -547,4 +577,16 @@ int main(void)
 		
 	}	
 }
-
+BOOL WINAPI ConsoleHandler(DWORD dwType)
+{
+    if(dwType==CTRL_C_EVENT)
+     {
+		printf("IVT BlueSoleil SDK is being quitted....\n");
+		Btsdk_RegisterGetStatusInfoCB4ThirdParty(NULL);
+		UnRegAppIndCallback();	
+		Btsdk_Done();
+		CloseHandle((HANDLE)s_input_lock);
+		return 0;
+    }
+    return TRUE;
+}

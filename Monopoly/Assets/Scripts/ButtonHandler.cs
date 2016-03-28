@@ -32,4 +32,114 @@ public class ButtonHandler : MonoBehaviour {
 	{
 		GamePlay.GameBoard.state = 2;
 	}
+
+	public void MediterraneanBuilding ()
+	{
+
+	}
+
+	public void BalticBuilding ()
+	{
+
+	}
+
+	public void OrientalBuilding ()
+	{
+
+	}
+
+	public void VermontBuilding ()
+	{
+
+	}
+
+	public void ConnecticutBuilding ()
+	{
+
+	}
+
+	public void StCharlesBuilding ()
+	{
+
+	}
+
+	public void StatesBuilding ()
+	{
+
+	}
+
+	public void VirginiaBuilding ()
+	{
+
+	}
+
+	public void StJamesBuilding ()
+	{
+
+	}
+
+	public void TennesseeBuilding ()
+	{
+
+	}
+
+	public void NewYorkBuilding ()
+	{
+
+	}
+
+	public void KentuckyBuilding ()
+	{
+
+	}
+
+	public void IndianaBuilding ()
+	{
+
+	}
+
+	public void IllinoisBuilding ()
+	{
+
+	}
+
+	public void AtlanticBuilding ()
+	{
+
+	}
+
+	public void VentnorBuilding ()
+	{
+
+	}
+
+	public void MarvinGardensBuilding ()
+	{
+
+	}
+
+	public void PacificBuilding()
+	{
+
+	}
+
+	public void NorthCarolinaBuilding()
+	{
+
+	}
+
+	public void PennsylvaniaBuilding ()
+	{
+
+	}
+
+	public void ParkPlaceBuilding()
+	{
+
+	}
+
+	public void BoardwalkBuilding ()
+	{
+
+	}
 }

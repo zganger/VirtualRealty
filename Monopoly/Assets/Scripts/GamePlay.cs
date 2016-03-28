@@ -17,11 +17,15 @@ public class GamePlay : MonoBehaviour {
 	public Image house11_1, house11_2, house11_3, house11_4, house13_1, house13_2, house13_3, house13_4, house14_1, house14_2, house14_3, house14_4, house16_1, house16_2, house16_3, house16_4, house18_1, house18_2, house18_3, house18_4, house19_1, house19_2, house19_3, house19_4;
 	public Image house21_1, house21_2, house21_3, house21_4, house23_1, house23_2, house23_3, house23_4, house24_1, house24_2, house24_3, house24_4, house26_1, house26_2, house26_3, house26_4, house27_1, house27_2, house27_3, house27_4, house29_1, house29_2, house29_3, house29_4;
 	public Image house31_1, house31_2, house31_3, house31_4, house32_1, house32_2, house32_3, house32_4, house34_1, house34_2, house34_3, house34_4, house37_1, house37_2, house37_3, house37_4, house39_1, house39_2, house39_3, house39_4;
+	public Image Box0, Box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box12, Box13, Box14, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24, Box25, Box26, Box27, Box28, Box29, Box30, Box31, Box32, Box33, Box34, Box35, Box36, Box37, Box38, Box39;
+	public Button BuildingButton1, BuildingButton3, BuildingButton6, BuildingButton8, BuildingButton9, BuildingButton11, BuildingButton13, BuildingButton14, BuildingButton16, BuildingButton18, BuildingButton19, BuildingButton21, BuildingButton23, BuildingButton24, BuildingButton26, BuildingButton27, BuildingButton29, BuildingButton31, BuildingButton32, BuildingButton34, BuildingButton37, BuildingButton39;
 	public static Board GameBoard;
 	public int diceTotal;
 	public bool gameOver = false;
 	public ArrayList unityPieces = new ArrayList ();
 	public Image[,] unityBuildings;
+	public Button[] buildingButtons;
+	public Image[] greyBoxes;
 	public Button RentOkButton;
 	public Button PropertyYes;
 	public Button PropertyNo;
@@ -121,8 +125,20 @@ public class GamePlay : MonoBehaviour {
 		Actions.text = ("Game Start");
 		GameBoard = new Board ();
 		unityBuildings = new Image[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
+		greyBoxes = new Image[40] { Box0, Box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box12, Box13, Box14, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24, Box25, Box26, Box27, Box28, Box29, Box30, Box31, Box32, Box33, Box34, Box35, Box36, Box37, Box38, Box39 };
+		buildingButtons = new Button[40] { null, BuildingButton1, null, BuildingButton3, null, null, BuildingButton6, null, BuildingButton8, BuildingButton9, null, BuildingButton11, null, BuildingButton13, BuildingButton14, null, BuildingButton16, null, BuildingButton18, BuildingButton19, null, BuildingButton21, null, BuildingButton23, BuildingButton24, null, BuildingButton26, BuildingButton27, null, BuildingButton29, null, BuildingButton31, BuildingButton32, null, BuildingButton34, null, null, BuildingButton37, null, BuildingButton39 };
+		int j = 0;
 		foreach (Image i in unityBuildings)
 		{
+			if (j < 40)
+			{
+				greyBoxes[j].enabled = false;
+				if(buildingButtons[j] != null)
+				{
+					buildingButtons[j].enabled = false;
+				}
+				j++;
+			}
 			if (i != null)
 			{
 				i.enabled = false;

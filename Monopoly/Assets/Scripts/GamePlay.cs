@@ -30,7 +30,9 @@ public class GamePlay : MonoBehaviour {
 	public Button PropertyYes;
 	public Button PropertyNo;
 	public Button Roll;
-	public int turncounter;
+    public Button BuyBuilding;
+    public Button Cancel;
+    public int turncounter;
 
 	public void Dice (Piece currPlayer, UnityPieceImage currPlayerUnity)	//probably an int later when taking care of front end
 	{
@@ -152,6 +154,8 @@ public class GamePlay : MonoBehaviour {
 		Roll.interactable = false;
 		PropertyNo.interactable = false;
 		PropertyYes.interactable = false;
+        Cancel.interactable = false;
+        BuyBuilding.interactable = false;
 		GameBoard.state = 0;
 	}
 
@@ -192,7 +196,65 @@ public class GamePlay : MonoBehaviour {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
-			if (playerID == 0) { //if player's turn
+            if (playerID == 0) { //if player's turn
+                if (GameBoard.state == 6)
+                {
+                    Cancel.interactable = true;
+                    Actions.text = ("Select a highlighted tile to buy a building on it");
+                    int j = 0;
+                    foreach (Tile t in GameBoard.tiles)
+                    {
+                        if(t.isProperty)
+                        {
+                            if (t.property.buildings > 0 && t.property.buildings < 6)
+                            {
+                                if (t.property.player.ID == currPlayer.player.ID)
+                                {
+                                    buildingButtons[j].interactable = true;
+                                }
+                                else { greyBoxes[j].enabled = true; }
+                            }
+                            else { greyBoxes[j].enabled = true; }
+                        }
+                        else { greyBoxes[j].enabled = true; }
+                        j++;
+                    }
+                }
+                else if (GameBoard.state != 7)
+                {
+                    Cancel.interactable = false;
+                    for (int i = 0; i < 40; i++)
+                    {
+                        if (buildingButtons[i] != null)
+                        {
+                            buildingButtons[i].interactable = false;
+                        }
+                        greyBoxes[i].enabled = false;
+                    }
+                }
+                if (GameBoard.state == 7)
+                {
+                    int buildingCost = (((GameBoard.toAddBuilding / 10) + 1) * 50);
+                    if (currPlayer.player.money > buildingCost)
+                    {
+                        ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.addBuilding();
+                        currPlayer.player.money = currPlayer.player.money - buildingCost;
+                        enableBuildings(currPlayer, ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]));
+                        if (((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.buildings < 6)
+                        {
+                            Actions.text = ("Player " + currPlayer.player.ID + " has purchased a house on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ". There are now " + (((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.buildings - 1) + " houses on this property.");
+                        }
+                        else {
+                            Actions.text = ("Player " + currPlayer.player.ID + " has purchased a hotel on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ".");
+                        }
+                    }
+                    else
+                    {
+                        Actions.text = ("You do not have enough moneyt to buy a building on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ".");
+                    }
+                    Thread.Sleep(200);
+                    GameBoard.state = 6;
+                }
 				if (GameBoard.state == 0) {
 					Actions.text = ("It's your turn! Roll the dice!");
 					RentOkButton.interactable = false;
@@ -350,8 +412,10 @@ public class Board
 	public ArrayList pieces = new ArrayList ();
 	public ArrayList chanceCards = new ArrayList ();
 	public ArrayList commChests = new ArrayList ();	
-	public int state;																																//bottom done																										//left done																												//top done
-	public int[,] Unitycoordinates = new int[40,2] { {150, -150}, {120, -150}, {90, -150}, {60, -150}, {30, -150}, {0, -150}, {-30, -150}, {-60, -150}, {-90, -150}, {-120, -150}, {-150, -150}, {-150, -120}, {-150, -90}, {-150, -60}, {-150, -30}, {-150, 0}, {-150, 30}, {-150, 60}, {-150, 90}, {-150, 120}, {-150, 150}, {-120, 150}, {-90, 150}, {-60, 150}, {-30, 150}, {0, 150}, {30, 150}, {60, 150}, {90, 150}, {120, 150}, {150, 150}, {150, 120}, {150, 90}, {150, 60}, {150, 30}, {150, 0}, {150, -30}, {150, -60}, {150, -90}, {150, -120} };
+	public int state;
+    public int backupState;
+    public int toAddBuilding;
+    public int[,] Unitycoordinates = new int[40,2] { {150, -150}, {120, -150}, {90, -150}, {60, -150}, {30, -150}, {0, -150}, {-30, -150}, {-60, -150}, {-90, -150}, {-120, -150}, {-150, -150}, {-150, -120}, {-150, -90}, {-150, -60}, {-150, -30}, {-150, 0}, {-150, 30}, {-150, 60}, {-150, 90}, {-150, 120}, {-150, 150}, {-120, 150}, {-90, 150}, {-60, 150}, {-30, 150}, {0, 150}, {30, 150}, {60, 150}, {90, 150}, {120, 150}, {150, 150}, {150, 120}, {150, 90}, {150, 60}, {150, 30}, {150, 0}, {150, -30}, {150, -60}, {150, -90}, {150, -120} };
 	public int getUnityCoords (int loc, int xy)
 	{
 		return Unitycoordinates [loc, xy];

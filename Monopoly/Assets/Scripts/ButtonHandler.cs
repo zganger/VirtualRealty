@@ -2,14 +2,17 @@
 
 public class ButtonHandler : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+    // Use this for initialization
+    int sceneToggle;
+    void Start () {
+        sceneToggle = 0;	
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+	    //change scenes
+        
+        
 	}
 
 	public void RollClicked()

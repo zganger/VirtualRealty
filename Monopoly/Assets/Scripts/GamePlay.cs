@@ -9,21 +9,22 @@ public class GamePlay : MonoBehaviour {
 
 	public Transform target;	//where a piece is going
     public float speed;			//how fast
-	public Text Balances;
-	public Text Actions;
+	public TextMesh Balances;
+    public TextMesh BalancesBoard;
+	public TextMesh Actions;
 	public UnityPieceImage ShoePiece, DogPiece;
-	public Image hotel1, hotel3, hotel6, hotel8, hotel9, hotel11, hotel13, hotel14, hotel16, hotel18, hotel19, hotel21, hotel23, hotel24, hotel26, hotel27, hotel29, hotel31, hotel32, hotel34, hotel37, hotel39;
-	public Image house1_1, house1_2, house1_3, house1_4, house3_1, house3_2, house3_3, house3_4, house6_1, house6_2, house6_3, house6_4, house8_1, house8_2, house8_3, house8_4, house9_1, house9_2, house9_3, house9_4;
-	public Image house11_1, house11_2, house11_3, house11_4, house13_1, house13_2, house13_3, house13_4, house14_1, house14_2, house14_3, house14_4, house16_1, house16_2, house16_3, house16_4, house18_1, house18_2, house18_3, house18_4, house19_1, house19_2, house19_3, house19_4;
-	public Image house21_1, house21_2, house21_3, house21_4, house23_1, house23_2, house23_3, house23_4, house24_1, house24_2, house24_3, house24_4, house26_1, house26_2, house26_3, house26_4, house27_1, house27_2, house27_3, house27_4, house29_1, house29_2, house29_3, house29_4;
-	public Image house31_1, house31_2, house31_3, house31_4, house32_1, house32_2, house32_3, house32_4, house34_1, house34_2, house34_3, house34_4, house37_1, house37_2, house37_3, house37_4, house39_1, house39_2, house39_3, house39_4;
+	public BuildingHandler hotel1, hotel3, hotel6, hotel8, hotel9, hotel11, hotel13, hotel14, hotel16, hotel18, hotel19, hotel21, hotel23, hotel24, hotel26, hotel27, hotel29, hotel31, hotel32, hotel34, hotel37, hotel39;
+	public BuildingHandler house1_1, house1_2, house1_3, house1_4, house3_1, house3_2, house3_3, house3_4, house6_1, house6_2, house6_3, house6_4, house8_1, house8_2, house8_3, house8_4, house9_1, house9_2, house9_3, house9_4;
+	public BuildingHandler house11_1, house11_2, house11_3, house11_4, house13_1, house13_2, house13_3, house13_4, house14_1, house14_2, house14_3, house14_4, house16_1, house16_2, house16_3, house16_4, house18_1, house18_2, house18_3, house18_4, house19_1, house19_2, house19_3, house19_4;
+	public BuildingHandler house21_1, house21_2, house21_3, house21_4, house23_1, house23_2, house23_3, house23_4, house24_1, house24_2, house24_3, house24_4, house26_1, house26_2, house26_3, house26_4, house27_1, house27_2, house27_3, house27_4, house29_1, house29_2, house29_3, house29_4;
+	public BuildingHandler house31_1, house31_2, house31_3, house31_4, house32_1, house32_2, house32_3, house32_4, house34_1, house34_2, house34_3, house34_4, house37_1, house37_2, house37_3, house37_4, house39_1, house39_2, house39_3, house39_4;
 	public Image Box0, Box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box12, Box13, Box14, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24, Box25, Box26, Box27, Box28, Box29, Box30, Box31, Box32, Box33, Box34, Box35, Box36, Box37, Box38, Box39;
 	public Button BuildingButton1, BuildingButton3, BuildingButton6, BuildingButton8, BuildingButton9, BuildingButton11, BuildingButton13, BuildingButton14, BuildingButton16, BuildingButton18, BuildingButton19, BuildingButton21, BuildingButton23, BuildingButton24, BuildingButton26, BuildingButton27, BuildingButton29, BuildingButton31, BuildingButton32, BuildingButton34, BuildingButton37, BuildingButton39;
 	public static Board GameBoard;
 	public int diceTotal;
 	public bool gameOver = false;
 	public ArrayList unityPieces = new ArrayList ();
-	public Image[,] unityBuildings;
+	public BuildingHandler[,] unityBuildings;
 	public Button[] buildingButtons;
 	public Image[] greyBoxes;
 	public Button RentOkButton;
@@ -33,6 +34,8 @@ public class GamePlay : MonoBehaviour {
     public Button BuyBuilding;
     public Button Cancel;
     public int turncounter;
+    public Camera OVRPlayerController;
+    public Camera BirdsEyeCam;
 
 	public void Dice (Piece currPlayer, UnityPieceImage currPlayerUnity)	//probably an int later when taking care of front end
 	{
@@ -124,26 +127,26 @@ public class GamePlay : MonoBehaviour {
 
 	void Start ()
 	{
-		Actions.text = ("Game Start");
+        Actions.text = ("Game Start");
 		GameBoard = new Board ();
-		unityBuildings = new Image[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
+		unityBuildings = new BuildingHandler[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
 		greyBoxes = new Image[40] { Box0, Box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box12, Box13, Box14, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24, Box25, Box26, Box27, Box28, Box29, Box30, Box31, Box32, Box33, Box34, Box35, Box36, Box37, Box38, Box39 };
 		buildingButtons = new Button[40] { null, BuildingButton1, null, BuildingButton3, null, null, BuildingButton6, null, BuildingButton8, BuildingButton9, null, BuildingButton11, null, BuildingButton13, BuildingButton14, null, BuildingButton16, null, BuildingButton18, BuildingButton19, null, BuildingButton21, null, BuildingButton23, BuildingButton24, null, BuildingButton26, BuildingButton27, null, BuildingButton29, null, BuildingButton31, BuildingButton32, null, BuildingButton34, null, null, BuildingButton37, null, BuildingButton39 };
 		int j = 0;
-		foreach (Image i in unityBuildings)
+		foreach (BuildingHandler i in unityBuildings)
 		{
 			if (j < 40)
 			{
-				greyBoxes[j].enabled = false;
-				if(buildingButtons[j] != null)
-				{
-					buildingButtons[j].enabled = false;
-				}
+				//greyBoxes[j].enabled = false;
+				//if(buildingButtons[j] != null)
+				//{
+				//	buildingButtons[j].enabled = false;
+				//}
 				j++;
 			}
 			if (i != null)
 			{
-				i.enabled = false;
+				i.MoveDown();
 			}
 		}
 		//start the game
@@ -162,36 +165,47 @@ public class GamePlay : MonoBehaviour {
 	void updatePrints ()
 	{
 		Balances.text = "Balances:\n";
-		foreach (Piece p in GameBoard.pieces) {
+        BalancesBoard.text = "Balances:\n";
+
+        foreach (Piece p in GameBoard.pieces) {
 			Balances.text = Balances.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
-		}
+            BalancesBoard.text = BalancesBoard.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
+        }
 		Balances.text = Balances.text + "\nProperties: \n";
-		foreach (Tile t in GameBoard.tiles) {
+        BalancesBoard.text = BalancesBoard.text + "\nProperties: \n";
+        foreach (Tile t in GameBoard.tiles) {
 			if (t.isProperty) {
 				Balances.text = Balances.text + t.title + ": ";
-				if (t.property.player != null) {
+                BalancesBoard.text = BalancesBoard.text + t.title + ": ";
+                if (t.property.player != null) {
 					Balances.text = Balances.text + "Player " + t.property.player.ID;
-				}
+                    BalancesBoard.text = BalancesBoard.text + "Player " + t.property.player.ID;
+                }
 				Balances.text = Balances.text + "\n";
-			}
+                BalancesBoard.text = BalancesBoard.text + "\n";
+            }
 		}
 	}
 
 	void enableBuildings (Piece currPlayer, Tile thisTile)
 	{
 		if (thisTile.property.buildings > 1 && thisTile.property.buildings < 6) {
-			unityBuildings [currPlayer.location, thisTile.property.buildings - 2].enabled = true;
-		} else if (thisTile.property.buildings == 6) {
+			unityBuildings [currPlayer.location, thisTile.property.buildings - 2].MoveUp();
+        } else if (thisTile.property.buildings == 6) {
 			for (int i = 0; i < 4; i++) {
-				unityBuildings [currPlayer.location, i].enabled = false;
-			}
-			unityBuildings [currPlayer.location, 4].enabled = true;
-		}
+				unityBuildings [currPlayer.location, i].MoveDown();
+            }
+			unityBuildings [currPlayer.location, 4].MoveUp();
+        }
 	}
-
 	void Update ()
 	{
-		updatePrints ();
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            BirdsEyeCam.enabled = !BirdsEyeCam.enabled;
+            OVRPlayerController.enabled = !OVRPlayerController.enabled;
+        }
+        updatePrints ();
 		if (!gameOver) {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
@@ -200,6 +214,10 @@ public class GamePlay : MonoBehaviour {
                 if (GameBoard.state == 6)
                 {
                     Cancel.interactable = true;
+                    if ((Input.GetKeyDown(KeyCode.RightControl)))
+                    {
+                        GameBoard.state = GamePlay.GameBoard.backupState;
+                    }
                     Actions.text = ("Select a highlighted tile to buy a building on it");
                     int j = 0;
                     foreach (Tile t in GameBoard.tiles)
@@ -252,14 +270,18 @@ public class GamePlay : MonoBehaviour {
                     {
                         Actions.text = ("You do not have enough moneyt to buy a building on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ".");
                     }
-                    Thread.Sleep(200);
+                    //Thread.Sleep(200);
                     GameBoard.state = 6;
                 }
 				if (GameBoard.state == 0) {
 					Actions.text = ("It's your turn! Roll the dice!");
 					RentOkButton.interactable = false;
 					Roll.interactable = true;
-					PropertyNo.interactable = false;
+                    if ((Input.GetKeyDown(KeyCode.K)))
+                    {
+                        GameBoard.state = 1;
+                    }
+                    PropertyNo.interactable = false;
 					PropertyYes.interactable = false;
 					goto end;
 				}	//reset everything to false
@@ -277,7 +299,11 @@ public class GamePlay : MonoBehaviour {
 								Roll.interactable = false;
 								PropertyNo.interactable = false;
 								PropertyYes.interactable = false;
-								goto end;
+                                if ((Input.GetKeyDown(KeyCode.I)))
+                                {
+                                    GameBoard.state = 2;
+                                }
+                                goto end;
 							}
 							if (GameBoard.state == 2) {
 								payRent (currPlayer.player, thisTile.property);
@@ -294,7 +320,15 @@ public class GamePlay : MonoBehaviour {
 							Roll.interactable = false;
 							PropertyNo.interactable = true;
 							PropertyYes.interactable = true;
-							goto end;
+                            if ((Input.GetKeyDown(KeyCode.L)))
+                            {
+                                GameBoard.state = 0;
+                            }
+                            if ((Input.GetKeyDown(KeyCode.J)))
+                            {
+                                GameBoard.state = 4;
+                            }
+                            goto end;
 						}
 						if (GameBoard.state == 4) {
 							purchase (currPlayer.player, thisTile.property);//buy tile //now check for color set
@@ -336,6 +370,8 @@ public class GamePlay : MonoBehaviour {
 			} else {	//else not player's turn
 				//run above things
 				Dice (currPlayer, currPlayerUnity); //roll and move
+                Debug.Log(currPlayerUnity.xLenient + "," + currPlayerUnity.yLenient);
+                Debug.Log(currPlayer.location);
 				Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
 				if (thisTile.isProperty) { //is property
 					if (thisTile.property.player != null) { //owned
@@ -401,7 +437,7 @@ public class GamePlay : MonoBehaviour {
 				Actions.text = ("Game over; Player " + currPlayer.player.ID + " has $" + currPlayer.player.money);
 			}
 			end:;
-			System.Threading.Thread.Sleep(500);
+			//System.Threading.Thread.Sleep(500);
 		}
 	}
 }

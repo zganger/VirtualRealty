@@ -16,8 +16,8 @@ public class UnityPieceImage : MonoBehaviour {
 
 	}
 
-	float offX = 347.2f;	//offset
-	float offY = 182f;		//offset
+	float offX = 513.2f;	//offset
+	float offY = 398f;		//offset
 	public float xLenient, yLenient;
 	void Update ()
 	{

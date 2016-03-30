@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/monopoly.unity
+- path: Assets/3d.unity
   isLoaded: 1
   isActive: 1

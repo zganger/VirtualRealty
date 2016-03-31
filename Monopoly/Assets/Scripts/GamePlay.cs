@@ -200,79 +200,96 @@ public class GamePlay : MonoBehaviour {
 	}
 	void Update ()
 	{
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            BirdsEyeCam.enabled = !BirdsEyeCam.enabled;
-            OVRPlayerController.enabled = !OVRPlayerController.enabled;
-        }
-        updatePrints ();
+		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+			BirdsEyeCam.enabled = !BirdsEyeCam.enabled;
+			OVRPlayerController.enabled = !OVRPlayerController.enabled;
+		}
+		updatePrints ();
 		if (!gameOver) {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
-            if (playerID == 0) { //if player's turn
-                if (GameBoard.state == 6)
-                {
-                    Cancel.interactable = true;
-                    if ((Input.GetKeyDown(KeyCode.RightControl)))
-                    {
-                        GameBoard.state = GamePlay.GameBoard.backupState;
-                    }
-                    Actions.text = ("Select a highlighted tile to buy a building on it");
-                    int j = 0;
-                    foreach (Tile t in GameBoard.tiles)
-                    {
-                        if(t.isProperty)
-                        {
-                            if (t.property.buildings > 0 && t.property.buildings < 6)
-                            {
-                                if (t.property.player.ID == currPlayer.player.ID)
-                                {
-                                    buildingButtons[j].interactable = true;
-                                }
-                                else { greyBoxes[j].enabled = true; }
-                            }
-                            else { greyBoxes[j].enabled = true; }
-                        }
-                        else { greyBoxes[j].enabled = true; }
-                        j++;
-                    }
-                }
-                else if (GameBoard.state != 7)
-                {
-                    Cancel.interactable = false;
-                    for (int i = 0; i < 40; i++)
-                    {
-                        if (buildingButtons[i] != null)
-                        {
-                            buildingButtons[i].interactable = false;
-                        }
-                        greyBoxes[i].enabled = false;
-                    }
-                }
-                if (GameBoard.state == 7)
-                {
-                    int buildingCost = (((GameBoard.toAddBuilding / 10) + 1) * 50);
-                    if (currPlayer.player.money > buildingCost)
-                    {
-                        ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.addBuilding();
-                        currPlayer.player.money = currPlayer.player.money - buildingCost;
-                        enableBuildings(currPlayer, ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]));
-                        if (((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.buildings < 6)
-                        {
-                            Actions.text = ("Player " + currPlayer.player.ID + " has purchased a house on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ". There are now " + (((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.buildings - 1) + " houses on this property.");
-                        }
-                        else {
-                            Actions.text = ("Player " + currPlayer.player.ID + " has purchased a hotel on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ".");
-                        }
-                    }
-                    else
-                    {
-                        Actions.text = ("You do not have enough moneyt to buy a building on " + ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).title + ".");
-                    }
-                    //Thread.Sleep(200);
-                    GameBoard.state = 6;
-                }
+			if (playerID == 0) { //if player's turn
+				if (GameBoard.state == 6) {
+					Cancel.interactable = true;
+					if ((Input.GetKeyDown (KeyCode.RightControl))) {
+						GameBoard.state = GamePlay.GameBoard.backupState;
+					}
+					Actions.text = ("Select a highlighted tile to buy a building on it");
+					int j = 0;
+					foreach (Tile t in GameBoard.tiles) {
+						if (t.isProperty) {
+							if (t.property.buildings > 0 && t.property.buildings < 6) {
+								if (t.property.player.ID == currPlayer.player.ID) {
+									buildingButtons [j].interactable = true;
+								} else {
+									greyBoxes [j].enabled = true;
+								}
+							} else {
+								greyBoxes [j].enabled = true;
+							}
+						} else {
+							greyBoxes [j].enabled = true;
+						}
+						j++;
+					}
+				} else if (GameBoard.state != 7) {
+					Cancel.interactable = false;
+					for (int i = 0; i < 40; i++) {
+						if (buildingButtons [i] != null) {
+							buildingButtons [i].interactable = false;
+						}
+						greyBoxes [i].enabled = false;
+					}
+				}
+				if (GameBoard.state == 7) {
+					int buildingCost = (((GameBoard.toAddBuilding / 10) + 1) * 50);
+					if (currPlayer.player.money > buildingCost) {
+						((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.addBuilding ();
+						currPlayer.player.money = currPlayer.player.money - buildingCost;
+						enableBuildings (currPlayer, ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]));
+						if (((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.buildings < 6) {
+							Actions.text = ("Player " + currPlayer.player.ID + " has purchased a house on " + ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).title + ". There are now " + (((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.buildings - 1) + " houses on this property.");
+						} else {
+							Actions.text = ("Player " + currPlayer.player.ID + " has purchased a hotel on " + ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).title + ".");
+						}
+					} else {
+						Actions.text = ("You do not have enough money to buy a building on " + ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).title + ".");
+					}
+					//Thread.Sleep(200);
+					GameBoard.state = 6;
+				}
+				bool anyMonopoly = false;
+				string prevGroup = null;
+				bool thisMonopoly = true;
+				foreach (Tile t in GameBoard.tiles) {
+					if (t.isProperty) {
+						if (prevGroup != null) {
+							if (t.property.colorGroup != prevGroup) {
+								if (thisMonopoly) {
+									anyMonopoly = true;
+									break;
+								} else {
+									thisMonopoly = true;
+								}
+							} else {
+								if (t.property.player == null || t.property.player.ID != currPlayer.ID) {
+									thisMonopoly = false;
+								}
+							}
+						} else {
+							prevGroup = t.property.colorGroup;
+							if (t.property.player == null || t.property.player.ID != currPlayer.ID) {
+								thisMonopoly = false;
+							}
+						}
+					}
+				}
+				if (anyMonopoly) {
+					BuyBuilding.interactable = true;
+				} else {
+					BuyBuilding.interactable = false;
+				}
 				if (GameBoard.state == 0) {
 					Actions.text = ("It's your turn! Roll the dice!");
 					RentOkButton.interactable = false;

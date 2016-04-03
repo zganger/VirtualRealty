@@ -77,9 +77,14 @@ public class UnityPieceImage : MonoBehaviour {
 		transform.position = new Vector3 (transform.position.x, transform.position.y - 60 * Time.deltaTime, 0);	//this is the right
 	}
 */
-	public void MoveTo (int inDest)
+	public void MoveTo (int inDest, int ID)
 	{
 		Dest = inDest;
-		transform.position = new Vector3 (GamePlay.GameBoard.getUnityCoords (Dest, 0) + offX, GamePlay.GameBoard.getUnityCoords (Dest, 1) + offY, 0);	//this is the right
+        if(ID == 1)
+        {
+            transform.position = new Vector3((float)GamePlay.GameBoard.getUnityCoords(Dest, 0) -0.723f, 1.135f, (float)GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+        } else {
+            transform.position = new Vector3((float)GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, (float)GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+        }
 	}
 }

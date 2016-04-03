@@ -5,11 +5,13 @@ GPIO.setmode(GPIO.BCM)
 def setSpeed(motor, speed):
    motor.ChangeDutyCycle(speed)
 
-def stopMotor(motor):
-   motor.stop()
+def stopMotors(lmotor,rmotor):
+   lmotor.stop()
+   rmotor.stop()
 
-def startMotor(motor,speed):
-   motor.start(speed)
+def startMotors(lmotor,rmotor,speed):
+   lmotor.start(speed)
+   rmotor.start(speed)
 
 def initMotor(pwm,in1,in2, freq):
    #freq in Hz
@@ -22,4 +24,17 @@ def initMotor(pwm,in1,in2, freq):
 
 def setFrequency(motor,freq):
    motor.ChangeFrequency(freq)
+
+def turnLeft(lmotor,rmotor,speed):
+   lmotor.setSpeed(0)
+   rmotor.setSpeed(speed)
+
+def turnRight(lmotor,rmotor,speed):
+   lmotor.setSpeed(speed)
+   rmotor.setSpeed(0)
+
+def moveForward(lmotor,rmotor,speed):
+   rmotor.setSpeed(speed)
+   lmotor.setSpeed(speed)
+
 

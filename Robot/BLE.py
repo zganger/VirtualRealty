@@ -23,9 +23,14 @@ GPIO.setup(mode_pin, GPIO.OUT)
 GPIO.output(mode_pin,GPIO.HIGH)
 
 ser=0
+rxText=""
+connect=0
 mode = BLUEFRUIT_MODE_COMMAND
 def reset():
+	#isOK=False
 	#return T/F
+	#while(not isOK):
+	#	isOK=sendCommandCheckOK("ATE=0")
 	for i in range(5):
 		#print("->ATZ")
 		isOK = sendCommandCheckOK("ATZ")
@@ -63,17 +68,28 @@ def factoryReset():
 
 def waitForOK():
 	#return T/F
+	global connect,rxText
+	counter=0
 	while(1):
 		ret = readLine()
+#		print(ret)
 		if(ret):
 			#print("RET", repr(ret))
 			#print("here")
 			ret=ret.split("\n")
 			#print(len(ret))
+			if(len(ret)==4):
+				if(ret[1]=="0\r" or ret[1]=="1\r"):
+					connect=int(ret[1].rstrip("\r"))
+			#		print("Conn",connect)
+				else:
+					rxText=ret[1].rstrip("\r")
 			ret=ret[len(ret)-2]+"\n"
+#			print(ret)
+		counter+=1
 		if(ret=="OK\r\n"):
 			return True
-		if(ret=="ERROR\r\n"):
+		if(ret=="ERROR\r\n" or counter == 500):
 			return False
 
 def isConnected():
@@ -107,12 +123,13 @@ def sendCommandWithIntReply(cmd):
 	if(current_mode == BLUEFRUIT_MODE_DATA):
 		setMode(BLUEFRUIT_MODE_COMMAND)
 	println(cmd)
-	#print("waitingForOK...Int")
+#	print("waitingForOK...Int")
 	result = waitForOK()
-	
+	result = connect;
 	if(current_mode == BLUEFRUIT_MODE_DATA):
 		setMode(BLUEFRUIT_MODE_DATA)
-	ret=readLine()
+	#ret=readLine()
+	#print(result)
 	return result
 
 
@@ -130,8 +147,8 @@ def readLine():
 			continue
 			
 		#print(repr(c))
-		#if(len(c)>0):
-			#print(c)
+#		if(len(c)>0):
+#			print(c)
 	return c
 	
 def begin():

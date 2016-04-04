@@ -21,7 +21,7 @@ BTUINT16 crt_num = 0;
 BTUINT16 dsc_num = 0;
 BTUCHAR robotCMD[]="P1M00C00P2M00C00";
 static BOOL s_LEScanAuto = FALSE;
-
+	char devs[100][20];
 #define dim(x)		(sizeof(x)/sizeof(x[0]))
 
 BTDEVHDL s_rmt_le_dev_hdls[MAX_DEV_NUM] = {0};
@@ -330,9 +330,9 @@ void GATTShowMenu(void)
 	printf(">");
 }
 
-void TestSelectRmtBLEDev()
+void TestSelectRmtBLEDev(int num)
 {   
-    rmt_ble_dev = SelectRemoteLEDevice();
+    rmt_ble_dev = SelectRemoteLEDevice(num);
 	if (BTSDK_INVALID_HANDLE == rmt_ble_dev)
 	{
 		printf("Please make sure that the expected device \
@@ -657,7 +657,7 @@ SELECT_ID:
 	}*/
 	
 
-	if( fopen_s( &stream, "c:\\Users\\nmemme\\Desktop\\commands.txt", "r" ) == 0 )
+	if( fopen_s( &stream, "c:\\VirtualRealty\\BluetoothRead\\location.txt", "r" ) == 0 )
 	{
 		if( fgets( line, 100, stream ) == NULL)
 			printf( "fgets error\n" );
@@ -1152,7 +1152,7 @@ void GATTExecCmd(BTUINT8 choice)
 void TestGATT(void)
 {
 	BTUINT8 ch = 0;
-	TestSelectRmtBLEDev();
+	TestSelectRmtBLEDev(1);
 	GATTShowMenu();
 	while (ch != 'r')	
 	{
@@ -1278,47 +1278,58 @@ void DisplayRemoteLEDevices()
 	BTUINT32 ulDevClass = 0;
 	BTUINT8 szBdAddr[BD_ADDR_LEN] = {0};
 	char cQuote = ' ';
-	
-	printf("Remote devices searched:\n");
-	printf("number  device name %16hc device address %4hc\n", cQuote, cQuote);
-	
+	char temp[20];
+
+	//printf("Remote devices searched:\n");
+	//printf("number  device name %16hc device address %4hc\n", cQuote, cQuote);
+
+	for(i = 0;i<100;i++)
+	{
+		strcpy(devs[i],"");
+	}
 	for (i = 0; i < s_rmt_le_dev_num; i++)
 	{
 		/*In order to display neatly.*/
 		if (i<9)
 		{
-			printf("  %d%5hc", i + 1, cQuote);
+			//printf("  %d%5hc", i + 1, cQuote);
 		}
 		else
 		{
-			printf("  %d%4hc", i + 1, cQuote);
+			//printf("  %d%4hc", i + 1, cQuote);
 		}
 		
 		usLen = 32;
 		memset(szDevName, 0, sizeof(szDevName));
-		if (Btsdk_GetRemoteDeviceName(s_rmt_le_dev_hdls[i], szDevName, &usLen) != BTSDK_OK)
+		/*if (Btsdk_GetRemoteDeviceName(s_rmt_le_dev_hdls[i], szDevName, &usLen) != BTSDK_OK)
 		{
 			strcpy((char*)szDevName, "Unknown");
-		}		
+		}*/	
 		strcpy(szTmp, szDevName);
 		MultibyteToMultibyte(CP_UTF8, szTmp, -1, CP_ACP, szDevName, BTSDK_DEVNAME_LEN);
 		printf("%-29hs", szDevName);		
 		Btsdk_GetRemoteDeviceAddress(s_rmt_le_dev_hdls[i], szBdAddr);
 		for(j = 5; j > 0; j --)
 		{
-			printf("%02X:", szBdAddr[j]);
+			//printf("%02X:", szBdAddr[j]);
+			sprintf(temp,"%02X:",szBdAddr[j]);
+			strcat(devs[i],temp);
 		}
-		printf("%02X%3hc\n", szBdAddr[0], cQuote);
-	}
+		//printf("%02X%3hc\n", szBdAddr[0], cQuote);
+		sprintf(temp,"%02X",szBdAddr[0]);
+		strcat(devs[i],temp);
+		//printf("%s\n",devs[i]);
+	}	
 
 }
 
-BTDEVHDL SelectRemoteLEDevice()
+BTDEVHDL SelectRemoteLEDevice(int num)
 {
 	BTDEVHDL retDevHdl = BTSDK_INVALID_HANDLE;
 	int nIdx = 0;
 	char szChoice[4] = {0};
-	
+	char i;
+	char choice=0;
 	GetAllRmtLEDevHdl();
 	/*show remote devices. If there is no device shown, search for them at first*/
 	if (0 == s_rmt_le_dev_num)
@@ -1327,7 +1338,7 @@ BTDEVHDL SelectRemoteLEDevice()
 	}
 	else
 	{
-		//DisplayRemoteLEDevices();
+		DisplayRemoteLEDevices();
 	}
 	
 	//printf("Select the target device :\n"); 
@@ -1338,7 +1349,22 @@ BTDEVHDL SelectRemoteLEDevice()
 	{
 		//printf("Target device number = ");
 		//AppWaitForInput(szChoice, 4);
-		szChoice[0]='3';
+		for(i = 0; i<100; i++)
+		{
+			if(num==1)
+			{
+				if(strcmp(devs[i],"D9:50:3E:58:AC:3C")==0)
+				{
+					choice=i;
+					break;
+
+				}
+			}
+
+		}
+		//printf("Num: %d Choice %d\n",num,choice);
+
+		szChoice[0]='0'+(char)(choice+1);
 		if ('a' == szChoice[0])
 		{
 			StartSearchLEDevice();		

@@ -14,15 +14,17 @@ print("Beginning...")
 ble.begin()
 print("Resetting...")
 ble.factoryReset()
-print("Attemping to Connect...")
-while(not ble.isConnected()): #ble.isConnected()):
+print("Waiting for Input...")
+"""while(not ble.isConnected()): #ble.isConnected()):
 	
         #print("here")
 	print("Not Connected")
-	time.sleep(.5)
+	time.sleep(1)
 	ble.connect=ble.isConnected()
-
-print("Connected!")
+	if(ble.connect):
+		break
+"""
+#print("Connected!")
 while(True):
 	ble.println("AT+BLEUARTRX")
 	rx=ble.readLine()
@@ -33,7 +35,7 @@ while(True):
 	if(ble.rxText!=""):
 		print(ble.rxText)
 		ble.rx=""
-		ble.disconnect()
+		#ble.disconnect()
 	#time.sleep(1)
 		break
 	ble.waitForOK()

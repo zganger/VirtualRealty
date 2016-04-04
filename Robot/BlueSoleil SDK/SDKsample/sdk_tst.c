@@ -514,7 +514,7 @@ int main(void)
 			while(1)
 			{
 
-				if( fopen_s( &stream, "c:\\Users\\nmemme\\Desktop\\commands.txt", "r" ) == 0 )
+				if( fopen_s( &stream, "c:\\VirtualRealty\\BluetoothRead\\location.txt", "r" ) == 0 )
 				{
 						if( fgets( line, 100, stream ) == NULL)
 							printf( "fgets error\n" );
@@ -530,7 +530,7 @@ int main(void)
 				if(newline)
 				{
 					
-					TestSelectRmtBLEDev();
+					TestSelectRmtBLEDev(1);
 					GATTGetServices();
 					GATTGetCharacteristics();
 					GATTSetCharacteristicsValue();
@@ -541,8 +541,8 @@ int main(void)
 
 			//while(1){};
 		
-		
-			/*SdkTestShowMenu();
+			/*/
+			SdkTestShowMenu();
 			while (chInputCmd != 'q')
 			{
 				AppWaitForInput(&chInputCmd, 1);

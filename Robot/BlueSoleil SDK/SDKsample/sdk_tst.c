@@ -511,6 +511,7 @@ int main(void)
 			//GATTSvrSetLocalName();
 			//GATTSvrEnableAdvertising();
 			//GATTInitLocalAttribute(); //UUID 0x2A23
+			//StartSearchLEDevice();
 			while(1)
 			{
 
@@ -530,7 +531,7 @@ int main(void)
 				if(newline)
 				{
 					
-					TestSelectRmtBLEDev(1);
+					TestSelectRmtBLEDev(2);
 					GATTGetServices();
 					GATTGetCharacteristics();
 					GATTSetCharacteristicsValue();

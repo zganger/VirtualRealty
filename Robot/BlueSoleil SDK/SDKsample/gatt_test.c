@@ -1304,10 +1304,10 @@ void DisplayRemoteLEDevices()
 		/*if (Btsdk_GetRemoteDeviceName(s_rmt_le_dev_hdls[i], szDevName, &usLen) != BTSDK_OK)
 		{
 			strcpy((char*)szDevName, "Unknown");
-		}*/	
+		}*/
 		strcpy(szTmp, szDevName);
 		MultibyteToMultibyte(CP_UTF8, szTmp, -1, CP_ACP, szDevName, BTSDK_DEVNAME_LEN);
-		printf("%-29hs", szDevName);		
+		//printf("%-29hs", szDevName);		
 		Btsdk_GetRemoteDeviceAddress(s_rmt_le_dev_hdls[i], szBdAddr);
 		for(j = 5; j > 0; j --)
 		{
@@ -1359,6 +1359,17 @@ BTDEVHDL SelectRemoteLEDevice(int num)
 					break;
 
 				}
+				
+			}
+			if(num==2)
+			{
+				if(strcmp(devs[i],"F0:7A:40:64:A0:C5")==0)
+				{
+					choice=i;
+					break;
+
+				}
+				
 			}
 
 		}

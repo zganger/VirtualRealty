@@ -15,7 +15,7 @@ BLUEFRUIT_MODE_COMMAND = 1
 BLUEFRUIT_MODE_DATA = 0
 CTS = 16 #23
 RTS = 17 #24
-mode_pin = 18
+mode_pin = 22
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(CTS, GPIO.OUT)
 GPIO.setup(RTS, GPIO.IN)

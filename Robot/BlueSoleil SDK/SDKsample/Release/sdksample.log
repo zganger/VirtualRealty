@@ -1,84 +1,6 @@
-﻿Build started 4/8/2016 2:52:15 PM.
+﻿Build started 4/9/2016 4:35:19 PM.
      1>Project "\\ad\eng\users\n\m\nmemme\Desktop\VirtualRealty-robot\VirtualRealty-robot\Robot\BlueSoleil SDK\SDKsample\sdksample.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SDKheaders\include /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _CONSOLE /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Release\\" /Fd".\Release\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt gatt_test.c
-         gatt_test.c
-     1>gatt_test.c(504): warning C4018: '<' : signed/unsigned mismatch
-     1>gatt_test.c(524): warning C4018: '<' : signed/unsigned mismatch
-     1>gatt_test.c(665): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(764): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(951): warning C4018: '<' : signed/unsigned mismatch
-     1>gatt_test.c(1288): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1308): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1315): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1316): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1319): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1320): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1415): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1417): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1420): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1444): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1446): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1449): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1476): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1478): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1481): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1507): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1546): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1578): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1596): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1598): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1602): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1604): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1606): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1623): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1647): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1670): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(1710): warning C4047: '=' : 'BTBOOL' differs in levels of indirection from 'FNBLUETOOTH_GATT_ADD_SERVICE_COMPLETE_CALLBACK (__cdecl *)'
-     1>gatt_test.c(1715): warning C4047: '=' : 'BTBOOL' differs in levels of indirection from 'FNBLUETOOTH_GATT_READ_CHARACTERISTIC_REQUEST_CALLBACK (__cdecl *)'
-     1>gatt_test.c(1720): warning C4047: '=' : 'BTBOOL' differs in levels of indirection from 'FNBLUETOOTH_GATT_WRITE_CHARACTERISTIC_REQUEST_CALLBACK (__cdecl *)'
-     1>gatt_test.c(1725): warning C4047: '=' : 'BTBOOL' differs in levels of indirection from 'FNBLUETOOTH_GATT_READ_DESCRIPTOR_REQUEST_CALLBACK (__cdecl *)'
-     1>gatt_test.c(1730): warning C4047: '=' : 'BTBOOL' differs in levels of indirection from 'FNBLUETOOTH_GATT_WRITE_DESCRIPTOR_REQUEST_CALLBACK (__cdecl *)'
-     1>gatt_test.c(1754): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1792): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1794): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1798): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1800): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1802): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(1859): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1884): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1907): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(1915): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>gatt_test.c(2064): warning C4018: '<' : signed/unsigned mismatch
-     1>gatt_test.c(2129): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2130): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2131): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2132): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2133): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2190): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2192): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2196): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2198): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2200): warning C4244: '=' : conversion from 'WORD' to 'BTUINT8', possible loss of data
-     1>gatt_test.c(2228): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(290) : see declaration of 'scanf'
-     1>gatt_test.c(2237): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(290) : see declaration of 'scanf'
-     1>gatt_test.c(2342): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>gatt_test.c(2362): warning C4101: 'size_req' : unreferenced local variable
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\sdksample.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:..\BIN /LIBPATH:\Lib winmm.lib Setupapi.lib Advapi32.lib ws2_32.lib Shlwapi.lib Winspool.lib Msacm32.lib BSSDK.lib odbc32.lib odbccp32.lib bmsg_parser.lib shlwapi.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\Release\sdksample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\sdksample.lib" /MACHINE:X86 /SAFESEH:NO .\Release\av_tst.obj
          .\Release\ftpopp_tst.obj
          .\Release\gatt_test.obj
@@ -102,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.35
+Time Elapsed 00:00:01.53

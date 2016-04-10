@@ -530,13 +530,13 @@ int main(void)
 				}
 				if(newline)
 				{
+						TestSelectRmtBLEDev(lastline[0]-'0');
+						GATTGetServices();
+						GATTGetCharacteristics();
+						GATTSetCharacteristicsValue();
+						GATTEndSession();
+						newline=0;
 					
-					TestSelectRmtBLEDev(2);
-					GATTGetServices();
-					GATTGetCharacteristics();
-					GATTSetCharacteristicsValue();
-					GATTEndSession();
-					newline=0;
 				}
 			}
 

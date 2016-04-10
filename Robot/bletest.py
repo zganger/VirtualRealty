@@ -10,6 +10,9 @@ def sigterm_handler(signal,frame):
 signal.signal(signal.SIGINT, sigterm_handler)
 signal.signal(signal.SIGTERM, sigterm_handler)
 
+def decodeBluetooth(n):
+        return(int(n[0]),int(n[1:3]),int(n[3:]))
+
 print("Beginning...")
 ble.begin()
 print("Resetting...")
@@ -41,3 +44,5 @@ while(True):
 	ble.waitForOK()
 
 print("Done")
+
+#pID,moves,corner1=decodeBluetooth(ble.rxText)

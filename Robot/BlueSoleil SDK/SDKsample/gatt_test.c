@@ -1351,7 +1351,7 @@ BTDEVHDL SelectRemoteLEDevice(int num)
 		//AppWaitForInput(szChoice, 4);
 		for(i = 0; i<100; i++)
 		{
-			if(num==1)
+			if(num==0)
 			{
 				if(strcmp(devs[i],"D9:50:3E:58:AC:3C")==0)
 				{
@@ -1361,7 +1361,7 @@ BTDEVHDL SelectRemoteLEDevice(int num)
 				}
 				
 			}
-			if(num==2)
+			if(num==1)
 			{
 				if(strcmp(devs[i],"F0:7A:40:64:A0:C5")==0)
 				{

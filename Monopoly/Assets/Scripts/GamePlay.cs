@@ -37,6 +37,7 @@ public class GamePlay : MonoBehaviour {
     public int d1;
     public int d2;
     public int lastLoc;
+    public bool unbought;
     public GameObject ball;
 
     public void BluetoothWrite(Piece currPlayer)
@@ -86,7 +87,6 @@ public class GamePlay : MonoBehaviour {
 		if (d1 == d2) {
 			currPlayer.doubcount = currPlayer.doubcount + 1;
 			if (currPlayer.doubcount == 3) {
-				Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has three sets of doubles and goes to jail", 30);
                 lastLoc = currPlayer.location;
 				currPlayer.location = 10;
                 BluetoothWrite(currPlayer);
@@ -94,29 +94,24 @@ public class GamePlay : MonoBehaviour {
 				currPlayer.isJailed = true;
 				currPlayer.doubcount = 0;
 				currPlayer.player.money = currPlayer.player.money - 50; //bail immediate for the time being
-				Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " pays $50 in bail", 30); //these two lines will be handled in jailedDice function when doubles implemented
 			} else {
 				if (currPlayer.location + diceTotal > 39) {
 					currPlayer.player.money = currPlayer.player.money + 200;
-					Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money, 30);
 				}
                 lastLoc = currPlayer.location;
 				currPlayer.location = (currPlayer.location + diceTotal) % 40;
                 BluetoothWrite(currPlayer);
                 currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
-				Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)GameBoard.tiles [currPlayer.location]).title + ". Doubles, go again!", 30);
 			}
 
 		} else {
 			if (currPlayer.location + diceTotal > 39) {
 				currPlayer.player.money = currPlayer.player.money + 200;
-				Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has passed go and collected $200. They now have $" + currPlayer.player.money, 30);
 			}
             lastLoc = currPlayer.location;
 			currPlayer.location = (currPlayer.location + diceTotal) % 40;
             BluetoothWrite(currPlayer);
             currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
-			Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " Moves forward " + diceTotal + " to " + ((Tile)GameBoard.tiles [currPlayer.location]).title, 30);
 			currPlayer.doubcount = 0;
 		}
 	}
@@ -129,8 +124,6 @@ public class GamePlay : MonoBehaviour {
 			unownedSpace.setOwned (landed);
 			landed.properties.Add (unownedSpace);
 			Actions.text = ("Player " + landed.ID + " pays $" + unownedSpace.value + " from $" + origMoney + " to purchase " + unownedSpace.title + ". They now have $" + landed.money + ".");
-		} else {
-			Actions.text = ("Not enough money to buy " + unownedSpace.title + "!");
 		}
 	}
 
@@ -164,16 +157,14 @@ public class GamePlay : MonoBehaviour {
 		}
 		landed.money = landed.money - rentOwed;
 		ownedSpace.player.money = ownedSpace.player.money + rentOwed;
-		Actions.text = ("Player " + landed.ID + " pays Player " + ownedSpace.player.ID + " $" + rentOwed + " and now has $" + landed.money + ". Player " + ownedSpace.player.ID + " now has $" + ownedSpace.player.money);
 		if (landed.money < 0) {
-			Actions.text = ("Player " + landed.ID + " loses the game");
 			gameOver = true;
 		}
 	}
 
 	void Start ()
 	{
-        Actions.text = ("Game Start");
+        Debug.Log("Game Start");
 		GameBoard = new Board ();
 		unityBuildings = new BuildingHandler[40, 5] { {null,null,null,null,null}, {house1_1, house1_2, house1_3, house1_4, hotel1}, {null,null,null,null,null}, {house3_1, house3_2, house3_3, house3_4, hotel3}, {null,null,null,null,null}, {null,null,null,null,null}, {house6_1, house6_2, house6_3, house6_4, hotel6}, {null,null,null,null,null}, {house8_1, house8_2, house8_3, house8_4, hotel8}, {house9_1, house9_2, house9_3, house9_4, hotel9}, {null,null,null,null,null}, {house11_1, house11_2, house11_3, house11_4, hotel11}, {null,null,null,null,null}, {house13_1, house13_2, house13_3, house13_4, hotel13}, {house14_1, house14_2, house14_3, house14_4, hotel14}, {null,null,null,null,null}, {house16_1, house16_2, house16_3, house16_4, hotel16}, {null,null,null,null,null}, {house18_1, house18_2, house18_3, house18_4, hotel18}, {house19_1, house19_2, house19_3, house19_4, hotel19}, {null,null,null,null,null}, {house21_1, house21_2, house21_3, house21_4, hotel21}, {null,null,null,null,null}, {house23_1, house23_2, house23_3, house23_4, hotel23}, {house24_1, house24_2, house24_3, house24_4, hotel24}, {null,null,null,null,null}, {house26_1, house26_2, house26_3, house26_4, hotel26}, {house27_1, house27_2, house27_3, house27_4, hotel27}, {null,null,null,null,null}, {house29_1, house29_2, house29_3, house29_4, hotel29}, {null,null,null,null,null}, {house31_1, house31_2, house31_3, house31_4, hotel31}, {house32_1, house32_2, house32_3, house32_4, hotel32}, {null,null,null,null,null}, {house34_1, house34_2, house34_3, house34_4, hotel34}, {null,null,null,null,null}, {null,null,null,null,null}, {house37_1, house37_2, house37_3, house37_4, hotel37}, {null,null,null,null,null}, {house39_1, house39_2, house39_3, house39_4, hotel39} };
 		greyBoxes = new BuildingHandler[40] { Box0, Box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box12, Box13, Box14, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24, Box25, Box26, Box27, Box28, Box29, Box30, Box31, Box32, Box33, Box34, Box35, Box36, Box37, Box38, Box39 };
@@ -222,17 +213,24 @@ public class GamePlay : MonoBehaviour {
 	void updatePrints ()
 	{
 		Balances.text = "Balances:\n";
-        BalancesBoard.text = "Balances:\n";
-        foreach (Piece p in GameBoard.pieces) {
-			Balances.text = Balances.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
-            BalancesBoard.text = BalancesBoard.text + "Player " + p.player.ID + ": " + p.player.money + "\n";
-        }
+		foreach (Piece p in GameBoard.pieces) {
+			if (!p.player.isHuman) {
+				Balances.text = Balances.text + "CPU " + p.player.ID + ": " + p.player.money + "\n";
+			} else {
+				Balances.text = Balances.text + "You: " + p.player.money + "\n";
+			}
+		}
+		BalancesBoard.text = Balances.text;
 		Balances.text = Balances.text + "\nProperties: \n";
-        foreach (Tile t in GameBoard.tiles) {
+		foreach (Tile t in GameBoard.tiles) {
 			if (t.isProperty) {
 				Balances.text = Balances.text + t.title + ": ";
-                if (t.property.player != null) {
-					Balances.text = Balances.text + "Player " + t.property.player.ID;
+				if (t.property.player != null) {
+					if (!t.property.player.isHuman) {
+						Balances.text = Balances.text + "CPU " + t.property.player.ID;
+					} else {
+						Balances.text = Balances.text + "You";
+					}
                 }
 				Balances.text = Balances.text + "\n";
             }
@@ -252,90 +250,79 @@ public class GamePlay : MonoBehaviour {
 	}
 
 	void Update ()
-    {
-        if (Input.GetKeyDown (KeyCode.LeftShift)) {
+	{
+		if (Input.GetKeyDown (KeyCode.LeftShift)) {
 			BirdsEyeCam.enabled = !BirdsEyeCam.enabled;
 			OVRPlayerController.enabled = !OVRPlayerController.enabled;
-            if(BirdsEyeCam.enabled)
-            {
-                BalancesBoard.GetComponent<MeshRenderer>().enabled = false;
-                ball.GetComponent<MeshRenderer>().enabled = true;
-            }
-            else
-            {
-                BalancesBoard.GetComponent<MeshRenderer>().enabled = true;
-                ball.GetComponent<MeshRenderer>().enabled = false;
-            }
+			if (BirdsEyeCam.enabled) {
+				BalancesBoard.GetComponent<MeshRenderer> ().enabled = false;
+				ball.GetComponent<MeshRenderer> ().enabled = true;
+			} else {
+				BalancesBoard.GetComponent<MeshRenderer> ().enabled = true;
+				ball.GetComponent<MeshRenderer> ().enabled = false;
+			}
 		}
 		updatePrints ();
 		if (!gameOver) {
 			int playerID = (turncounter % 2);
 			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
 			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
-            if (playerID == 0) { //if player's turn
-                if(currPlayer.player.hasMonopoly && GameBoard.state != 6 && GameBoard.state != 7)
-                {
-                    BuyBuilding.enabled = true;
-                    if ((Input.GetKeyDown(KeyCode.B)))
-                    {
-                        GameBoard.backupState = GameBoard.state;
-                        GameBoard.state = 6;
-                    }
-                    var textLR = BuyBuilding.GetComponent<TextMesh>();
-                    textLR.color = Color.black;
-                }
-                if (GameBoard.state == 6) {
+			if (playerID == 0) { //if player's turn
+				if (currPlayer.player.hasMonopoly && GameBoard.state != 6 && GameBoard.state != 7) {
+					BuyBuilding.enabled = true;
+					if ((Input.GetKeyDown (KeyCode.B))) {
+						GameBoard.backupState = GameBoard.state;
+						GameBoard.state = 6;
+					}
+					var textLR = BuyBuilding.GetComponent<TextMesh> ();
+					textLR.color = Color.black;
+				}
+				if (GameBoard.state == 6) {
 					Cancel.enabled = true;
-                    var textLR = Cancel.GetComponent<TextMesh>();
-                    textLR.color = Color.black;
-                    BuyBuilding.enabled = false;
-                    textLR = BuyBuilding.GetComponent<TextMesh>();
-                    textLR.color = Color.clear;
-                    if ((Input.GetKeyDown (KeyCode.RightControl))) {
+					var textLR = Cancel.GetComponent<TextMesh> ();
+					textLR.color = Color.black;
+					BuyBuilding.enabled = false;
+					textLR = BuyBuilding.GetComponent<TextMesh> ();
+					textLR.color = Color.clear;
+					if ((Input.GetKeyDown (KeyCode.RightControl))) {
 						GameBoard.state = GameBoard.backupState;
 					}
-					Actions.text = ResolveTextSize("Select a highlighted tile to buy a building on it", 30);
+					Actions.text = ResolveTextSize ("Select a highlighted tile to buy a building on it. \n\n Press the right ctrl key to return to game.", 30);
 					int j = 0;
 					foreach (Tile t in GameBoard.tiles) {
 						if (t.isProperty) {
 							if (t.property.buildings > 0 && t.property.buildings < 6) {
-                                if ((t.property.player != null) && (t.property.player.ID == currPlayer.player.ID)) {
-								} else if (!greyBoxes[j].isUp) {
-                                    greyBoxes[j].MoveUp();
+								if ((t.property.player != null) && (t.property.player.ID == currPlayer.player.ID)) {
+								} else if (!greyBoxes [j].isUp) {
+									greyBoxes [j].MoveUp ();
 								}
-							} else if (!greyBoxes[j].isUp) {
-                                greyBoxes [j].MoveUp();
-                            }
-                        } else if (!greyBoxes[j].isUp) {
-                            greyBoxes [j].MoveUp();
-                        }
-                        j++;
+							} else if (!greyBoxes [j].isUp) {
+								greyBoxes [j].MoveUp ();
+							}
+						} else if (!greyBoxes [j].isUp) {
+							greyBoxes [j].MoveUp ();
+						}
+						j++;
 					}
-                    if ((Input.GetMouseButtonDown(0)))
-                    {
-                        for (int i = 0; i < 40; i++)
-                        {
-                            if (((ball.transform.position.z + .2 >= GameBoard.ballCoords[i, 0]) && (ball.transform.position.z - .2 <= GameBoard.ballCoords[i, 0])) && ((ball.transform.position.x - .2 <= GameBoard.ballCoords[i, 1]) && ((ball.transform.position.x + .2 >= GameBoard.ballCoords[i, 1]))))
-                            {
-                                if (!greyBoxes[i].isUp)
-                                {
-                                    GameBoard.toAddBuilding = i;
-                                    GameBoard.state = 7;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (GameBoard.state != 7) {
-                    Cancel.enabled = false;
-                    var textLR = Cancel.GetComponent<TextMesh>();
-                    textLR.color = Color.clear;
-                    for (int i = 0; i < 40; i++) {
-                        if (greyBoxes[i].isUp)
-                        {
-                            greyBoxes[i].MoveDown();
-                        }
+					if ((Input.GetMouseButtonDown (0))) {
+						for (int i = 0; i < 40; i++) {
+							if (((ball.transform.position.z + .2 >= GameBoard.ballCoords [i, 0]) && (ball.transform.position.z - .2 <= GameBoard.ballCoords [i, 0])) && ((ball.transform.position.x - .2 <= GameBoard.ballCoords [i, 1]) && ((ball.transform.position.x + .2 >= GameBoard.ballCoords [i, 1])))) {
+								if (!greyBoxes [i].isUp) {
+									GameBoard.toAddBuilding = i;
+									GameBoard.state = 7;
+									break;
+								}
+							}
+						}
+					}
+				} else if (GameBoard.state != 7) {
+					Cancel.enabled = false;
+					var textLR = Cancel.GetComponent<TextMesh> ();
+					textLR.color = Color.clear;
+					for (int i = 0; i < 40; i++) {
+						if (greyBoxes [i].isUp) {
+							greyBoxes [i].MoveDown ();
+						}
 					}
 				}
 				if (GameBoard.state == 7) {
@@ -344,161 +331,141 @@ public class GamePlay : MonoBehaviour {
 						((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.addBuilding ();
 						currPlayer.player.money = currPlayer.player.money - buildingCost;
 						enableBuildings (GameBoard.toAddBuilding, ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]));
-						if (((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.buildings < 6) {
-							Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has purchased a house on " + ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).title + ". There are now " + (((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.buildings - 1) + " houses on this property.", 30);
-						} else {
-							Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has purchased a hotel on " + ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).title + ".", 30);
-						}
-					} else {
-						Actions.text = ResolveTextSize("You do not have enough money to buy a building on " + ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).title + ".", 30);
 					}
 					GameBoard.state = 6;
 				}
 				if (GameBoard.state == 0) {
-					Actions.text = ResolveTextSize("It's your turn! Roll the dice!", 30);
+					Actions.text = ResolveTextSize ("It's your turn! Roll the dice! \n\n Press K to roll.", 30);
 					RentOkButton.enabled = false;
-                    var textLR = RentOkButton.GetComponent<TextMesh>();
-                    textLR.color = Color.clear;
-                    Roll.enabled = true;
-                    textLR = Roll.GetComponent<TextMesh>();
-                    textLR.color = Color.black;
-                    PropertyNo.enabled = false;
-                    textLR = PropertyNo.GetComponent<TextMesh>();
-                    textLR.color = Color.clear;
-                    PropertyYes.enabled = false;
-                    textLR = PropertyYes.GetComponent<TextMesh>();
-                    textLR.color = Color.clear;
-                    if ((Input.GetKeyDown(KeyCode.K)))
-                    {
-                        GameBoard.state = 1;
-                    }
-                    goto end;
+					var textLR = RentOkButton.GetComponent<TextMesh> ();
+					textLR.color = Color.clear;
+					Roll.enabled = true;
+					textLR = Roll.GetComponent<TextMesh> ();
+					textLR.color = Color.black;
+					PropertyNo.enabled = false;
+					textLR = PropertyNo.GetComponent<TextMesh> ();
+					textLR.color = Color.clear;
+					PropertyYes.enabled = false;
+					textLR = PropertyYes.GetComponent<TextMesh> ();
+					textLR.color = Color.clear;
+					if ((Input.GetKeyDown (KeyCode.K))) {
+						GameBoard.state = 1;
+					}
+					goto end;
 				}	//reset everything to false
 				else if (GameBoard.state == 1) {
 					Dice (currPlayer, currPlayerUnity); //roll and move
-                    if (d1 == d2)
-                    {
-                        GameBoard.state = 0;
-                    }
-                    else {
-                        GameBoard.state = 5;
-                    }
+					if (d1 == d2) {
+						GameBoard.state = 0;
+					} else {
+						GameBoard.state = 5;
+					}
 				}
 				Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
 				if (thisTile.isProperty) { //is property
 					if (thisTile.property.player != null) { //owned
-                        if (thisTile.property.player.ID != currPlayer.player.ID)
-                        {
-                            if (GameBoard.state == 5)
-                            {
-								Actions.text = ResolveTextSize("You owe Player " + thisTile.property.player.ID + " $" + thisTile.rents[thisTile.property.buildings] + " for rent on " + thisTile.title + ".", 30);
-                                RentOkButton.enabled = true;
-                                var textLR = RentOkButton.GetComponent<TextMesh>();
-                                textLR.color = Color.black;
-                                Roll.enabled = false;
-                                textLR = Roll.GetComponent<TextMesh>();
-                                textLR.color = Color.clear;
-                                PropertyNo.enabled = false;
-                                textLR = PropertyNo.GetComponent<TextMesh>();
-                                textLR.color = Color.clear;
-                                PropertyYes.enabled = false;
-                                textLR = PropertyYes.GetComponent<TextMesh>();
-                                textLR.color = Color.clear;
-                                if ((Input.GetKeyDown(KeyCode.I)))
-                                {
-                                    GameBoard.state = 2;
-                                }
-                                goto end;
-                            }
-                            if (GameBoard.state == 2)
-                            {
-                                payRent(currPlayer.player, thisTile.property);
-                                GameBoard.state = 0;
-                            }
-                        } else { //else owned by you
-                            if (GameBoard.state != 6 && GameBoard.state != 7)
-                            {
-                                GameBoard.state = 0;
-                            }
-                        }
+						if (thisTile.property.player.ID != currPlayer.player.ID) {
+							if (GameBoard.state == 5) {
+								Actions.text = ResolveTextSize ("You owe CPU " + thisTile.property.player.ID + " $" + thisTile.rents [thisTile.property.buildings] + " for rent on " + thisTile.title + ". \n\n Press I to accept.", 30);
+								RentOkButton.enabled = true;
+								var textLR = RentOkButton.GetComponent<TextMesh> ();
+								textLR.color = Color.black;
+								Roll.enabled = false;
+								textLR = Roll.GetComponent<TextMesh> ();
+								textLR.color = Color.clear;
+								PropertyNo.enabled = false;
+								textLR = PropertyNo.GetComponent<TextMesh> ();
+								textLR.color = Color.clear;
+								PropertyYes.enabled = false;
+								textLR = PropertyYes.GetComponent<TextMesh> ();
+								textLR.color = Color.clear;
+								if ((Input.GetKeyDown (KeyCode.I))) {
+									GameBoard.state = 2;
+								}
+								goto end;
+							}
+							if (GameBoard.state == 2) {
+								payRent (currPlayer.player, thisTile.property);
+								GameBoard.state = 0;
+							}
+						} else { //else owned by you
+							if (GameBoard.state != 6 && GameBoard.state != 7) {
+								GameBoard.state = 0;
+							}
+						}
 					} else { //unowned
 						if (!(GameBoard.state == 4)) {
 							GameBoard.state = 3;
 						}
 						if (GameBoard.state == 3) {
-							Actions.text = ResolveTextSize("Would you like to purchase " + thisTile.title + " for $" + thisTile.property.value + "? This would leave you with $" + (currPlayer.player.money - thisTile.property.value) + ".", 30);
+							Actions.text = ResolveTextSize ("Would you like to purchase " + thisTile.title + " for $" + thisTile.property.value + "? This would leave you with $" + (currPlayer.player.money - thisTile.property.value) + ".\n\n Press J for yes or L for no.", 30);
 							RentOkButton.enabled = false;
-                            var textLR = RentOkButton.GetComponent<TextMesh>();
-                            textLR.color = Color.clear;
-                            Roll.enabled = false;
-                            textLR = Roll.GetComponent<TextMesh>();
-                            textLR.color = Color.clear;
-                            PropertyNo.enabled = true;
-                            textLR = PropertyNo.GetComponent<TextMesh>();
-                            textLR.color = Color.black;
-                            PropertyYes.enabled = true;
-                            textLR = PropertyYes.GetComponent<TextMesh>();
-                            textLR.color = Color.black;
-                            if ((Input.GetKeyDown(KeyCode.L)))
-                            {
-                                GameBoard.state = 0;
-                            }
-                            if ((Input.GetKeyDown(KeyCode.J)))
-                            {
-                                GameBoard.state = 4;
-                            }
-                            goto end;
+							var textLR = RentOkButton.GetComponent<TextMesh> ();
+							textLR.color = Color.clear;
+							Roll.enabled = false;
+							textLR = Roll.GetComponent<TextMesh> ();
+							textLR.color = Color.clear;
+							PropertyNo.enabled = true;
+							textLR = PropertyNo.GetComponent<TextMesh> ();
+							textLR.color = Color.black;
+							PropertyYes.enabled = true;
+							textLR = PropertyYes.GetComponent<TextMesh> ();
+							textLR.color = Color.black;
+							if ((Input.GetKeyDown (KeyCode.L))) {
+								unbought = true;
+								GameBoard.state = 4;
+							}
+							if ((Input.GetKeyDown (KeyCode.J))) {
+								unbought = false;
+								GameBoard.state = 4;
+							}
+							goto end;
 						}
-                        if (GameBoard.state == 4)
-                        {
-                            purchase(currPlayer.player, thisTile.property);//buy tile //now check for color set
-                            bool colorset = true; //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
-                            if (!(String.Compare(thisTile.property.colorGroup, "UTIL") == 0))
-                            {
-                                foreach (Tile T in GameBoard.tiles)
-                                {
-                                    if (T.isProperty)
-                                    {
-                                        if (String.Compare(T.property.colorGroup, thisTile.property.colorGroup) == 0)
-                                        {
-                                            if (T.property.player == null || T.property.player.ID != currPlayer.player.ID)
-                                            {
-                                                colorset = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else { colorset = false; }
-							if (colorset) {
-                                currPlayer.player.hasMonopoly = true;
-								foreach (Tile V in GameBoard.tiles) {
-									if (V.isProperty) {
-										if (V.property.colorGroup == thisTile.property.colorGroup) {
-											V.property.addBuilding ();
+						if (GameBoard.state == 4) {
+							if (!unbought) {
+								purchase (currPlayer.player, thisTile.property);//buy tile //now check for color set
+								bool colorset = true; //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+								if (!(String.Compare (thisTile.property.colorGroup, "UTIL") == 0)) {
+									foreach (Tile T in GameBoard.tiles) {
+										if (T.isProperty) {
+											if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup) == 0) {
+												if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
+													colorset = false;
+													break;
+												}
+											}
+										}
+									}
+								} else {
+									colorset = false;
+								}
+								if (colorset) {
+									currPlayer.player.hasMonopoly = true;
+									foreach (Tile V in GameBoard.tiles) {
+										if (V.isProperty) {
+											if (V.property.colorGroup == thisTile.property.colorGroup) {
+												V.property.addBuilding ();
+											}
 										}
 									}
 								}
 							}
+							unbought = false;
 							GameBoard.state = 0;
 						}
 					}
 				} else { //not property
-                    if (GameBoard.state != 6 && GameBoard.state != 7)
-                    {
-                        GameBoard.state = 0;
-                    }
+					if (GameBoard.state != 6 && GameBoard.state != 7) {
+						GameBoard.state = 0;
+					}
 					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
 						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-						Actions.text = ResolveTextSize("You pay the bank $" + thisTile.rents [0] + " on " + thisTile.title, 30);
 					} else if (currPlayer.location == 30) { //go to jail
-                        lastLoc = currPlayer.location;
+						lastLoc = currPlayer.location;
 						currPlayer.location = 10;
-                        BluetoothWrite(currPlayer);
-                        currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
+						BluetoothWrite (currPlayer);
+						currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
 						currPlayer.isJailed = true;
-						Actions.text = ResolveTextSize("You pay $50 in bail", 30); //will be handled later in the isJailed condition
 					}
 				}
 			} else {	//else not player's turn
@@ -514,39 +481,30 @@ public class GamePlay : MonoBehaviour {
 							if (currPlayer.player.money > buildingCost && thisTile.property.buildings < 6) {
 								thisTile.property.addBuilding ();
 								currPlayer.player.money = currPlayer.player.money - buildingCost;
-								enableBuildings(currPlayer.location, thisTile);
-							}
-							if (thisTile.property.buildings < 6) {
-								Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has purchased a house on " + thisTile.title + ". There are now " + (thisTile.property.buildings - 1) + " houses on this property.", 30);
-							} else {
-								Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " has purchased a hotel on " + thisTile.title + ".", 30);
+								enableBuildings (currPlayer.location, thisTile);
 							}
 						}
 					} else { //unowned
 						purchase (currPlayer.player, thisTile.property);//buy tile
 						//now check for color set
 						bool colorset = true;
-                        //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
-                        if (!(String.Compare(thisTile.property.colorGroup, "UTIL") == 0))
-                        {
-                            foreach (Tile T in GameBoard.tiles)
-                            {
-                                if (T.isProperty)
-                                {
-                                    if (String.Compare(T.property.colorGroup, thisTile.property.colorGroup) == 0)
-                                    {
-                                        if (T.property.player == null || T.property.player.ID != currPlayer.player.ID)
-                                        {
-                                            colorset = false;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else { colorset = false; }
+						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+						if (!(String.Compare (thisTile.property.colorGroup, "UTIL") == 0)) {
+							foreach (Tile T in GameBoard.tiles) {
+								if (T.isProperty) {
+									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup) == 0) {
+										if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
+											colorset = false;
+											break;
+										}
+									}
+								}
+							}
+						} else {
+							colorset = false;
+						}
 						if (colorset) {
-                            currPlayer.player.hasMonopoly = true;
+							currPlayer.player.hasMonopoly = true;
 							foreach (Tile V in GameBoard.tiles) {
 								if (V.isProperty) {
 									if (V.property.colorGroup == thisTile.property.colorGroup) {
@@ -559,25 +517,27 @@ public class GamePlay : MonoBehaviour {
 				} else { //not property
 					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
 						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-						Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " loses $" + thisTile.rents [0] + " on " + thisTile.title, 30);
 					} else if (currPlayer.location == 30) { //go to jail
-                        lastLoc = currPlayer.location;
+						lastLoc = currPlayer.location;
 						currPlayer.location = 10;
-                        BluetoothWrite(currPlayer);
-                        currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
+						BluetoothWrite (currPlayer);
+						currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
 						currPlayer.isJailed = true;
-						Actions.text = ResolveTextSize("Player " + currPlayer.player.ID + " pays $50 in bail", 30); //will be handled later in the isJailed condition
 					}
 				}
 			}
 			//update printouts
-			updatePrints();
-            if (currPlayer.doubcount == 0 && GameBoard.state == 0) { //end of turn, not in jail
+			updatePrints ();
+			if (currPlayer.doubcount == 0 && GameBoard.state == 0) { //end of turn, not in jail
 				turncounter++;
 			}
 			if (currPlayer.player.money < 0) {//game end condition
 				gameOver = true;
-				Actions.text = ResolveTextSize("Game over; Player " + currPlayer.player.ID + " has $" + currPlayer.player.money, 30);
+				if (!currPlayer.player.isHuman) {
+					Actions.text = ResolveTextSize ("Game over; CPU " + currPlayer.player.ID + " has $" + currPlayer.player.money, 30);
+				} else {
+					Actions.text = ResolveTextSize ("Game over; You have $" + currPlayer.player.money, 30);
+				}
 			}
 			end:;
 		}
@@ -686,9 +646,15 @@ public class Owner
 	public bool hasFreeEscape;
     public bool hasMonopoly;
 	public string color;
+	public bool isHuman;
 
 	public Owner (string in_color, int in_id)
 	{
+		if (in_id == 0) {
+			isHuman = true;
+		} else {
+			isHuman = false;
+		}
 		ID = in_id;
 		money = 1500;
 		hasFreeEscape = false;

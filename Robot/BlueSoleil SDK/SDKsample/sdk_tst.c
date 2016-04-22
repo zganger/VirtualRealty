@@ -530,7 +530,7 @@ int main(void)
 				}
 				if(newline)
 				{
-						TestSelectRmtBLEDev(lastline[0]-'0');
+						TestSelectRmtBLEDev(lastline[0]);
 						GATTGetServices();
 						GATTGetCharacteristics();
 						GATTSetCharacteristicsValue();

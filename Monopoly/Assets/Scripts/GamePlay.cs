@@ -12,7 +12,7 @@ public class GamePlay : MonoBehaviour {
 	public TextMesh Balances;
     public TextMesh BalancesBoard;
 	public TextMesh Actions;
-	public UnityPieceImage ShoePiece, DogPiece;
+	public UnityPieceImage PurplePiece, OrangePiece;
 	public BuildingHandler hotel1, hotel3, hotel6, hotel8, hotel9, hotel11, hotel13, hotel14, hotel16, hotel18, hotel19, hotel21, hotel23, hotel24, hotel26, hotel27, hotel29, hotel31, hotel32, hotel34, hotel37, hotel39;
 	public BuildingHandler house1_1, house1_2, house1_3, house1_4, house3_1, house3_2, house3_3, house3_4, house6_1, house6_2, house6_3, house6_4, house8_1, house8_2, house8_3, house8_4, house9_1, house9_2, house9_3, house9_4;
 	public BuildingHandler house11_1, house11_2, house11_3, house11_4, house13_1, house13_2, house13_3, house13_4, house14_1, house14_2, house14_3, house14_4, house16_1, house16_2, house16_3, house16_4, house18_1, house18_2, house18_3, house18_4, house19_1, house19_2, house19_3, house19_4;
@@ -39,6 +39,30 @@ public class GamePlay : MonoBehaviour {
     public int lastLoc;
     public bool unbought;
     public GameObject ball;
+
+    public void turnOff(Button buttonIn)
+    {
+        buttonIn.enabled = false;
+        var textLR = buttonIn.GetComponent<TextMesh>();
+        textLR.color = Color.clear;
+    }
+
+    public void turnOn(Button buttonIn)
+    {
+        buttonIn.enabled = true;
+        var textLR = buttonIn.GetComponent<TextMesh>();
+        textLR.color = Color.black;
+    }
+
+    public void allOff()
+    {
+        turnOff(Roll);
+        turnOff(RentOkButton);
+        turnOff(PropertyYes);
+        turnOff(PropertyNo);
+        turnOff(BuyBuilding);
+        turnOff(Cancel);
+    }
 
     public void BluetoothWrite(Piece currPlayer)
     {
@@ -91,7 +115,7 @@ public class GamePlay : MonoBehaviour {
 				currPlayer.location = 10;
                 BluetoothWrite(currPlayer);
 				currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
-				currPlayer.isJailed = true;
+                currPlayer.isJailed = true;
 				currPlayer.doubcount = 0;
 				currPlayer.player.money = currPlayer.player.money - 50; //bail immediate for the time being
 			} else {
@@ -114,7 +138,7 @@ public class GamePlay : MonoBehaviour {
             currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
 			currPlayer.doubcount = 0;
 		}
-	}
+    }
 
 	public void purchase (Owner landed, Property unownedSpace)
 	{
@@ -183,31 +207,15 @@ public class GamePlay : MonoBehaviour {
 		}
 		//start the game
 		turncounter = 0;
-		unityPieces.Add (ShoePiece);
-		unityPieces.Add (DogPiece);
-		RentOkButton.enabled = false;
-        var textLR = RentOkButton.GetComponent<TextMesh>();
-        textLR.color = Color.clear;
-		Roll.enabled = false;
-        textLR = Roll.GetComponent<TextMesh>();
-        textLR.color = Color.clear;
-        PropertyNo.enabled = false;
-        textLR = PropertyNo.GetComponent<TextMesh>();
-        textLR.color = Color.clear;
-        PropertyYes.enabled = false;
-        textLR = PropertyYes.GetComponent<TextMesh>();
-        textLR.color = Color.clear;
-        Cancel.enabled = false;
-        textLR = Cancel.GetComponent<TextMesh>();
-        textLR.color = Color.clear;
-        BuyBuilding.enabled = false;
-        textLR = BuyBuilding.GetComponent<TextMesh>();
-        textLR.color = Color.clear;
-        BirdsEyeCam.enabled = true;
+		unityPieces.Add (PurplePiece);
+		unityPieces.Add (OrangePiece);
+        allOff();
         OVRPlayerController.enabled = false;
         BalancesBoard.GetComponent<MeshRenderer>().enabled = false;
         ball.GetComponent<MeshRenderer>().enabled = true;
         GameBoard.state = 0;
+        PurplePiece.MoveTo(0, 0);
+        OrangePiece.MoveTo(0, 1);
 	}
 
 	void updatePrints ()
@@ -249,299 +257,386 @@ public class GamePlay : MonoBehaviour {
         }
 	}
 
-	void Update ()
-	{
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			BirdsEyeCam.enabled = !BirdsEyeCam.enabled;
-			OVRPlayerController.enabled = !OVRPlayerController.enabled;
-			if (BirdsEyeCam.enabled) {
-				BalancesBoard.GetComponent<MeshRenderer> ().enabled = false;
-				ball.GetComponent<MeshRenderer> ().enabled = true;
-			} else {
-				BalancesBoard.GetComponent<MeshRenderer> ().enabled = true;
-				ball.GetComponent<MeshRenderer> ().enabled = false;
-			}
-		}
-		updatePrints ();
-		if (!gameOver) {
-			int playerID = (turncounter % 2);
-			Piece currPlayer = ((Piece)GameBoard.pieces [playerID]);
-			UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces [playerID]);
-			if (playerID == 0) { //if player's turn
-				if (currPlayer.player.hasMonopoly && GameBoard.state != 6 && GameBoard.state != 7) {
-					BuyBuilding.enabled = true;
-					if ((Input.GetKeyDown (KeyCode.B))) {
-						GameBoard.backupState = GameBoard.state;
-						GameBoard.state = 6;
-					}
-					var textLR = BuyBuilding.GetComponent<TextMesh> ();
-					textLR.color = Color.black;
-				}
-				if (GameBoard.state == 6) {
-					Cancel.enabled = true;
-					var textLR = Cancel.GetComponent<TextMesh> ();
-					textLR.color = Color.black;
-					BuyBuilding.enabled = false;
-					textLR = BuyBuilding.GetComponent<TextMesh> ();
-					textLR.color = Color.clear;
-					if ((Input.GetKeyDown (KeyCode.RightControl))) {
-						GameBoard.state = GameBoard.backupState;
-					}
-					Actions.text = ResolveTextSize ("Select a highlighted tile to buy a building on it. \n\n Press the right ctrl key to return to game.", 30);
-					int j = 0;
-					foreach (Tile t in GameBoard.tiles) {
-						if (t.isProperty) {
-							if (t.property.buildings > 0 && t.property.buildings < 6) {
-								if ((t.property.player != null) && (t.property.player.ID == currPlayer.player.ID)) {
-								} else if (!greyBoxes [j].isUp) {
-									greyBoxes [j].MoveUp ();
-								}
-							} else if (!greyBoxes [j].isUp) {
-								greyBoxes [j].MoveUp ();
-							}
-						} else if (!greyBoxes [j].isUp) {
-							greyBoxes [j].MoveUp ();
-						}
-						j++;
-					}
-					if ((Input.GetMouseButtonDown (0))) {
-						for (int i = 0; i < 40; i++) {
-							if (((ball.transform.position.z + .2 >= GameBoard.ballCoords [i, 0]) && (ball.transform.position.z - .2 <= GameBoard.ballCoords [i, 0])) && ((ball.transform.position.x - .2 <= GameBoard.ballCoords [i, 1]) && ((ball.transform.position.x + .2 >= GameBoard.ballCoords [i, 1])))) {
-								if (!greyBoxes [i].isUp) {
-									GameBoard.toAddBuilding = i;
-									GameBoard.state = 7;
-									break;
-								}
-							}
-						}
-					}
-				} else if (GameBoard.state != 7) {
-					Cancel.enabled = false;
-					var textLR = Cancel.GetComponent<TextMesh> ();
-					textLR.color = Color.clear;
-					for (int i = 0; i < 40; i++) {
-						if (greyBoxes [i].isUp) {
-							greyBoxes [i].MoveDown ();
-						}
-					}
-				}
-				if (GameBoard.state == 7) {
-					int buildingCost = (((GameBoard.toAddBuilding / 10) + 1) * 50);
-					if (currPlayer.player.money > buildingCost) {
-						((Tile)GameBoard.tiles [GameBoard.toAddBuilding]).property.addBuilding ();
-						currPlayer.player.money = currPlayer.player.money - buildingCost;
-						enableBuildings (GameBoard.toAddBuilding, ((Tile)GameBoard.tiles [GameBoard.toAddBuilding]));
-					}
-					GameBoard.state = 6;
-				}
-				if (GameBoard.state == 0) {
-					Actions.text = ResolveTextSize ("It's your turn! Roll the dice! \n\n Press K to roll.", 30);
-					RentOkButton.enabled = false;
-					var textLR = RentOkButton.GetComponent<TextMesh> ();
-					textLR.color = Color.clear;
-					Roll.enabled = true;
-					textLR = Roll.GetComponent<TextMesh> ();
-					textLR.color = Color.black;
-					PropertyNo.enabled = false;
-					textLR = PropertyNo.GetComponent<TextMesh> ();
-					textLR.color = Color.clear;
-					PropertyYes.enabled = false;
-					textLR = PropertyYes.GetComponent<TextMesh> ();
-					textLR.color = Color.clear;
-					if ((Input.GetKeyDown (KeyCode.K))) {
-						GameBoard.state = 1;
-					}
-					goto end;
-				}	//reset everything to false
-				else if (GameBoard.state == 1) {
-					Dice (currPlayer, currPlayerUnity); //roll and move
-					if (d1 == d2) {
-						GameBoard.state = 0;
-					} else {
-						GameBoard.state = 5;
-					}
-				}
-				Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
-				if (thisTile.isProperty) { //is property
-					if (thisTile.property.player != null) { //owned
-						if (thisTile.property.player.ID != currPlayer.player.ID) {
-							if (GameBoard.state == 5) {
-								Actions.text = ResolveTextSize ("You owe CPU " + thisTile.property.player.ID + " $" + thisTile.rents [thisTile.property.buildings] + " for rent on " + thisTile.title + ". \n\n Press I to accept.", 30);
-								RentOkButton.enabled = true;
-								var textLR = RentOkButton.GetComponent<TextMesh> ();
-								textLR.color = Color.black;
-								Roll.enabled = false;
-								textLR = Roll.GetComponent<TextMesh> ();
-								textLR.color = Color.clear;
-								PropertyNo.enabled = false;
-								textLR = PropertyNo.GetComponent<TextMesh> ();
-								textLR.color = Color.clear;
-								PropertyYes.enabled = false;
-								textLR = PropertyYes.GetComponent<TextMesh> ();
-								textLR.color = Color.clear;
-								if ((Input.GetKeyDown (KeyCode.I))) {
-									GameBoard.state = 2;
-								}
-								goto end;
-							}
-							if (GameBoard.state == 2) {
-								payRent (currPlayer.player, thisTile.property);
-								GameBoard.state = 0;
-							}
-						} else { //else owned by you
-							if (GameBoard.state != 6 && GameBoard.state != 7) {
-								GameBoard.state = 0;
-							}
-						}
-					} else { //unowned
-						if (!(GameBoard.state == 4)) {
-							GameBoard.state = 3;
-						}
-						if (GameBoard.state == 3) {
-							Actions.text = ResolveTextSize ("Would you like to purchase " + thisTile.title + " for $" + thisTile.property.value + "? This would leave you with $" + (currPlayer.player.money - thisTile.property.value) + ".\n\n Press J for yes or L for no.", 30);
-							RentOkButton.enabled = false;
-							var textLR = RentOkButton.GetComponent<TextMesh> ();
-							textLR.color = Color.clear;
-							Roll.enabled = false;
-							textLR = Roll.GetComponent<TextMesh> ();
-							textLR.color = Color.clear;
-							PropertyNo.enabled = true;
-							textLR = PropertyNo.GetComponent<TextMesh> ();
-							textLR.color = Color.black;
-							PropertyYes.enabled = true;
-							textLR = PropertyYes.GetComponent<TextMesh> ();
-							textLR.color = Color.black;
-							if ((Input.GetKeyDown (KeyCode.L))) {
-								unbought = true;
-								GameBoard.state = 4;
-							}
-							if ((Input.GetKeyDown (KeyCode.J))) {
-								unbought = false;
-								GameBoard.state = 4;
-							}
-							goto end;
-						}
-						if (GameBoard.state == 4) {
-							if (!unbought) {
-								purchase (currPlayer.player, thisTile.property);//buy tile //now check for color set
-								bool colorset = true; //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
-								if (!(String.Compare (thisTile.property.colorGroup, "UTIL") == 0)) {
-									foreach (Tile T in GameBoard.tiles) {
-										if (T.isProperty) {
-											if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup) == 0) {
-												if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
-													colorset = false;
-													break;
-												}
-											}
-										}
-									}
-								} else {
-									colorset = false;
-								}
-								if (colorset) {
-									currPlayer.player.hasMonopoly = true;
-									foreach (Tile V in GameBoard.tiles) {
-										if (V.isProperty) {
-											if (V.property.colorGroup == thisTile.property.colorGroup) {
-												V.property.addBuilding ();
-											}
-										}
-									}
-								}
-							}
-							unbought = false;
-							GameBoard.state = 0;
-						}
-					}
-				} else { //not property
-					if (GameBoard.state != 6 && GameBoard.state != 7) {
-						GameBoard.state = 0;
-					}
-					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
-						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-					} else if (currPlayer.location == 30) { //go to jail
-						lastLoc = currPlayer.location;
-						currPlayer.location = 10;
-						BluetoothWrite (currPlayer);
-						currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
-						currPlayer.isJailed = true;
-					}
-				}
-			} else {	//else not player's turn
-				//run above things
-				Dice (currPlayer, currPlayerUnity); //roll and move
-				Tile thisTile = (Tile)GameBoard.tiles [currPlayer.location];
-				if (thisTile.isProperty) { //is property
-					if (thisTile.property.player != null) { //owned
-						if (thisTile.property.player.ID != currPlayer.player.ID) {
-							payRent (currPlayer.player, thisTile.property);
-						} else if (thisTile.property.buildings > 0) { //if has color set, color set is buildings = 1
-							int buildingCost = (((currPlayer.location / 10) + 1) * 50);
-							if (currPlayer.player.money > buildingCost && thisTile.property.buildings < 6) {
-								thisTile.property.addBuilding ();
-								currPlayer.player.money = currPlayer.player.money - buildingCost;
-								enableBuildings (currPlayer.location, thisTile);
-							}
-						}
-					} else { //unowned
-						purchase (currPlayer.player, thisTile.property);//buy tile
-						//now check for color set
-						bool colorset = true;
-						//for each tile, if owner is different (or null) && colorgroup is the same, colorset false
-						if (!(String.Compare (thisTile.property.colorGroup, "UTIL") == 0)) {
-							foreach (Tile T in GameBoard.tiles) {
-								if (T.isProperty) {
-									if (String.Compare (T.property.colorGroup, thisTile.property.colorGroup) == 0) {
-										if (T.property.player == null || T.property.player.ID != currPlayer.player.ID) {
-											colorset = false;
-											break;
-										}
-									}
-								}
-							}
-						} else {
-							colorset = false;
-						}
-						if (colorset) {
-							currPlayer.player.hasMonopoly = true;
-							foreach (Tile V in GameBoard.tiles) {
-								if (V.isProperty) {
-									if (V.property.colorGroup == thisTile.property.colorGroup) {
-										V.property.addBuilding ();
-									}
-								}
-							}
-						}
-					}
-				} else { //not property
-					if (thisTile.rents [0] != 0 && currPlayer.location != 0) { //assuming action tile, only true if go or tax
-						currPlayer.player.money = currPlayer.player.money - thisTile.rents [0];
-					} else if (currPlayer.location == 30) { //go to jail
-						lastLoc = currPlayer.location;
-						currPlayer.location = 10;
-						BluetoothWrite (currPlayer);
-						currPlayerUnity.MoveTo (currPlayer.location, currPlayer.player.ID);
-						currPlayer.isJailed = true;
-					}
-				}
-			}
-			//update printouts
-			updatePrints ();
-			if (currPlayer.doubcount == 0 && GameBoard.state == 0) { //end of turn, not in jail
-				turncounter++;
-			}
-			if (currPlayer.player.money < 0) {//game end condition
-				gameOver = true;
-				if (!currPlayer.player.isHuman) {
-					Actions.text = ResolveTextSize ("Game over; CPU " + currPlayer.player.ID + " has $" + currPlayer.player.money, 30);
-				} else {
-					Actions.text = ResolveTextSize ("Game over; You have $" + currPlayer.player.money, 30);
-				}
-			}
-			end:;
-		}
-	}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            BirdsEyeCam.enabled = !BirdsEyeCam.enabled;
+            OVRPlayerController.enabled = !OVRPlayerController.enabled;
+            if (BirdsEyeCam.enabled)
+            {
+                BalancesBoard.GetComponent<MeshRenderer>().enabled = false;
+                ball.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                BalancesBoard.GetComponent<MeshRenderer>().enabled = true;
+                ball.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+        updatePrints();
+        if (!gameOver)
+        {
+            int playerID = (turncounter % 2);
+            Piece currPlayer = ((Piece)GameBoard.pieces[playerID]);
+            UnityPieceImage currPlayerUnity = ((UnityPieceImage)this.unityPieces[playerID]);
+            if (playerID == 0)
+            { //if player's turn
+                if (currPlayer.player.hasMonopoly && GameBoard.state != 6 && GameBoard.state != 7)
+                {
+                    turnOn(BuyBuilding);
+                    if ((Input.GetKeyDown(KeyCode.B)))
+                    {
+                        GameBoard.backupState = GameBoard.state;
+                        GameBoard.state = 6;
+                    }
+                }
+                if (GameBoard.state == 8)
+                {
+                    Debug.Log("State8");
+                    if (currPlayerUnity.isFinished())
+                    {
+                        if (d1 == d2)
+                        {
+                            GameBoard.state = 0;
+                        }
+                        else
+                        {
+                            GameBoard.state = 5;
+                        }
+                    }
+                    else
+                    {
+                        allOff();
+                        goto end;
+                    }
+                }
+                if (GameBoard.state == 6)
+                {
+                    turnOn(Cancel);
+                    turnOff(BuyBuilding);
+                    if ((Input.GetKeyDown(KeyCode.RightControl)))
+                    {
+                        GameBoard.state = GameBoard.backupState;
+                    }
+                    Actions.text = ResolveTextSize("Select a highlighted tile to buy a building on it. \n\n Press the right ctrl key to return to game.", 30);
+                    int j = 0;
+                    foreach (Tile t in GameBoard.tiles)
+                    {
+                        if (t.isProperty)
+                        {
+                            if (t.property.buildings > 0 && t.property.buildings < 6)
+                            {
+                                if ((t.property.player != null) && (t.property.player.ID == currPlayer.player.ID))
+                                {
+                                }
+                                else if (!greyBoxes[j].isUp)
+                                {
+                                    greyBoxes[j].MoveUp();
+                                }
+                            }
+                            else if (!greyBoxes[j].isUp)
+                            {
+                                greyBoxes[j].MoveUp();
+                            }
+                        }
+                        else if (!greyBoxes[j].isUp)
+                        {
+                            greyBoxes[j].MoveUp();
+                        }
+                        j++;
+                    }
+                    if ((Input.GetMouseButtonDown(0)))
+                    {
+                        for (int i = 0; i < 40; i++)
+                        {
+                            if (((ball.transform.position.z + .2 >= GameBoard.ballCoords[i, 0]) && (ball.transform.position.z - .2 <= GameBoard.ballCoords[i, 0])) && ((ball.transform.position.x - .2 <= GameBoard.ballCoords[i, 1]) && ((ball.transform.position.x + .2 >= GameBoard.ballCoords[i, 1]))))
+                            {
+                                if (!greyBoxes[i].isUp)
+                                {
+                                    GameBoard.toAddBuilding = i;
+                                    GameBoard.state = 7;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (GameBoard.state != 7)
+                {
+                    turnOff(Cancel);
+                    for (int i = 0; i < 40; i++)
+                    {
+                        if (greyBoxes[i].isUp)
+                        {
+                            greyBoxes[i].MoveDown();
+                        }
+                    }
+                }
+                if (GameBoard.state == 7)
+                {
+                    int buildingCost = (((GameBoard.toAddBuilding / 10) + 1) * 50);
+                    if (currPlayer.player.money > buildingCost)
+                    {
+                        ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]).property.addBuilding();
+                        currPlayer.player.money = currPlayer.player.money - buildingCost;
+                        enableBuildings(GameBoard.toAddBuilding, ((Tile)GameBoard.tiles[GameBoard.toAddBuilding]));
+                    }
+                    GameBoard.state = 6;
+                }
+                if (GameBoard.state == 0)
+                {
+                    Actions.text = ResolveTextSize("It's your turn! Roll the dice! \n\n Press K to roll.", 30);
+                    turnOff(RentOkButton);
+                    turnOn(Roll);
+                    turnOff(PropertyYes);
+                    turnOff(PropertyNo);
+                    if ((Input.GetKeyDown(KeyCode.K)))
+                    {
+                        GameBoard.state = 1;
+                    }
+                    goto end;
+                }   //reset everything to false
+                else if (GameBoard.state == 1)
+                {
+                    Dice(currPlayer, currPlayerUnity); //roll and move
+                    GameBoard.state = 8;
+                    goto end;
+                }
+                Tile thisTile = (Tile)GameBoard.tiles[currPlayer.location];
+                if (thisTile.isProperty)
+                { //is property
+                    if (thisTile.property.player != null)
+                    { //owned
+                        if (thisTile.property.player.ID != currPlayer.player.ID)
+                        {
+                            if (GameBoard.state == 5)
+                            {
+                                Actions.text = ResolveTextSize("You owe CPU " + thisTile.property.player.ID + " $" + thisTile.rents[thisTile.property.buildings] + " for rent on " + thisTile.title + ". \n\n Press I to accept.", 30);
+                                turnOn(RentOkButton);
+                                turnOff(Roll);
+                                turnOff(PropertyYes);
+                                turnOff(PropertyNo);
+                                if ((Input.GetKeyDown(KeyCode.I)))
+                                {
+                                    GameBoard.state = 2;
+                                }
+                                goto end;
+                            }
+                            if (GameBoard.state == 2)
+                            {
+                                payRent(currPlayer.player, thisTile.property);
+                                GameBoard.state = 0;
+                            }
+                        }
+                        else
+                        { //else owned by you
+                            if (GameBoard.state != 6 && GameBoard.state != 7)
+                            {
+                                GameBoard.state = 0;
+                            }
+                        }
+                    }
+                    else
+                    { //unowned
+                        if (!(GameBoard.state == 4))
+                        {
+                            GameBoard.state = 3;
+                        }
+                        if (GameBoard.state == 3)
+                        {
+                            Actions.text = ResolveTextSize("Would you like to purchase " + thisTile.title + " for $" + thisTile.property.value + "? This would leave you with $" + (currPlayer.player.money - thisTile.property.value) + ".\n\n Press J for yes or L for no.", 30);
+                            turnOff(Roll);
+                            turnOff(RentOkButton);
+                            turnOn(PropertyYes);
+                            turnOn(PropertyNo);
+                            if ((Input.GetKeyDown(KeyCode.L)))
+                            {
+                                unbought = true;
+                                GameBoard.state = 4;
+                            }
+                            if ((Input.GetKeyDown(KeyCode.J)))
+                            {
+                                unbought = false;
+                                GameBoard.state = 4;
+                            }
+                            goto end;
+                        }
+                        if (GameBoard.state == 4)
+                        {
+                            if (!unbought)
+                            {
+                                purchase(currPlayer.player, thisTile.property);//buy tile //now check for color set
+                                bool colorset = true; //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+                                if (!(String.Compare(thisTile.property.colorGroup, "UTIL") == 0))
+                                {
+                                    foreach (Tile T in GameBoard.tiles)
+                                    {
+                                        if (T.isProperty)
+                                        {
+                                            if (String.Compare(T.property.colorGroup, thisTile.property.colorGroup) == 0)
+                                            {
+                                                if (T.property.player == null || T.property.player.ID != currPlayer.player.ID)
+                                                {
+                                                    colorset = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    colorset = false;
+                                }
+                                if (colorset)
+                                {
+                                    currPlayer.player.hasMonopoly = true;
+                                    foreach (Tile V in GameBoard.tiles)
+                                    {
+                                        if (V.isProperty)
+                                        {
+                                            if (V.property.colorGroup == thisTile.property.colorGroup)
+                                            {
+                                                V.property.addBuilding();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            unbought = false;
+                            GameBoard.state = 0;
+                        }
+                    }
+                }
+                else
+                { //not property
+                    if (GameBoard.state != 6 && GameBoard.state != 7)
+                    {
+                        GameBoard.state = 0;
+                    }
+                    if (thisTile.rents[0] != 0 && currPlayer.location != 0)
+                    { //assuming action tile, only true if go or tax
+                        currPlayer.player.money = currPlayer.player.money - thisTile.rents[0];
+                    }
+                    else if (currPlayer.location == 30)
+                    { //go to jail
+                        lastLoc = currPlayer.location;
+                        currPlayer.location = 10;
+                        BluetoothWrite(currPlayer);
+                        currPlayerUnity.MoveTo(currPlayer.location, currPlayer.player.ID);
+                        currPlayer.isJailed = true;
+                    }
+                }
+            }
+            else
+            {   //else not player's turn
+                allOff();
+                if (currPlayerUnity.isFinished())
+                {
+                    //run above things
+                    Dice(currPlayer, currPlayerUnity); //roll and move
+                    Tile thisTile = (Tile)GameBoard.tiles[currPlayer.location];
+                    if (thisTile.isProperty)
+                    { //is property
+                        if (thisTile.property.player != null)
+                        { //owned
+                            if (thisTile.property.player.ID != currPlayer.player.ID)
+                            {
+                                payRent(currPlayer.player, thisTile.property);
+                            }
+                            else if (thisTile.property.buildings > 0)
+                            { //if has color set, color set is buildings = 1
+                                int buildingCost = (((currPlayer.location / 10) + 1) * 50);
+                                if (currPlayer.player.money > buildingCost && thisTile.property.buildings < 6)
+                                {
+                                    thisTile.property.addBuilding();
+                                    currPlayer.player.money = currPlayer.player.money - buildingCost;
+                                    enableBuildings(currPlayer.location, thisTile);
+                                }
+                            }
+                        }
+                        else
+                        { //unowned
+                            purchase(currPlayer.player, thisTile.property);//buy tile
+                                                                           //now check for color set
+                            bool colorset = true;
+                            //for each tile, if owner is different (or null) && colorgroup is the same, colorset false
+                            if (!(String.Compare(thisTile.property.colorGroup, "UTIL") == 0))
+                            {
+                                foreach (Tile T in GameBoard.tiles)
+                                {
+                                    if (T.isProperty)
+                                    {
+                                        if (String.Compare(T.property.colorGroup, thisTile.property.colorGroup) == 0)
+                                        {
+                                            if (T.property.player == null || T.property.player.ID != currPlayer.player.ID)
+                                            {
+                                                colorset = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                colorset = false;
+                            }
+                            if (colorset)
+                            {
+                                currPlayer.player.hasMonopoly = true;
+                                foreach (Tile V in GameBoard.tiles)
+                                {
+                                    if (V.isProperty)
+                                    {
+                                        if (V.property.colorGroup == thisTile.property.colorGroup)
+                                        {
+                                            V.property.addBuilding();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    { //not property
+                        if (thisTile.rents[0] != 0 && currPlayer.location != 0)
+                        { //assuming action tile, only true if go or tax
+                            currPlayer.player.money = currPlayer.player.money - thisTile.rents[0];
+                        }
+                        else if (currPlayer.location == 30)
+                        { //go to jail
+                            lastLoc = currPlayer.location;
+                            currPlayer.location = 10;
+                            BluetoothWrite(currPlayer);
+                            currPlayerUnity.MoveTo(currPlayer.location, currPlayer.player.ID);
+                            currPlayer.isJailed = true;
+                        }
+                    }
+                }
+            }
+                //update printouts
+                updatePrints();
+                if (currPlayer.doubcount == 0 && GameBoard.state == 0)
+                { //end of turn, not in jail
+                    turncounter++;
+                }
+                if (currPlayer.player.money < 0)
+                {//game end condition
+                    gameOver = true;
+                    if (!currPlayer.player.isHuman)
+                    {
+                        Actions.text = ResolveTextSize("Game over; CPU " + currPlayer.player.ID + " has $" + currPlayer.player.money, 30);
+                    }
+                    else
+                    {
+                        Actions.text = ResolveTextSize("Game over; You have $" + currPlayer.player.money, 30);
+                    }
+                }
+        end:;
+        }
+    }
 
  	private string ResolveTextSize(string input, int lineLength){       
 		string[] words = input.Split(" "[0]);

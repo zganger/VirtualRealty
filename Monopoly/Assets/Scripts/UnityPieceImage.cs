@@ -70,11 +70,50 @@ public class UnityPieceImage : MonoBehaviour {
         movementFinished = false;
         if (ID == 1)
         {
-            targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 0.723f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            if (Dest == 0)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            }
+            if (0 < Dest && Dest < 10)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            }
+            if (10 < Dest && Dest < 20)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.55f);	//this is the right
+            }
+            if (20 < Dest && Dest < 30)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 1.4f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            }
+            if (30 < Dest && Dest < 39)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.55f);	//this is the right
+            }
+            
         }
         else
         {
-            targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            if (Dest == 0)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            }
+            if (0 < Dest && Dest < 10)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            }
+            if (10 < Dest && Dest < 20)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) + 0.15f);	//this is the right
+            }
+            if (20 < Dest && Dest < 30)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
+            }
+            if (30 < Dest && Dest < 39)
+            {
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) + 0.15f);	//this is the right
+            }
         }
         Speed = 3f;
 	}

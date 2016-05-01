@@ -80,7 +80,7 @@ public class UnityPieceImage : MonoBehaviour {
             }
             if (10 < Dest && Dest < 20)
             {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.55f);	//this is the right
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 0.45f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.35f);	//this is the right
             }
             if (20 < Dest && Dest < 30)
             {
@@ -88,7 +88,7 @@ public class UnityPieceImage : MonoBehaviour {
             }
             if (30 < Dest && Dest < 39)
             {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.55f);	//this is the right
+                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 0.35f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.35f);	//this is the right
             }
             
         }

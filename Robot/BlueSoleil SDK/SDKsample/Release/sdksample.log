@@ -1,0 +1,27 @@
+﻿Build started 4/9/2016 4:35:19 PM.
+     1>Project "\\ad\eng\users\n\m\nmemme\Desktop\VirtualRealty-robot\VirtualRealty-robot\Robot\BlueSoleil SDK\SDKsample\sdksample.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\sdksample.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:..\BIN /LIBPATH:\Lib winmm.lib Setupapi.lib Advapi32.lib ws2_32.lib Shlwapi.lib Winspool.lib Msacm32.lib BSSDK.lib odbc32.lib odbccp32.lib bmsg_parser.lib shlwapi.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\Release\sdksample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\sdksample.lib" /MACHINE:X86 /SAFESEH:NO .\Release\av_tst.obj
+         .\Release\ftpopp_tst.obj
+         .\Release\gatt_test.obj
+         .\Release\hfp_tst.obj
+         .\Release\hid_tst.obj
+         .\Release\loc_dev_tst.obj
+         .\Release\map_tst.obj
+         .\Release\pan_tst.obj
+         .\Release\pbap_tst.obj
+         .\Release\profiles_tst.obj
+         .\Release\report.obj
+         .\Release\rmt_dev_tst.obj
+         .\Release\rmt_svc_tst.obj
+         .\Release\sdk_tst.obj
+         .\Release\spp_tst.obj
+         .\Release\vcc.obj
+         .\Release\vobject.obj
+            Creating library .\Release\sdksample.lib and object .\Release\sdksample.exp
+         sdksample.vcxproj -> \\ad\eng\users\n\m\nmemme\Desktop\VirtualRealty-robot\VirtualRealty-robot\Robot\BlueSoleil SDK\SDKsample\.\Release\sdksample.exe
+     1>Done Building Project "\\ad\eng\users\n\m\nmemme\Desktop\VirtualRealty-robot\VirtualRealty-robot\Robot\BlueSoleil SDK\SDKsample\sdksample.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.53

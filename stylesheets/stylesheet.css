@@ -849,4 +849,8 @@ section #title .credits.right {
   nav {
     display: none;
   }
+
+  #downloads {
+    display: none;
+  }
 }

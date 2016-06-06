@@ -1,93 +1,99 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="chrome=1">
-                <title>Virtual Realty</title>
-                <link rel="stylesheet" href="stylesheets/styles.css">
-                    <link rel="stylesheet" href="stylesheets/github-dark.css">
-                        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-                        <script src="javascripts/respond.js"></script>
-                        <!--[if lt IE 9]>
-                         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-                         <![endif]-->
-                        <!--[if lt IE 8]>
-                         <link rel="stylesheet" href="stylesheets/ie.css">
-                         <![endif]-->
-                        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-                            
-                            </head>
-    <body>
-        <div id="header">
-            <nav>
-                <li class="fork"><a href="https://github.com/zganger/VirtualRealty">View On GitHub</a></li>
-                <li class="downloads"><a href="https://github.com/zganger/VirtualRealty/zipball/master">ZIP</a></li>
-                <li class="downloads"><a href="https://raw.githubusercontent.com/zganger/VirtualRealty/master/Builds/Windows_x64.tar.gz">Windows</a></li>
-                <li class="downloads"><a href="https://raw.githubusercontent.com/zganger/VirtualRealty/master/Builds/MacOS.tar.gz">OS X</a></li>
-                <li class="downloads"><a href="https://raw.githubusercontent.com/zganger/VirtualRealty/master/Builds/Linux_x64.tar.gz">Linux</a></li>
-                <li class="downloads"><a href="https://github.com/zganger/VirtualRealty/tarball/master">TAR</a></li>
-                <li class="title">DOWNLOADS</li>
-            </nav>
-        </div><!-- end header -->
-        
-        <div class="wrapper">
-            
-            <section>
-                <div id="title">
-                    <h1>Virtual Realty</h1>
-                    <p></p>
-                    <hr>
-                    <span class="credits left">Project maintained by
-                        <a href="https://github.com/zganger">zganger</a>,
-                        <a href="https://github.com/zsarkis">zsarkis</a>,
-                        <a href="https://github.com/keenanj4">keenanj4</a>,
-                        <a href="https://github.com/mlkromis">mlkromis</a>, and
-                        <a href="https://github.com/nmemme">nmemme</a>
-                    </span>
-                </div>
-                
-                <p>Virtual Realty is a revamped and reimagined version of the classic board game, Monopoly, where a single user is embedded in a virtual reality board game against computer players. The game includes not only the physical board which is traversed autonomously by robotic pieces, but also the virtual board, where the player can virtually explore the game board and surroundings. Both the physical board and the virtual game work in tandem to preserve all the rules and components of the original Monopoly board game, while also giving the user the opportunity to explore the virtual world developed on the Oculus Rift through multiple vantage points. The virtual game will include visualization for the player’s properties, money, houses/hotels, and current board position. There will also be functions requiring user interface for rolling dice, reading chance/community chest cards, buying properties, and exploring the game board through both a “bird’s eye” view and a “walk-through” view.
-                </p>
-                
-                <img src="images/cli.gif"></img><p></p>
-                
-                <h2>
-                    <a id="robot-requirements" class="anchor" href="#robot-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Robot Requirements</h2>
-                
-                <ol>
-                    <li><p>3x3x3” size limit for robot’s internal circuitry, with a tolerance for extra space for wheels</p></li>
-                    <li><p>Robots must be capable of a speed of 4 in/s (1/3 ft/s)</p></li>
-                    <li><p>All of the Robot’s movements must be steady and continuous</p></li>
-                    <li><p>Robot’s must be able to communicate via bluetooth with the PC terminal</p></li>
-                    <li><p>Robot’s power supply must last 2 hours without recharge or battery replacement</p></li>
-                    <li><p>Robots only move forward around the board, with no diagonal or reverse motion</p></li>
-                    <li><p>Robots must be perform obstacle detection for other pieces within 1-3in. of their position</p></li>
-                    <li><p>Robots must be able to reroute a path to its destination to avoid collisions with any obstacles it detects</p></li>
-                    <li><p>Two robots must be able to occupy the same game space at the same time</p></li>
-                    <li><p>Robots must have a clear identification method to discern between each player’s game piece</p></li>
-                    <li><p>Robots must be capable of 90° turns to round board corners with a tolerance of +/-5°</p></li>
-                    <li><p>Robots must know what game space they are currently occupying</p></li>
-                    <li><p>Robots must use a Kinetis Freescale processor </p></li>
-                </ol>
-                
-                <h2>
-                    <a id="oculus-requirements" class="anchor" href="#oculus-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Oculus Requirements</h2>
-                
-                <ol>
-                    <li><p>The Player must be able to view game play from a “bird’s eye view”</p></li>
-                    <li><p>In “bird’s eye view” the properties owned by the player must be reflected</p></li>
-                    <li><p>A secondary “piece view” must be available for the user to explore the board, pieces, and surroundings</p></li>
-                    <li><p>In “piece view” the player must be on the order of 10x the height of the pieces and the houses</p></li>
-                    <li><p>All standard game assets in the original monopoly game (money, property, houses, hotels, and chance/community chest cards) must be tracked and apparent to the player</p></li>
-                    <li><p>All game assets, besides robots (pieces) are represented only in the Oculus</p></li>
-                    <li><p>Money held by the user must be apparent at all times</p></li>
-                    <li><p>Property ownership must be reflected in bird’s-eye view</p></li>
-                    <li><p>The user must be allowed to purchase property as per the original monopoly rules</p></li>
-                </ol>
-            </section>
-            
-        </div>
-        <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-        
-    </body>
-</html>
+	<!doctype html>
+	<html lang="en-us">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+		<title>Virtual Realty</title>
+		<link rel="stylesheet" href="stylesheets/stylesheet.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/css/tether.min.css"/>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"/>
+	</head>
+	<body>
+		<div id="header">
+			<nav>
+				<li class="fork"><a href="https://github.com/zganger/VirtualRealty">View On GitHub</a></li>
+				<li class="downloads"><a href="https://github.com/zganger/VirtualRealty/zipball/master">ZIP</a></li>
+				<!--<li class="downloads"><a href="https://raw.githubusercontent.com/zganger/VirtualRealty/master/Builds/Windows_x64.tar.gz">Windows</a></li>
+				<li class="downloads"><a href="https://raw.githubusercontent.com/zganger/VirtualRealty/master/Builds/MacOS.tar.gz">OS X</a></li>
+				<li class="downloads"><a href="https://raw.githubusercontent.com/zganger/VirtualRealty/master/Builds/Linux_x64.tar.gz">Linux</a></li>-->
+				<li class="downloads"><a href="https://github.com/zganger/VirtualRealty/tarball/master">TAR</a></li>
+				<li class="title">SOURCE DOWNLOADS</li>
+			</nav>
+		</div><!-- end header -->
+
+		<div class="wrapper">
+
+			<section style="color: #C9C9C9 !important; padding-bottom:0px;">
+				<div id="title" style="padding-bottom: 0px">
+					<h1 class="textcolor">Virtual Realty</h1>
+					<hr>
+					<span class="credits left">Project created by
+						<a href="https://github.com/zganger">zganger</a>,
+						<a href="https://github.com/zsarkis">zsarkis</a>,
+						<a href="https://github.com/keenanj4">keenanj4</a>,
+						<a href="https://github.com/mlkromis">mlkromis</a>, and
+						<a href="https://github.com/nmemme">nmemme</a>
+					</span>
+				</div>
+				<ul id="tabs" class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active" href="#home" data-toggle="tab">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#game" data-toggle="tab">VR Game</a></li>
+					<li class="nav-item"><a class="nav-link" href="#robots" data-toggle="tab">Robots</a></li>
+					<li class="nav-item"><a class="nav-link" href="#downloads" data-toggle="tab">Downloads</a></li>
+				</ul>
+			</section>
+			<section class="tab-content" style="color: #C9C9C9 !important; padding-top:0px; margin-top:0px">
+				<div class="tab-pane fade in active homepage" id="home">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/dojUpKKn_PA" frameborder="0" allowfullscreen></iframe>
+
+					<p class="text">Virtual Realty is a revamped and reimagined version of the classic board game, Monopoly, where a single user is embedded in a virtual reality board game against computer players. The game includes not only the physical board which is traversed autonomously by robotic pieces, but also the virtual board, where the player can virtually explore the game board and surroundings. Both the physical board and the virtual game work in tandem to preserve all the rules and components of the original Monopoly board game, while also giving the user the opportunity to explore the virtual world developed on the Oculus Rift through multiple vantage points. The virtual game will include visualization for the player’s properties, money, houses/hotels, and current board position. There will also be functions requiring user interface for rolling dice, reading chance/community chest cards, buying properties, and exploring the game board through both a “bird’s eye” view and a “walk-through” view.
+					</p>
+				</div>
+				<div class="tab-pane fade" id="game">
+				<h2>
+					<a id="oculus-requirements" class="anchor" href="#oculus-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Oculus Requirements
+				</h2>
+
+				<ol>
+					<li><p>The Player must be able to view game play from a “bird’s eye view”</p></li>
+					<li><p>In “bird’s eye view” the properties owned by the player must be reflected</p></li>
+					<li><p>A secondary “piece view” must be available for the user to explore the board, pieces, and surroundings</p></li>
+					<li><p>In “piece view” the player must be on the order of 10x the height of the pieces and the houses</p></li>
+					<li><p>All standard game assets in the original monopoly game (money, property, houses, hotels, and chance/community chest cards) must be tracked and apparent to the player</p></li>
+					<li><p>All game assets, besides robots (pieces) are represented only in the Oculus</p></li>
+					<li><p>Money held by the user must be apparent at all times</p></li>
+					<li><p>Property ownership must be reflected in bird’s-eye view</p></li>
+					<li><p>The user must be allowed to purchase property as per the original monopoly rules</p></li>
+				</ol>
+				</div>
+				<div class="tab-pane fade" id="downloads">
+				</div>
+				<div class="tab-pane fade" id="robots">
+				<h2 class="text">
+					<a id="robot-requirements" class="anchor" href="#robot-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Robot Requirements
+				</h2>
+
+				<ol class="text">
+					<li><p>3x3x3” size limit for robot’s internal circuitry, with a tolerance for extra space for wheels</p></li>
+					<li><p>Robots must be capable of a speed of 4 in/s (1/3 ft/s)</p></li>
+					<li><p>All of the Robot’s movements must be steady and continuous</p></li>
+					<li><p>Robot’s must be able to communicate via bluetooth with the PC terminal</p></li>
+					<li><p>Robot’s power supply must last 2 hours without recharge or battery replacement</p></li>
+					<li><p>Robots only move forward around the board, with no diagonal or reverse motion</p></li>
+					<li><p>Robots must be perform obstacle detection for other pieces within 1-3in. of their position</p></li>
+					<li><p>Robots must be able to reroute a path to its destination to avoid collisions with any obstacles it detects</p></li>
+					<li><p>Two robots must be able to occupy the same game space at the same time</p></li>
+					<li><p>Robots must have a clear identification method to discern between each player’s game piece</p></li>
+					<li><p>Robots must be capable of 90° turns to round board corners with a tolerance of +/-5°</p></li>
+					<li><p>Robots must know what game space they are currently occupying</p></li>
+					<li><p>Robots must use a Kinetis Freescale processor </p></li>
+				</ol>
+				</div>
+			</section>
+		</div>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js" defer></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous" defer></script>
+	</body>
+	</html>

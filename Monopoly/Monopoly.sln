@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{4D6BFCE7-C3D0-1DEF-4625-E405087939ED}") = "Monopoly", "Assembly-CSharp.csproj", "{6CB9435B-C119-B710-47EF-0CBD9818520D}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly", "Assembly-CSharp.csproj", "{6CB9435B-C119-B710-47EF-0CBD9818520D}"
 EndProject
-Project("{4D6BFCE7-C3D0-1DEF-4625-E405087939ED}") = "Monopoly", "Assembly-CSharp-Editor.csproj", "{132E6408-0FA6-C3DA-48A8-37FA3D0134DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly", "Assembly-CSharp-Editor.csproj", "{132E6408-0FA6-C3DA-48A8-37FA3D0134DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

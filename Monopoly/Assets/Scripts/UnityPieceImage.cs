@@ -1,120 +1,96 @@
 ﻿using UnityEngine;
 
 public class UnityPieceImage : MonoBehaviour {
-
-	bool movementFinished = true;
+    private bool _movementFinished = true;
 	public int Dest;
-    private Vector3 targetposition;
-    float Speed = 1;
+    private Vector3 _targetposition;
+    private float _speed = 1;
 
     // Use this for initialization
-    void Start () 
-	{
 
-	}
-
-    public bool isFinished()
+    public bool IsFinished()
     {
-        return movementFinished;
+        return _movementFinished;
     }
 
-	public float xLenient, yLenient;
-	void Update ()
+	public float XLenient, YLenient;
+
+    private void Update ()
 	{
-        if (movementFinished == false)
+        if (_movementFinished == false)
         {
-            if (((Dest / 10) % 2 == 1))
+            if (Dest / 10 % 2 == 1)
             {
-                if (transform.position.z != targetposition.z)
+                if (transform.position.z != _targetposition.z)
                 {
-                    Vector3 moveZ = targetposition;
+                    var moveZ = _targetposition;
                     moveZ.x = transform.position.x;
-                    transform.position = Vector3.MoveTowards(transform.position, moveZ, Speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, moveZ, _speed * Time.deltaTime);
                 }
-                else if (transform.position.x != targetposition.x)
+                else if (transform.position.x != _targetposition.x)
                 {
-                    Vector3 moveX = targetposition;
+                    var moveX = _targetposition;
                     moveX.z = transform.position.z;
-                    transform.position = Vector3.MoveTowards(transform.position, moveX, Speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, moveX, _speed * Time.deltaTime);
                 }
                 else
                 {
-                    movementFinished = true;
+                    _movementFinished = true;
                 }
             }
             else
             {
-                if (transform.position.x != targetposition.x)
+                if (transform.position.x != _targetposition.x)
                 {
-                    Vector3 moveX = targetposition;
+                    var moveX = _targetposition;
                     moveX.z = transform.position.z;
-                    transform.position = Vector3.MoveTowards(transform.position, moveX, Speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, moveX, _speed * Time.deltaTime);
                 }
-                else if (transform.position.z != targetposition.z)
+                else if (transform.position.z != _targetposition.z)
                 {
-                    Vector3 moveZ = targetposition;
+                    var moveZ = _targetposition;
                     moveZ.x = transform.position.x;
-                    transform.position = Vector3.MoveTowards(transform.position, moveZ, Speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, moveZ, _speed * Time.deltaTime);
                 }
                 else
                 {
-                    movementFinished = true;
+                    _movementFinished = true;
                 }
             }
         }
     }
 
-	public void MoveTo (int inDest, int ID)
+	public void MoveTo (int inDest, int id)
 	{
 		Dest = inDest;
-        movementFinished = false;
-        if (ID == 1)
+        _movementFinished = false;
+        if (id == 1)
         {
             if (Dest == 0)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1));	//this is the right
             if (0 < Dest && Dest < 10)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1));	//this is the right
             if (10 < Dest && Dest < 20)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 0.45f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.35f);	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0) - 0.45f, 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1) - 0.35f);	//this is the right
             if (20 < Dest && Dest < 30)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 1.4f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0) - 1.4f, 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1));	//this is the right
             if (30 < Dest && Dest < 39)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0) - 0.35f, 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) - 0.35f);	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0) - 0.35f, 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1) - 0.35f);	//this is the right
             
         }
         else
         {
             if (Dest == 0)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1));	//this is the right
             if (0 < Dest && Dest < 10)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1));	//this is the right
             if (10 < Dest && Dest < 20)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) + 0.15f);	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1) + 0.15f);	//this is the right
             if (20 < Dest && Dest < 30)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1));	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1));	//this is the right
             if (30 < Dest && Dest < 39)
-            {
-                targetposition = new Vector3(GamePlay.GameBoard.getUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.getUnityCoords(Dest, 1) + 0.15f);	//this is the right
-            }
+                _targetposition = new Vector3(GamePlay.GameBoard.GetUnityCoords(Dest, 0), 1.135f, GamePlay.GameBoard.GetUnityCoords(Dest, 1) + 0.15f);	//this is the right
         }
-        Speed = 3f;
+        _speed = 3f;
 	}
 }
